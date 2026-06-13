@@ -1,0 +1,55 @@
+name: RevContent API Rate Limits
+description: RevContent's Stats and Management API uses OAuth 2.0 access tokens
+  with a 24-hour validity window. Specific numeric rate limits (requests per minute
+  or per hour) are not publicly documented; limits are enforced at the account level
+  and subject to account type and representative approval.
+url: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
+created: '2026-06-13'
+modified: '2026-06-13'
+
+authentication:
+  type: OAuth 2.0 Client Credentials
+  tokenEndpoint: https://api.revcontent.io/oauth/token
+  grantType: client_credentials
+  tokenValidity: 24 hours
+  credentialsLocation: Account Settings page under "Stats API Credentials"
+  notes:
+    - API access must be enabled by an account representative before use.
+    - Credentials (client_id and client_secret) are available in Account Settings.
+    - Access tokens are passed as Bearer tokens in the Authorization header.
+
+rateLimits:
+  - scope: API Token
+    description: Access tokens are valid for 24 hours and must be refreshed after
+      expiration via a new POST to the token endpoint.
+    windowSeconds: 86400
+    limit: null
+    notes: Numeric per-minute or per-hour request caps are not publicly disclosed.
+
+  - scope: Bulk Update Safety
+    description: A "do_all" safety parameter was introduced in the Boosts API (March
+      2021) to prevent unintended bulk updates to all boosts. Callers must explicitly
+      pass this parameter to perform bulk operations.
+    limit: Explicit opt-in required
+    notes: Designed to prevent accidental mass campaign changes.
+
+  - scope: Minimum Bid Validation
+    description: The API enforces a minimum CPC bid of $0.01 for boost creation
+      and update endpoints, including targeting endpoints.
+    minimumBid: 0.01
+    currency: USD
+    notes: Bids below the minimum are rejected at the API level.
+
+  - scope: CCPA Data Processing
+    description: CCPA data requests submitted via the REST API are processed
+      asynchronously. Data deletion is completed within 90 days. No per-request
+      rate limit is published.
+    processingTime: Several hours for data fetch; up to 90 days for deletion
+
+notes:
+  - RevContent does not publicly document explicit request-per-minute or per-hour
+    rate limits in their help center documentation.
+  - Rate limiting behavior is enforced at the account level; contact your account
+    representative for specific limits applicable to your account type.
+  - The API changelog (last updated 2021) shows ongoing validation enforcement
+    at endpoint level for bids, targeting, and bulk operations.

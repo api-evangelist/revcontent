@@ -1,0 +1,75 @@
+aid: revcontent
+name: RevContent
+description: RevContent is a performance-driven native advertising and content recommendation
+  network offering a REST API for managing widgets, campaigns (boosts), ad content,
+  audience targeting, bidding, and performance reporting. Publishers and advertisers
+  access the platform through OAuth 2.0 authenticated endpoints to programmatically
+  control campaign settings, device and geo targeting, content delivery, and statistical
+  reporting at scale.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/revcontent/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+type: Index
+tags:
+  - Native Advertising
+  - Content Recommendation
+  - Ad Network
+  - Publisher Monetization
+  - Programmatic Advertising
+apis:
+  - name: RevContent Stats & Management API
+    description: REST API providing programmatic access to RevContent's advertising
+      platform for managing boosts (campaigns), widgets, content, targeting, bidding,
+      and statistical reporting. Authenticated via OAuth 2.0 client credentials flow.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
+    baseURL: https://api.revcontent.io
+    tags:
+      - Campaigns
+      - Boosts
+      - Widgets
+      - Targeting
+      - Bidding
+      - Reporting
+      - Statistics
+      - Content
+      - CCPA
+    properties:
+      - type: Documentation
+        url: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
+      - type: APIChangelog
+        url: https://help.revcontent.com/knowledge/api-changelog
+      - type: CCPADataAPI
+        url: https://help.revcontent.com/knowledge/ccpa-data-request-data-deletion-request-api
+    contact:
+      - FN: RevContent Support
+        url: https://www.revcontent.com/resources/contact-us
+        email: developer@revcontent.com
+common:
+  - type: Website
+    url: https://www.revcontent.com
+  - type: Documentation
+    url: https://help.revcontent.com/knowledge/native-api
+  - type: GitHubOrg
+    url: https://github.com/RevContent
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/revcontent
+  - type: Blog
+    url: https://www.revcontent.com/resources/blog
+  - type: Pricing
+    url: https://www.revcontent.com/advertisers/
+  - type: StatusPage
+    url: http://status.revcontent.com/
+  - type: X
+    url: https://x.com/RevContent
+  - type: Plans
+    url: plans/revcontent-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/revcontent-rate-limits.yml
+  - type: FinOps
+    url: finops/revcontent-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
