@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api.revcontent.io/schemas/ccpa-data-request",
+  "title": "CCPADataRequest",
+  "description": "Schema for submitting a CCPA data access or deletion request to RevContent.",
+  "type": "object",
+  "required": ["request_id", "delete_data", "email", "pub_id", "domain"],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "maxLength": 64,
+      "description": "Unique identifier for the request used for polling status"
+    },
+    "delete_data": {
+      "type": "integer",
+      "enum": [0, 1],
+      "description": "1 to delete user data, 0 to request a data fetch"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "User email address for auditing"
+    },
+    "pub_id": {
+      "type": "integer",
+      "description": "Publisher account ID (also accepted as publisher_id)"
+    },
+    "domain": {
+      "type": "string",
+      "description": "Domain making the request, including protocol (e.g. https://example.com)"
+    }
+  }
+}

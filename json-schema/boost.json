@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api.revcontent.io/schemas/boost",
+  "title": "Boost",
+  "description": "A RevContent boost (campaign) resource representing a native advertising campaign.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique boost identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Boost (campaign) name"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "paused", "deleted"],
+      "description": "Current campaign status"
+    },
+    "bid": {
+      "type": "number",
+      "minimum": 0.01,
+      "description": "CPC bid amount in USD (minimum $0.01)"
+    },
+    "budget": {
+      "type": "number",
+      "description": "Campaign budget in USD"
+    },
+    "traffic_type": {
+      "type": "integer",
+      "description": "Traffic type identifier"
+    },
+    "schedule_start": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Campaign start date/time"
+    },
+    "schedule_end": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Campaign end date/time"
+    },
+    "devices": {
+      "type": "array",
+      "items": { "type": "integer" },
+      "description": "Device category IDs targeted by this boost"
+    },
+    "dma_codes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "DMA codes for geo-targeting"
+    },
+    "zip_codes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Zip codes for geo-targeting"
+    }
+  },
+  "required": ["id", "name", "status", "bid", "budget"]
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api.revcontent.io/schemas/content-item",
+  "title": "ContentItem",
+  "description": "A RevContent ad content item associated with a boost, including performance metrics.",
+  "type": "object",
+  "properties": {
+    "content_id": {
+      "type": "integer",
+      "description": "Unique content item identifier"
+    },
+    "boost_id": {
+      "type": "integer",
+      "description": "Identifier of the parent boost"
+    },
+    "headline": {
+      "type": "string",
+      "description": "Ad content headline text"
+    },
+    "image_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL of the content image"
+    },
+    "impressions": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total impressions served"
+    },
+    "clicks": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total clicks recorded"
+    },
+    "ctr": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Click-through rate (clicks / impressions)"
+    },
+    "spend": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total spend in USD"
+    },
+    "conversions": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total conversions attributed"
+    },
+    "cost_per_conversion": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Average cost per conversion in USD"
+    }
+  },
+  "required": ["content_id", "boost_id"]
+}

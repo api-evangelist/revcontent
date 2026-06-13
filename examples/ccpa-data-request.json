@@ -1,0 +1,7 @@
+{
+  "request_id": "ccpa-req-20260613-abc123",
+  "delete_data": 1,
+  "email": "user@example.com",
+  "pub_id": 98765,
+  "domain": "https://www.example.com"
+}

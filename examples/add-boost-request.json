@@ -1,0 +1,12 @@
+{
+  "name": "My Q3 Campaign",
+  "budget": 500.00,
+  "bid": 0.05,
+  "grant_type": "client_credentials",
+  "traffic_type": 1,
+  "devices": [1, 2],
+  "dma_codes": ["501", "803"],
+  "zip_codes": ["10001", "90210"],
+  "schedule_start": "2026-07-01T00:00:00Z",
+  "schedule_end": "2026-09-30T23:59:59Z"
+}

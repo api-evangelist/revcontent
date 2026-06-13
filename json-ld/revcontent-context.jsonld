@@ -1,0 +1,63 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "rev": "https://api.revcontent.io/vocab/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Boost": "rev:Boost",
+    "ContentItem": "rev:ContentItem",
+    "Widget": "rev:Widget",
+    "CCPARequest": "rev:CCPARequest",
+    "WidgetTarget": "rev:WidgetTarget",
+
+    "id": "@id",
+    "type": "@type",
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": { "@id": "schema:url", "@type": "@id" },
+    "image": { "@id": "schema:image", "@type": "@id" },
+
+    "boost_id": { "@id": "rev:boostId", "@type": "xsd:integer" },
+    "content_id": { "@id": "rev:contentId", "@type": "xsd:integer" },
+    "widget_id": { "@id": "rev:widgetId", "@type": "xsd:integer" },
+    "publisher_id": { "@id": "rev:publisherId", "@type": "xsd:integer" },
+    "pub_id": { "@id": "rev:publisherId", "@type": "xsd:integer" },
+
+    "status": { "@id": "rev:status", "@type": "xsd:string" },
+    "bid": { "@id": "rev:bid", "@type": "xsd:decimal" },
+    "budget": { "@id": "rev:budget", "@type": "xsd:decimal" },
+    "spend": { "@id": "rev:spend", "@type": "xsd:decimal" },
+    "traffic_type": { "@id": "rev:trafficType", "@type": "xsd:integer" },
+
+    "schedule_start": { "@id": "rev:scheduleStart", "@type": "xsd:dateTime" },
+    "schedule_end": { "@id": "rev:scheduleEnd", "@type": "xsd:dateTime" },
+
+    "impressions": { "@id": "rev:impressions", "@type": "xsd:integer" },
+    "clicks": { "@id": "rev:clicks", "@type": "xsd:integer" },
+    "ctr": { "@id": "rev:clickThroughRate", "@type": "xsd:decimal" },
+    "conversions": { "@id": "rev:conversions", "@type": "xsd:integer" },
+    "cost_per_conversion": { "@id": "rev:costPerConversion", "@type": "xsd:decimal" },
+
+    "devices": { "@id": "rev:devices", "@container": "@list" },
+    "dma_codes": { "@id": "rev:dmaCodes", "@container": "@list" },
+    "zip_codes": { "@id": "rev:zipCodes", "@container": "@list" },
+
+    "headline": { "@id": "rev:headline", "@type": "xsd:string" },
+    "image_url": { "@id": "rev:imageUrl", "@type": "@id" },
+    "enabled": { "@id": "rev:enabled", "@type": "xsd:boolean" },
+
+    "request_id": { "@id": "rev:requestId", "@type": "xsd:string" },
+    "delete_data": { "@id": "rev:deleteData", "@type": "xsd:integer" },
+    "email": { "@id": "schema:email", "@type": "xsd:string" },
+    "domain": { "@id": "schema:url", "@type": "xsd:string" },
+
+    "access_token": { "@id": "rev:accessToken", "@type": "xsd:string" },
+    "token_type": { "@id": "rev:tokenType", "@type": "xsd:string" },
+    "expires_in": { "@id": "rev:expiresIn", "@type": "xsd:integer" },
+
+    "data": { "@id": "rev:data", "@container": "@list" },
+    "total": { "@id": "rev:total", "@type": "xsd:integer" }
+  }
+}

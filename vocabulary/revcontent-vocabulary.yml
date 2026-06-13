@@ -1,0 +1,92 @@
+vocabulary:
+  - term: boost
+    definition: A RevContent campaign unit. Boosts encapsulate budget, bidding, targeting,
+      scheduling, and associated ad content. Equivalent to a "campaign" in most
+      advertising platforms.
+    related:
+      - campaign
+      - ad group
+
+  - term: widget
+    definition: A content recommendation placement unit deployed on publisher pages.
+      Widgets display native ad content to end users and are the primary delivery
+      mechanism for RevContent ads.
+    related:
+      - placement
+      - widget_id
+
+  - term: bid
+    definition: The cost-per-click (CPC) amount an advertiser is willing to pay for
+      a click on their boost content. Minimum bid is $0.01.
+    related:
+      - CPC
+      - cost-per-click
+
+  - term: CPC
+    definition: Cost Per Click — the pricing model used by RevContent for boost campaigns.
+      Advertisers pay a set bid amount each time a user clicks on their native ad content.
+
+  - term: content
+    definition: Individual ad creative items within a boost, comprising a headline
+      and image. Content performance is tracked at the widget and aggregate boost level.
+    related:
+      - creative
+      - headline
+
+  - term: targeting
+    definition: The configuration of which widgets, devices, operating systems, DMAs,
+      zip codes, and traffic types a boost's ads will serve on.
+    related:
+      - widget targets
+      - geo-targeting
+      - device targeting
+
+  - term: DMA
+    definition: Designated Market Area — a geographic region used for audience targeting
+      in the United States. RevContent provides a list of DMA codes and names via
+      the helpers/dma endpoint.
+    related:
+      - geo-targeting
+      - DMA code
+
+  - term: traffic_type
+    definition: A classification of the type of traffic a boost targets (e.g. desktop,
+      mobile, in-app). Traffic type identifiers are retrieved from the helpers/traffic-types
+      endpoint.
+
+  - term: publisher_id
+    definition: Unique identifier for a RevContent publisher account. Publisher IDs
+      are included in widget-level content statistics for advertiser reporting.
+    related:
+      - pub_id
+      - widget
+
+  - term: OAuth 2.0 client credentials
+    definition: The authentication method used by the RevContent API. Advertisers and
+      publishers supply a client_id and client_secret to obtain a Bearer access token
+      valid for 24 hours.
+    related:
+      - access_token
+      - Bearer token
+
+  - term: CCPA
+    definition: California Consumer Privacy Act — US privacy regulation requiring platforms
+      to honor consumer data access and deletion requests. RevContent provides a dedicated
+      API endpoint for submitting CCPA data requests and deletions.
+    related:
+      - data_request
+      - delete_data
+
+  - term: do_all
+    definition: A safety parameter in the Update Boost Status endpoint. Must be explicitly
+      set to true to apply a status change to all boosts simultaneously, preventing
+      accidental bulk operations.
+
+  - term: cost_per_conversion
+    definition: A performance metric representing the average spend required to generate
+      one conversion event. Available in boost performance and content performance
+      reporting endpoints.
+
+  - term: RevGPT
+    definition: RevContent's generative AI headline creation tool that uses large language
+      models to suggest native ad headlines for boost content.
