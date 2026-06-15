@@ -1,6 +1,6 @@
 {
   "source": "https://www.revcontent.com/resources/blog",
-  "fetched": "2026-06-13",
+  "fetched": "2026-06-14T20:42:17Z",
   "posts": [
     {
       "title": "Native Advertising: What's Hot in 2026?",
@@ -159,5 +159,13 @@
       "author": "Kaelyn Keane",
       "category": "Publishers"
     }
-  ]
+  ],
+  "repo": "revcontent",
+  "feeds": [
+    {
+      "source": "https://www.linkedin.com/company/revcontent",
+      "error": "HTTPError"
+    }
+  ],
+  "post_count": 0
 }
