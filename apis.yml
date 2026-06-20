@@ -6,7 +6,7 @@ description: RevContent is a performance-driven native advertising and content r
   access the platform through OAuth 2.0 authenticated endpoints to programmatically
   control campaign settings, device and geo targeting, content delivery, and statistical
   reporting at scale.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/revcontent/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -23,7 +23,7 @@ apis:
     description: REST API providing programmatic access to RevContent's advertising
       platform for managing boosts (campaigns), widgets, content, targeting, bidding,
       and statistical reporting. Authenticated via OAuth 2.0 client credentials flow.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
     baseURL: https://api.revcontent.io
     tags:
