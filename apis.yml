@@ -48,6 +48,10 @@ apis:
         url: https://www.revcontent.com/resources/contact-us
         email: developer@revcontent.com
 common:
+  - type: DomainSecurity
+    url: security/revcontent-domain-security.yml
+  - type: Authentication
+    url: authentication/revcontent-authentication.yml
   - type: Website
     url: https://www.revcontent.com
   - type: Documentation
