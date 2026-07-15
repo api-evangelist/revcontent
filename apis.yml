@@ -48,6 +48,8 @@ apis:
         url: https://www.revcontent.com/resources/contact-us
         email: developer@revcontent.com
 common:
+  - type: AgenticAccess
+    url: agentic-access/revcontent-agentic-access.yml
   - type: DomainSecurity
     url: security/revcontent-domain-security.yml
   - type: Authentication
