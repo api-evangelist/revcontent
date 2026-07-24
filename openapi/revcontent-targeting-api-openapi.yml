@@ -1,0 +1,119 @@
+openapi: 3.0.3
+info:
+  title: RevContent Stats & Management Access Targeting API
+  description: 'REST API providing programmatic access to RevContent''s native advertising platform for managing boosts (campaigns), widgets, content, targeting, bidding, and statistical reporting. Authenticated via OAuth 2.0 client credentials flow. Access tokens are valid for 24 hours.
+
+    '
+  version: '1.0'
+  contact:
+    name: RevContent Support
+    url: https://www.revcontent.com/resources/contact-us
+    email: developer@revcontent.com
+  x-api-changelog: https://help.revcontent.com/knowledge/api-changelog
+servers:
+- url: https://api.revcontent.io
+  description: RevContent Production API
+security:
+- BearerAuth: []
+tags:
+- name: Targeting
+  description: Widget and audience targeting
+paths:
+  /stats/api/v1.0/boosts/{boost_id}/targets/widgets:
+    get:
+      operationId: getBoostWidgetTargets
+      summary: Get Boost Widget Targets
+      description: Retrieves targeting configurations for a specific boost's widgets.
+      tags:
+      - Targeting
+      parameters:
+      - name: boost_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Unique identifier of the boost
+      responses:
+        '200':
+          description: Widget targeting configurations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WidgetTargetsResponse'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: updateBoostWidgetTargets
+      summary: Update Boost Widget Targets
+      description: 'Applies targeting rules to a boost''s widgets. Validates widget IDs and enforces a $0.01 minimum bid.
+
+        '
+      tags:
+      - Targeting
+      parameters:
+      - name: boost_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Unique identifier of the boost
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWidgetTargetsRequest'
+      responses:
+        '200':
+          description: Targeting updated successfully
+        '400':
+          description: Invalid widget IDs or bid below minimum
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    UpdateWidgetTargetsRequest:
+      type: object
+      required:
+      - targets
+      properties:
+        targets:
+          type: array
+          items:
+            type: object
+            required:
+            - widget_id
+            properties:
+              widget_id:
+                type: integer
+                description: Validated widget identifier
+              bid:
+                type: number
+                format: float
+                minimum: 0.01
+                description: Per-widget bid (minimum $0.01)
+              enabled:
+                type: boolean
+                description: Enable or disable this widget target
+    WidgetTargetsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              widget_id:
+                type: integer
+              enabled:
+                type: boolean
+                description: Whether targeting for this widget is enabled
+              bid:
+                type: number
+                format: float
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 Bearer token obtained from /oauth/token

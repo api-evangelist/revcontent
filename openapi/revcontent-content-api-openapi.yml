@@ -1,0 +1,211 @@
+openapi: 3.0.3
+info:
+  title: RevContent Stats & Management Access Content API
+  description: 'REST API providing programmatic access to RevContent''s native advertising platform for managing boosts (campaigns), widgets, content, targeting, bidding, and statistical reporting. Authenticated via OAuth 2.0 client credentials flow. Access tokens are valid for 24 hours.
+
+    '
+  version: '1.0'
+  contact:
+    name: RevContent Support
+    url: https://www.revcontent.com/resources/contact-us
+    email: developer@revcontent.com
+  x-api-changelog: https://help.revcontent.com/knowledge/api-changelog
+servers:
+- url: https://api.revcontent.io
+  description: RevContent Production API
+security:
+- BearerAuth: []
+tags:
+- name: Content
+  description: Ad content management and performance
+paths:
+  /stats/api/v1.0/boosts/{boost_id}/content:
+    get:
+      operationId: getAllBoostContent
+      summary: Get All Boost Content
+      description: 'Returns content performance data including conversion cost metrics for all content associated with a boost.
+
+        '
+      tags:
+      - Content
+      parameters:
+      - name: boost_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Unique identifier of the boost
+      - name: from_date
+        in: query
+        schema:
+          type: string
+          format: date
+        description: Start date for metrics (YYYY-MM-DD)
+      - name: to_date
+        in: query
+        schema:
+          type: string
+          format: date
+        description: End date for metrics (YYYY-MM-DD)
+      responses:
+        '200':
+          description: Content performance data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentListResponse'
+        '401':
+          description: Unauthorized
+  /stats/api/v1.0/boosts/{boost_id}/content/{content_id}:
+    get:
+      operationId: getBoostContent
+      summary: Get Boost Content
+      description: Fetches individual content item performance data for a specific boost.
+      tags:
+      - Content
+      parameters:
+      - name: boost_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Unique identifier of the boost
+      - name: content_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Unique identifier of the content item
+      - name: from_date
+        in: query
+        schema:
+          type: string
+          format: date
+        description: Start date for metrics (YYYY-MM-DD)
+      - name: to_date
+        in: query
+        schema:
+          type: string
+          format: date
+        description: End date for metrics (YYYY-MM-DD)
+      responses:
+        '200':
+          description: Content item performance data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentItem'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Content not found
+  /stats/api/v1.0/boosts/{boost_id}/content/{content_id}/widget-stats:
+    get:
+      operationId: getContentWidgetStats
+      summary: Get Content Widget Stats
+      description: 'Provides widget-level statistics for a specific content item within a boost. Includes publisher IDs.
+
+        '
+      tags:
+      - Content
+      parameters:
+      - name: boost_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Unique identifier of the boost
+      - name: content_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Unique identifier of the content item
+      - name: from_date
+        in: query
+        schema:
+          type: string
+          format: date
+        description: Start date for metrics (YYYY-MM-DD)
+      - name: to_date
+        in: query
+        schema:
+          type: string
+          format: date
+        description: End date for metrics (YYYY-MM-DD)
+      responses:
+        '200':
+          description: Widget-level statistics including publisher IDs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WidgetStatsResponse'
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    ContentListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentItem'
+        total:
+          type: integer
+    WidgetStatsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              widget_id:
+                type: integer
+              publisher_id:
+                type: integer
+                description: Publisher ID (included per changelog update)
+              impressions:
+                type: integer
+              clicks:
+                type: integer
+              ctr:
+                type: number
+                format: float
+              spend:
+                type: number
+                format: float
+    ContentItem:
+      type: object
+      properties:
+        content_id:
+          type: integer
+        boost_id:
+          type: integer
+        headline:
+          type: string
+        image_url:
+          type: string
+          format: uri
+        impressions:
+          type: integer
+        clicks:
+          type: integer
+        ctr:
+          type: number
+          format: float
+        spend:
+          type: number
+          format: float
+        conversions:
+          type: integer
+        cost_per_conversion:
+          type: number
+          format: float
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 Bearer token obtained from /oauth/token

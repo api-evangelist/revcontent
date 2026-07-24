@@ -1,0 +1,332 @@
+openapi: 3.0.3
+info:
+  title: RevContent Stats & Management Access Boosts API
+  description: 'REST API providing programmatic access to RevContent''s native advertising platform for managing boosts (campaigns), widgets, content, targeting, bidding, and statistical reporting. Authenticated via OAuth 2.0 client credentials flow. Access tokens are valid for 24 hours.
+
+    '
+  version: '1.0'
+  contact:
+    name: RevContent Support
+    url: https://www.revcontent.com/resources/contact-us
+    email: developer@revcontent.com
+  x-api-changelog: https://help.revcontent.com/knowledge/api-changelog
+servers:
+- url: https://api.revcontent.io
+  description: RevContent Production API
+security:
+- BearerAuth: []
+tags:
+- name: Boosts
+  description: Campaign management (boosts)
+paths:
+  /stats/api/v1.0/boosts/add:
+    post:
+      operationId: addBoost
+      summary: Add Boost (Create Campaign)
+      description: 'Creates a new boost (campaign). Enforces a minimum bid of $0.01 for CPC. Supports scheduling parameters.
+
+        '
+      tags:
+      - Boosts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddBoostRequest'
+      responses:
+        '200':
+          description: Boost created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoostResponse'
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized
+  /stats/api/v1.0/boosts/update:
+    post:
+      operationId: updateBoostSettings
+      summary: Update Boost Settings
+      description: 'Modifies settings for an existing boost. Validates DMA codes and presents zip codes as arrays.
+
+        '
+      tags:
+      - Boosts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBoostRequest'
+      responses:
+        '200':
+          description: Boost updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoostResponse'
+        '400':
+          description: Invalid request parameters
+        '401':
+          description: Unauthorized
+  /stats/api/v1.0/boosts:
+    get:
+      operationId: getAllBoosts
+      summary: Get All Boosts
+      description: 'Retrieves all campaign (boost) data for the authenticated account, including traffic types and scheduling information.
+
+        '
+      tags:
+      - Boosts
+      parameters:
+      - name: from_date
+        in: query
+        schema:
+          type: string
+          format: date
+        description: Start date for filtering (YYYY-MM-DD)
+      - name: to_date
+        in: query
+        schema:
+          type: string
+          format: date
+        description: End date for filtering (YYYY-MM-DD)
+      responses:
+        '200':
+          description: List of boosts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoostListResponse'
+        '401':
+          description: Unauthorized
+  /stats/api/v1.0/boosts/{boost_id}/performance:
+    get:
+      operationId: getBoostPerformance
+      summary: Get Boost Performance
+      description: 'Returns campaign performance metrics for a specific boost, including cost per conversion.
+
+        '
+      tags:
+      - Boosts
+      parameters:
+      - name: boost_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Unique identifier of the boost
+      - name: from_date
+        in: query
+        schema:
+          type: string
+          format: date
+        description: Start date for metrics (YYYY-MM-DD)
+      - name: to_date
+        in: query
+        schema:
+          type: string
+          format: date
+        description: End date for metrics (YYYY-MM-DD)
+      responses:
+        '200':
+          description: Boost performance metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoostPerformance'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Boost not found
+  /stats/api/v1.0/boosts/update/status:
+    post:
+      operationId: updateBoostStatus
+      summary: Update Boost Status
+      description: 'Updates the status of one or more boosts. Includes a "do_all" safety parameter to prevent accidental bulk status changes.
+
+        '
+      tags:
+      - Boosts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBoostStatusRequest'
+      responses:
+        '200':
+          description: Status updated successfully
+        '400':
+          description: Invalid request
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    BoostPerformance:
+      type: object
+      properties:
+        boost_id:
+          type: integer
+        impressions:
+          type: integer
+        clicks:
+          type: integer
+        ctr:
+          type: number
+          format: float
+          description: Click-through rate
+        spend:
+          type: number
+          format: float
+        conversions:
+          type: integer
+        cost_per_conversion:
+          type: number
+          format: float
+          description: Cost per conversion metric
+    UpdateBoostRequest:
+      type: object
+      required:
+      - boost_id
+      properties:
+        boost_id:
+          type: integer
+          description: Unique identifier of the boost to update
+        name:
+          type: string
+          description: Updated boost name
+        budget:
+          type: number
+          format: float
+          description: Updated budget
+        bid:
+          type: number
+          format: float
+          minimum: 0.01
+          description: Updated CPC bid (minimum $0.01)
+        dma_codes:
+          type: array
+          items:
+            type: string
+          description: Validated DMA codes for geo-targeting
+        zip_codes:
+          type: array
+          items:
+            type: string
+          description: Zip codes presented as an array
+    UpdateBoostStatusRequest:
+      type: object
+      required:
+      - boost_ids
+      - status
+      properties:
+        boost_ids:
+          type: array
+          items:
+            type: integer
+          description: List of boost IDs to update
+        status:
+          type: string
+          enum:
+          - active
+          - paused
+          - deleted
+          description: New status for the specified boosts
+        do_all:
+          type: boolean
+          description: 'Safety parameter — must be explicitly set to true to apply status change to all boosts. Prevents accidental bulk updates.
+
+            '
+    BoostListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BoostResponse'
+        total:
+          type: integer
+          description: Total number of boosts
+    AddBoostRequest:
+      type: object
+      required:
+      - name
+      - budget
+      - bid
+      properties:
+        name:
+          type: string
+          description: Boost (campaign) name
+        budget:
+          type: number
+          format: float
+          description: Daily or total budget
+        bid:
+          type: number
+          format: float
+          minimum: 0.01
+          description: CPC bid amount (minimum $0.01)
+        schedule_start:
+          type: string
+          format: date-time
+          description: Campaign start date/time
+        schedule_end:
+          type: string
+          format: date-time
+          description: Campaign end date/time
+        traffic_type:
+          type: integer
+          description: Traffic type identifier from helpers/traffic-types
+        devices:
+          type: array
+          items:
+            type: integer
+          description: Device category IDs to target
+        dma_codes:
+          type: array
+          items:
+            type: string
+          description: DMA codes for geo-targeting
+        zip_codes:
+          type: array
+          items:
+            type: string
+          description: Zip codes for geo-targeting
+    BoostResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique boost identifier
+        name:
+          type: string
+          description: Boost name
+        status:
+          type: string
+          description: Current boost status
+        bid:
+          type: number
+          format: float
+          description: Current CPC bid
+        budget:
+          type: number
+          format: float
+          description: Configured budget
+        traffic_type:
+          type: integer
+          description: Traffic type identifier
+        schedule_start:
+          type: string
+          format: date-time
+        schedule_end:
+          type: string
+          format: date-time
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 Bearer token obtained from /oauth/token

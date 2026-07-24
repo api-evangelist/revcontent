@@ -1,0 +1,97 @@
+openapi: 3.0.3
+info:
+  title: RevContent Stats & Management Access API
+  description: 'REST API providing programmatic access to RevContent''s native advertising platform for managing boosts (campaigns), widgets, content, targeting, bidding, and statistical reporting. Authenticated via OAuth 2.0 client credentials flow. Access tokens are valid for 24 hours.
+
+    '
+  version: '1.0'
+  contact:
+    name: RevContent Support
+    url: https://www.revcontent.com/resources/contact-us
+    email: developer@revcontent.com
+  x-api-changelog: https://help.revcontent.com/knowledge/api-changelog
+servers:
+- url: https://api.revcontent.io
+  description: RevContent Production API
+security:
+- BearerAuth: []
+tags:
+- name: Access
+  description: OAuth authentication and account access
+paths:
+  /oauth/token:
+    post:
+      operationId: getAccessToken
+      summary: Get OAuth Access Token
+      description: 'Obtain a Bearer access token using the OAuth 2.0 client credentials flow. Tokens are valid for 24 hours.
+
+        '
+      tags:
+      - Access
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+              - grant_type
+              - client_id
+              - client_secret
+              properties:
+                grant_type:
+                  type: string
+                  enum:
+                  - client_credentials
+                  description: OAuth 2.0 grant type
+                client_id:
+                  type: string
+                  description: Client ID from Account Settings
+                client_secret:
+                  type: string
+                  description: Client secret from Account Settings
+      responses:
+        '200':
+          description: Access token issued successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessToken'
+        '401':
+          description: Invalid client credentials
+  /stats/api/v1.0/account/reactivate:
+    post:
+      operationId: reactivateAccount
+      summary: Reactivate Account
+      description: Enables reactivation of an inactive RevContent account.
+      tags:
+      - Access
+      responses:
+        '200':
+          description: Account reactivated successfully
+        '400':
+          description: Account already active or cannot be reactivated
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    AccessToken:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: Bearer token for API authentication
+        token_type:
+          type: string
+          example: Bearer
+        expires_in:
+          type: integer
+          description: Token validity in seconds (86400 = 24 hours)
+          example: 86400
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 Bearer token obtained from /oauth/token

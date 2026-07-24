@@ -1,0 +1,95 @@
+openapi: 3.0.3
+info:
+  title: RevContent Stats & Management Access CCPA API
+  description: 'REST API providing programmatic access to RevContent''s native advertising platform for managing boosts (campaigns), widgets, content, targeting, bidding, and statistical reporting. Authenticated via OAuth 2.0 client credentials flow. Access tokens are valid for 24 hours.
+
+    '
+  version: '1.0'
+  contact:
+    name: RevContent Support
+    url: https://www.revcontent.com/resources/contact-us
+    email: developer@revcontent.com
+  x-api-changelog: https://help.revcontent.com/knowledge/api-changelog
+servers:
+- url: https://api.revcontent.io
+  description: RevContent Production API
+security:
+- BearerAuth: []
+tags:
+- name: CCPA
+  description: CCPA data request and deletion
+paths:
+  /stats/api/v1.0/data_requests/submit:
+    post:
+      operationId: submitCCPADataRequest
+      summary: Submit CCPA Data or Deletion Request
+      description: 'Submits a CCPA data request or data deletion request for a specific user. Processing typically takes a couple of hours. Retained deletion data is purged within 90 days.
+
+        '
+      tags:
+      - CCPA
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CCPADataRequest'
+      responses:
+        '200':
+          description: CCPA request registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CCPAResponse'
+        '400':
+          description: Invalid request parameters
+components:
+  schemas:
+    CCPAResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: Whether the CCPA request was successfully registered
+        message:
+          type: string
+          description: Status message
+        request_id:
+          type: string
+          description: The request ID provided, for tracking/polling
+    CCPADataRequest:
+      type: object
+      required:
+      - request_id
+      - delete_data
+      - email
+      - pub_id
+      - domain
+      properties:
+        request_id:
+          type: string
+          maxLength: 64
+          description: Unique identifier for the request, used for polling
+        delete_data:
+          type: integer
+          enum:
+          - 0
+          - 1
+          description: 1 for deletion request, 0 for data fetch request
+        email:
+          type: string
+          format: email
+          description: User email address for auditing purposes
+        pub_id:
+          type: integer
+          description: Publisher account ID (also accepted as publisher_id)
+        domain:
+          type: string
+          description: Domain from which the REST call is made, must include protocol
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 Bearer token obtained from /oauth/token

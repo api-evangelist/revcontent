@@ -1,0 +1,148 @@
+openapi: 3.0.3
+info:
+  title: RevContent Stats & Management Access Helpers API
+  description: 'REST API providing programmatic access to RevContent''s native advertising platform for managing boosts (campaigns), widgets, content, targeting, bidding, and statistical reporting. Authenticated via OAuth 2.0 client credentials flow. Access tokens are valid for 24 hours.
+
+    '
+  version: '1.0'
+  contact:
+    name: RevContent Support
+    url: https://www.revcontent.com/resources/contact-us
+    email: developer@revcontent.com
+  x-api-changelog: https://help.revcontent.com/knowledge/api-changelog
+servers:
+- url: https://api.revcontent.io
+  description: RevContent Production API
+security:
+- BearerAuth: []
+tags:
+- name: Helpers
+  description: Reference data for devices, OS, traffic types, and DMAs
+paths:
+  /stats/api/v1.0/helpers/devices:
+    get:
+      operationId: getDevices
+      summary: Get Devices
+      description: Returns top-level device categories available for targeting.
+      tags:
+      - Helpers
+      responses:
+        '200':
+          description: List of device categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceListResponse'
+        '401':
+          description: Unauthorized
+  /stats/api/v1.0/helpers/operating-systems:
+    get:
+      operationId: getOperatingSystems
+      summary: Get Operating Systems
+      description: Maps devices to compatible operating system targets.
+      tags:
+      - Helpers
+      responses:
+        '200':
+          description: Operating systems mapped to devices
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperatingSystemListResponse'
+        '401':
+          description: Unauthorized
+  /stats/api/v1.0/helpers/traffic-types:
+    get:
+      operationId: getTrafficTypes
+      summary: Get Traffic Types
+      description: Provides traffic type identifiers for targeting.
+      tags:
+      - Helpers
+      responses:
+        '200':
+          description: List of traffic types
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrafficTypeListResponse'
+        '401':
+          description: Unauthorized
+  /stats/api/v1.0/helpers/dma:
+    get:
+      operationId: getDMAList
+      summary: Get DMA List
+      description: Supplies designated market area (DMA) names and codes for geo-targeting.
+      tags:
+      - Helpers
+      responses:
+        '200':
+          description: List of DMA codes and names
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DMAListResponse'
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    TrafficTypeListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+                description: Traffic type name
+    OperatingSystemListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              device_id:
+                type: integer
+              os_id:
+                type: integer
+              name:
+                type: string
+                description: Operating system name
+    DeviceListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+                description: Top-level device category name
+    DMAListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                description: DMA code
+              name:
+                type: string
+                description: Designated market area name
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 Bearer token obtained from /oauth/token
