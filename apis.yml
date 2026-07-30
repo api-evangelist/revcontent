@@ -6,7 +6,20 @@ description: RevContent is a performance-driven native advertising and content r
   access the platform through OAuth 2.0 authenticated endpoints to programmatically
   control campaign settings, device and geo targeting, content delivery, and statistical
   reporting at scale.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/revcontent.png
 url: https://raw.githubusercontent.com/api-evangelist/revcontent/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -19,34 +32,95 @@ tags:
   - Publisher Monetization
   - Programmatic Advertising
 apis:
-  - name: RevContent Stats & Management API
-    description: REST API providing programmatic access to RevContent's advertising
-      platform for managing boosts (campaigns), widgets, content, targeting, bidding,
-      and statistical reporting. Authenticated via OAuth 2.0 client credentials flow.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
-    baseURL: https://api.revcontent.io
-    tags:
-      - Campaigns
-      - Boosts
-      - Widgets
-      - Targeting
-      - Bidding
-      - Reporting
-      - Statistics
-      - Content
-      - CCPA
-    properties:
-      - type: Documentation
-        url: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
-      - type: APIChangelog
-        url: https://help.revcontent.com/knowledge/api-changelog
-      - type: CCPADataAPI
-        url: https://help.revcontent.com/knowledge/ccpa-data-request-data-deletion-request-api
-    contact:
-      - FN: RevContent Support
-        url: https://www.revcontent.com/resources/contact-us
-        email: developer@revcontent.com
+- name: RevContent Stats & Management API
+  description: >-
+    REST API providing programmatic access to RevContent's advertising platform for managing boosts (campaigns),
+    widgets, content, targeting, bidding, and statistical reporting. Authenticated via OAuth 2.0 client
+    credentials flow.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
+  baseURL: https://api.revcontent.io
+  tags:
+  - Campaigns
+  - Boosts
+  - Widgets
+  - Targeting
+  - Bidding
+  - Reporting
+  - Statistics
+  - Content
+  - CCPA
+  properties:
+  - type: Documentation
+    url: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
+  - type: APIChangelog
+    url: https://help.revcontent.com/knowledge/api-changelog
+  - type: CCPADataAPI
+    url: https://help.revcontent.com/knowledge/ccpa-data-request-data-deletion-request-api
+  contact:
+  - FN: RevContent Support
+    url: https://www.revcontent.com/resources/contact-us
+    email: developer@revcontent.com
+- aid: revcontent:revcontent-access-api
+  name: RevContent Access API
+  description: OAuth authentication and account access
+  humanURL: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
+  baseURL: https://api.revcontent.io
+  tags:
+  - Access
+  properties:
+  - type: OpenAPI
+    url: openapi/revcontent-access-api-openapi.yml
+- aid: revcontent:revcontent-boosts-api
+  name: RevContent Boosts API
+  description: Campaign management (boosts)
+  humanURL: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
+  baseURL: https://api.revcontent.io
+  tags:
+  - Boosts
+  properties:
+  - type: OpenAPI
+    url: openapi/revcontent-boosts-api-openapi.yml
+- aid: revcontent:revcontent-ccpa-api
+  name: RevContent CCPA API
+  description: CCPA data request and deletion
+  humanURL: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
+  baseURL: https://api.revcontent.io
+  tags:
+  - CCPA
+  properties:
+  - type: OpenAPI
+    url: openapi/revcontent-ccpa-api-openapi.yml
+- aid: revcontent:revcontent-content-api
+  name: RevContent Content API
+  description: Ad content management and performance
+  humanURL: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
+  baseURL: https://api.revcontent.io
+  tags:
+  - Content
+  properties:
+  - type: OpenAPI
+    url: openapi/revcontent-content-api-openapi.yml
+- aid: revcontent:revcontent-helpers-api
+  name: RevContent Helpers API
+  description: Reference data for devices, OS, traffic types, and DMAs
+  humanURL: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
+  baseURL: https://api.revcontent.io
+  tags:
+  - Helpers
+  properties:
+  - type: OpenAPI
+    url: openapi/revcontent-helpers-api-openapi.yml
+- aid: revcontent:revcontent-targeting-api
+  name: RevContent Targeting API
+  description: Widget and audience targeting
+  humanURL: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
+  baseURL: https://api.revcontent.io
+  tags:
+  - Targeting
+  properties:
+  - type: OpenAPI
+    url: openapi/revcontent-targeting-api-openapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/revcontent-agentic-access.yml
