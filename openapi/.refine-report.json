@@ -1,0 +1,24 @@
+{
+  "provider": "revcontent",
+  "sources": [
+    "revcontent-access-api-openapi.yml",
+    "revcontent-boosts-api-openapi.yml",
+    "revcontent-ccpa-api-openapi.yml",
+    "revcontent-content-api-openapi.yml",
+    "revcontent-helpers-api-openapi.yml",
+    "revcontent-targeting-api-openapi.yml"
+  ],
+  "outputs": [
+    "revcontent-access-api-openapi.yml",
+    "revcontent-boosts-api-openapi.yml",
+    "revcontent-ccpa-api-openapi.yml",
+    "revcontent-content-api-openapi.yml",
+    "revcontent-helpers-api-openapi.yml",
+    "revcontent-targeting-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
