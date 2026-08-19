@@ -1,0 +1,318 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/ (43 operations derived from https://api.revcontent.io/docs/stats/api_data.json)
+status: candidate
+description: RevContent publishes no MCP server. No hosted/remote endpoint, no stdio package, and no mention
+  of MCP anywhere on revcontent.com, help.revcontent.com or in the RevContent GitHub organization (13
+  public repos, checked 2026-08-13). The tool list below is a CANDIDATE derived one-to-one from the operations
+  in the provider's own published contract; it is what an MCP server over this API would expose, not something
+  RevContent ships.
+deployment:
+  mode: none
+  auth: api-key
+  verified: derived
+  note: No server exists to reach. Were one built, auth would be the OAuth 2.0 client-credentials bearer
+    token from POST /oauth/token (24-hour validity), issued from client_id/client_secret in Account Settings
+    -> Stats API Credentials.
+tools:
+- name: get_oauth_access
+  description: Get access token
+  category: Access
+  source_operation: openapi/revcontent-access-api-openapi.yml#getOauthAccess
+  method: POST
+  path: /oauth/token
+  read_only: false
+- name: get_reactivate_account
+  description: Reactivate Account
+  category: Access
+  source_operation: openapi/revcontent-access-api-openapi.yml#getReactivateAccount
+  method: GET
+  path: /stats/api/v1.0/account/reactivate
+  read_only: true
+- name: get_all_boosts
+  description: Get All Campaigns
+  category: Campaigns
+  source_operation: openapi/revcontent-boosts-api-openapi.yml#getAllBoosts
+  method: GET
+  path: /stats/api/v1.0/boosts
+  read_only: true
+- name: post_boosts_status
+  description: Update Campaign Status
+  category: Campaigns
+  source_operation: openapi/revcontent-boosts-api-openapi.yml#postBoostsStatus
+  method: POST
+  path: /stats/api/v1.0/boosts
+  read_only: false
+- name: get_boost_performance
+  description: Get Campaign Performance
+  category: Campaigns
+  source_operation: openapi/revcontent-boosts-api-openapi.yml#getBoostPerformance
+  method: GET
+  path: /stats/api/v1.0/boosts/performance
+  read_only: true
+- name: get_widget_stats
+  description: Get Widget Stats
+  category: Campaigns
+  source_operation: openapi/revcontent-boosts-api-openapi.yml#getWidgetStats
+  method: GET
+  path: /stats/api/v1.0/boosts/{boost_id}/widgets/stats
+  read_only: true
+- name: post_boost_add
+  description: Add Campaign
+  category: Campaigns
+  source_operation: openapi/revcontent-boosts-api-openapi.yml#postBoostAdd
+  method: POST
+  path: /stats/api/v1.0/boosts/add
+  read_only: false
+- name: post_boost_archive
+  description: Archive Campaign
+  category: Campaigns
+  source_operation: openapi/revcontent-boosts-api-openapi.yml#postBoostArchive
+  method: POST
+  path: /stats/api/v1.0/boosts/{boost_id}/archive
+  read_only: false
+- name: post_boost_settings
+  description: Update Campaign Settings
+  category: Campaigns
+  source_operation: openapi/revcontent-boosts-api-openapi.yml#postBoostSettings
+  method: POST
+  path: /stats/api/v1.0/boosts/{boost_id}/settings
+  read_only: false
+- name: post_submit_c_c_p_a_request
+  description: Submit CCPA Data Request
+  category: CCPA
+  source_operation: openapi/revcontent-ccpa-api-openapi.yml#postSubmitCCPARequest
+  method: POST
+  path: /stats/api/v1.0/data_requests/submit
+  read_only: false
+- name: post_user_data
+  description: CCPA Data Request
+  category: CCPA
+  source_operation: openapi/revcontent-ccpa-api-openapi.yml#postUserData
+  method: POST
+  path: /stats/api/v1.0/data_requests/data
+  read_only: false
+- name: post_users_data
+  description: CCPA Multiple Data Request
+  category: CCPA
+  source_operation: openapi/revcontent-ccpa-api-openapi.yml#postUsersData
+  method: POST
+  path: /stats/api/v1.0/data_requests/multiple_data
+  read_only: false
+- name: get_all_boost_content
+  description: Get All Campaigns Content
+  category: Content
+  source_operation: openapi/revcontent-content-api-openapi.yml#getAllBoostContent
+  method: GET
+  path: /stats/api/v1.0/boosts/content
+  read_only: true
+- name: get_boost_content
+  description: Get Campaign Content
+  category: Content
+  source_operation: openapi/revcontent-content-api-openapi.yml#getBoostContent
+  method: GET
+  path: /stats/api/v1.0/boosts/{boost_id}/content
+  read_only: true
+- name: post_boost_content_update
+  description: Update Campaign Content
+  category: Content
+  source_operation: openapi/revcontent-content-api-openapi.yml#postBoostContentUpdate
+  method: POST
+  path: /stats/api/v1.0/boosts/{boost_id}/content
+  read_only: false
+- name: get_content_widget_stats
+  description: Get Content Widget Stats
+  category: Content
+  source_operation: openapi/revcontent-content-api-openapi.yml#getContentWidgetStats
+  method: GET
+  path: /stats/api/v1.0/contents/{content_id}/widgets/stats
+  read_only: true
+- name: post_boost_content_add
+  description: Add Campaign Content
+  category: Content
+  source_operation: openapi/revcontent-content-api-openapi.yml#postBoostContentAdd
+  method: POST
+  path: /stats/api/v1.0/boosts/{boost_id}/content/add
+  read_only: false
+- name: get_conversions
+  description: Get All Conversions
+  category: Conversions
+  source_operation: openapi/revcontent-conversions-api-openapi.yml#getConversions
+  method: GET
+  path: /stats/api/v1.0/conversions
+  read_only: true
+- name: post_conversion_add
+  description: Add Conversion
+  category: Conversions
+  source_operation: openapi/revcontent-conversions-api-openapi.yml#postConversionAdd
+  method: POST
+  path: /stats/api/v1.0/conversions/add
+  read_only: false
+- name: post_conversion_delete
+  description: Delete Conversion
+  category: Conversions
+  source_operation: openapi/revcontent-conversions-api-openapi.yml#postConversionDelete
+  method: POST
+  path: /stats/api/v1.0/conversions/{conversion_id}/delete
+  read_only: false
+- name: post_conversion_edit
+  description: Update Conversion
+  category: Conversions
+  source_operation: openapi/revcontent-conversions-api-openapi.yml#postConversionEdit
+  method: POST
+  path: /stats/api/v1.0/conversions/{conversion_id}/update
+  read_only: false
+- name: get_browsers
+  description: Get Browsers
+  category: Helpers
+  source_operation: openapi/revcontent-helpers-api-openapi.yml#getBrowsers
+  method: GET
+  path: /stats/api/v1.0/browsers
+  read_only: true
+- name: get_countries
+  description: Get Countries
+  category: Helpers
+  source_operation: openapi/revcontent-helpers-api-openapi.yml#getCountries
+  method: GET
+  path: /stats/api/v1.0/countries
+  read_only: true
+- name: get_devices
+  description: Get Devices
+  category: Helpers
+  source_operation: openapi/revcontent-helpers-api-openapi.yml#getDevices
+  method: GET
+  path: /stats/api/v1.0/devices
+  read_only: true
+- name: get_dmas
+  description: Get DMA List
+  category: Helpers
+  source_operation: openapi/revcontent-helpers-api-openapi.yml#getDmas
+  method: GET
+  path: /stats/api/v1.0/dmas
+  read_only: true
+- name: get_languages
+  description: Get Languages
+  category: Helpers
+  source_operation: openapi/revcontent-helpers-api-openapi.yml#getLanguages
+  method: GET
+  path: /stats/api/v1.0/languages
+  read_only: true
+- name: get_operating_systems
+  description: Get Operating Systems List
+  category: Helpers
+  source_operation: openapi/revcontent-helpers-api-openapi.yml#getOperatingSystems
+  method: GET
+  path: /stats/api/v1.0/os
+  read_only: true
+- name: get_regions
+  description: Get Regions
+  category: Helpers
+  source_operation: openapi/revcontent-helpers-api-openapi.yml#getRegions
+  method: GET
+  path: /stats/api/v1.0/regions
+  read_only: true
+- name: add_account
+  description: Add Account
+  category: Sub Accounts
+  source_operation: openapi/revcontent-sub-accounts-api-openapi.yml#addAccount
+  method: POST
+  path: /stats/api/v1.0/sub_accounts/add_account
+  read_only: false
+- name: edit_account
+  description: Edit Account
+  category: Sub Accounts
+  source_operation: openapi/revcontent-sub-accounts-api-openapi.yml#editAccount
+  method: POST
+  path: /stats/api/v1.0/sub_accounts/edit_account
+  read_only: false
+- name: list_accounts
+  description: List Accounts
+  category: Sub Accounts
+  source_operation: openapi/revcontent-sub-accounts-api-openapi.yml#listAccounts
+  method: GET
+  path: /stats/api/v1.0/sub_accounts/list_accounts
+  read_only: true
+- name: update_account_status
+  description: Update Account Status
+  category: Sub Accounts
+  source_operation: openapi/revcontent-sub-accounts-api-openapi.yml#updateAccountStatus
+  method: POST
+  path: /stats/api/v1.0/sub_accounts/update_account_status
+  read_only: false
+- name: get_boost_widgets
+  description: Get Campaign Widget Targets
+  category: Targeting
+  source_operation: openapi/revcontent-targeting-api-openapi.yml#getBoostWidgets
+  method: GET
+  path: /stats/api/v1.0/boosts/{boost_id}/widgets
+  read_only: true
+- name: post_boost_widgets
+  description: Update Campaign Widget Targeting
+  category: Targeting
+  source_operation: openapi/revcontent-targeting-api-openapi.yml#postBoostWidgets
+  method: POST
+  path: /stats/api/v1.0/boosts/{boost_id}/widgets
+  read_only: false
+- name: get_widget_internal_content
+  description: Get Widget Internal Content
+  category: Widget Internal Content
+  source_operation: openapi/revcontent-widget-internal-content-api-openapi.yml#getWidgetInternalContent
+  method: GET
+  path: /stats/api/v1.0/widgets/{widget_id}/internal_content
+  read_only: true
+- name: post_widget_internal_content_add
+  description: Add Widget Internal Content
+  category: Widget Internal Content
+  source_operation: openapi/revcontent-widget-internal-content-api-openapi.yml#postWidgetInternalContentAdd
+  method: POST
+  path: /stats/api/v1.0/widgets/{widget_id}/internal_content/add
+  read_only: false
+- name: post_widget_internal_content_update
+  description: Update Widget Internal Content
+  category: Widget Internal Content
+  source_operation: openapi/revcontent-widget-internal-content-api-openapi.yml#postWidgetInternalContentUpdate
+  method: POST
+  path: /stats/api/v1.0/widgets/{widget_id}/internal_content/update
+  read_only: false
+- name: get_targets_optimizer_widgets
+  description: Get list of blacklisted widget ids
+  category: Widget Optimizer
+  source_operation: openapi/revcontent-widget-optimizer-api-openapi.yml#getTargetsOptimizerWidgets
+  method: GET
+  path: /stats/api/v1.0/boosts/{boost_id}/targets/blacklist/widgets
+  read_only: true
+- name: post_targets_widgets_optimizer_add
+  description: Add Blacklist Widget
+  category: Widget Optimizer
+  source_operation: openapi/revcontent-widget-optimizer-api-openapi.yml#postTargetsWidgetsOptimizerAdd
+  method: POST
+  path: /stats/api/v1.0/boosts/{boost_id}/targets/blacklist/widgets/add
+  read_only: false
+- name: post_targets_widgets_optimizer_remove
+  description: Remove Widget Blacklist
+  category: Widget Optimizer
+  source_operation: openapi/revcontent-widget-optimizer-api-openapi.yml#postTargetsWidgetsOptimizerRemove
+  method: POST
+  path: /stats/api/v1.0/boosts/{boost_id}/targets/blacklist/widgets/remove
+  read_only: false
+- name: get_all_widgets
+  description: Get All Widgets
+  category: Widget
+  source_operation: openapi/revcontent-widgets-api-openapi.yml#getAllWidgets
+  method: GET
+  path: /stats/api/v1.0/widgets
+  read_only: true
+- name: get_all_widgets_geo
+  description: Get All Widgets Geo Stats
+  category: Widget
+  source_operation: openapi/revcontent-widgets-api-openapi.yml#getAllWidgetsGeo
+  method: GET
+  path: /stats/api/v1.0/widgets_geo
+  read_only: true
+- name: get_sub_i_d_stats
+  description: Get Sub ID Stats
+  category: Widget
+  source_operation: openapi/revcontent-widgets-api-openapi.yml#getSubIDStats
+  method: GET
+  path: /stats/api/v1.0/widgets/{widget_id}/revsub
+  read_only: true

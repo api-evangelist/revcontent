@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RevContent Access API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Access",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revcontent.io/oauth/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "To get access, please get in touch with your representative."
+        },
+        {
+          "info": {
+            "name": "Reactivate Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/account/reactivate",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "URL Encoded account email address. Must match the account email address."
+              }
+            ]
+          },
+          "docs": "Send out email activation for inactive accounts"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

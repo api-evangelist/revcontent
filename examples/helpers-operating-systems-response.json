@@ -1,0 +1,43 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": "4",
+      "name": "android",
+      "allowed_devices": [
+        "mobile",
+        "tablet"
+      ]
+    },
+    {
+      "id": "5",
+      "name": "ios",
+      "allowed_devices": [
+        "mobile",
+        "tablet"
+      ]
+    },
+    {
+      "id": "6",
+      "name": "windows",
+      "allowed_devices": [
+        "mobile",
+        "tablet"
+      ]
+    },
+    {
+      "id": "7",
+      "name": "macos",
+      "allowed_devices": [
+        "desktop"
+      ]
+    },
+    {
+      "id": "8",
+      "name": "windows",
+      "allowed_devices": [
+        "desktop"
+      ]
+    }
+  ]
+}

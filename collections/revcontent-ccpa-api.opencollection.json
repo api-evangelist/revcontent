@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RevContent CCPA API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CCPA",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit CCPA Data Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revcontent.io/stats/api/v1.0/data_requests/submit",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "domain",
+                  "value": ""
+                },
+                {
+                  "name": "pub_id",
+                  "value": ""
+                },
+                {
+                  "name": "request_id",
+                  "value": ""
+                },
+                {
+                  "name": "email",
+                  "value": ""
+                },
+                {
+                  "name": "delete_data",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Submit CCPA request on behalf of user using client side request. The request should include credentials https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials"
+        },
+        {
+          "info": {
+            "name": "CCPA Data Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revcontent.io/stats/api/v1.0/data_requests/data",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "request_id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Get user's data on behalf of user for submitted ccpa data requests. If request_id is wrong or already resolved success=false will be returned."
+        },
+        {
+          "info": {
+            "name": "CCPA Multiple Data Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revcontent.io/stats/api/v1.0/data_requests/multiple_data",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "request_ids",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Get multiple user's data on behalf of users for submitted ccpa data requests. Requests object in response will have request_id and their respective data. If request_id missing in requests key then consider it failed either because request not registered or already resolved."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

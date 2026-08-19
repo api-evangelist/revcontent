@@ -1,0 +1,10 @@
+{
+  "success": false,
+  "errors": [
+    {
+      "code": 400,
+      "title": "Invalid Parameters",
+      "detail": "Invalid Parameters sent"
+    }
+  ]
+}

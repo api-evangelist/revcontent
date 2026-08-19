@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/revcontent/refs/heads/main/json-schema/error.json",
+  "title": "Error",
+  "description": "The RevContent error envelope returned on every failure.",
+  "type": "object",
+  "properties": {
+    "success": {
+      "type": "boolean",
+      "const": false
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "Mirrors the HTTP status code."
+          },
+          "title": {
+            "type": "string",
+            "description": "Short error title."
+          },
+          "detail": {
+            "type": "string",
+            "description": "Human readable detail; the only field naming the offending parameter."
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "success",
+    "errors"
+  ],
+  "x-source": "https://api.revcontent.io/docs/stats/api_data.json"
+}

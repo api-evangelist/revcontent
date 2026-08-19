@@ -1,14 +1,82 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/revcontent-stats-management-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: openapi/ (11 specs) + https://api.revcontent.io/docs/stats/api_data.json
+docs: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
+description: >-
+  RevContent uses a single auth model across all 43 documented operations: an OAuth 2.0
+  client-credentials grant that yields a 24-hour bearer token. There are no scopes, no refresh
+  token, no OIDC and no OAuth server metadata document.
 summary:
   types:
+  - oauth2
   - http
+  oauth2_flows:
+  - clientCredentials
+  api_key_in: []
+  scopes: 2
 schemes:
 - name: BearerAuth
   type: http
   scheme: bearer
-  bearerFormat: JWT
-  description: OAuth 2.0 Bearer token obtained from /oauth/token
+  description: >-
+    OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for 24 hours.
+    Sent as 'Authorization: Bearer {access token}' alongside 'Content-type: application/json'.
+  applies_to: all 43 documented operations except POST /oauth/token itself
   sources:
-  - openapi/revcontent-stats-management-openapi.yml
+  - openapi/revcontent-access-api-openapi.yml
+  - openapi/revcontent-boosts-api-openapi.yml
+  - openapi/revcontent-ccpa-api-openapi.yml
+  - openapi/revcontent-content-api-openapi.yml
+  - openapi/revcontent-conversions-api-openapi.yml
+  - openapi/revcontent-helpers-api-openapi.yml
+  - openapi/revcontent-sub-accounts-api-openapi.yml
+  - openapi/revcontent-targeting-api-openapi.yml
+  - openapi/revcontent-widget-internal-content-api-openapi.yml
+  - openapi/revcontent-widget-optimizer-api-openapi.yml
+  - openapi/revcontent-widgets-api-openapi.yml
+token_endpoint:
+  url: https://api.revcontent.io/oauth/token
+  method: POST
+  content_type: application/x-www-form-urlencoded
+  grant_type: client_credentials
+  parameters:
+    - grant_type
+    - client_id
+    - client_secret
+  response_field: access_token
+  response_shape: '{"access_token": "...", "expires_in": 86400, "token_type": "Bearer", "scope": "advertiser publisher"}'
+  ttl_seconds: 86400
+  refresh_token: false
+  operation: openapi/revcontent-access-api-openapi.yml#getOauthAccess
+credentials:
+  location: Account Settings -> "Stats API Credentials"
+  fields: [client_id, client_secret]
+  provisioning: >-
+    NOT self-serve. API access must be enabled by a RevContent account representative before the
+    credentials section appears in Account Settings.
+authorization_model:
+  scopes: [advertiser, publisher]
+  requestable: false
+  detail: >-
+    The issued token DOES carry scopes — RevContent's own published token example returns
+    "scope": "advertiser publisher" — but they are not requestable. There is no `scope` parameter on
+    the token request; the authorization server decides which of the two roles the credential pair
+    is entitled to and returns them. The effect is coarse role-based authorization, not
+    least-privilege: an account holding both roles gets one token that can do everything either role
+    can do, on every operation. See scopes/revcontent-scopes.yml.
+  multi_tenancy: >-
+    `sub_account_id` is a plain query/body parameter on 18 operations, not a token boundary. A single
+    client-credentials token can act across every sub account reachable from the parent, so tenancy
+    is a caller convention rather than an enforced authorization scope.
+discovery:
+  openid_configuration: 404 on all hosts (2026-08-13)
+  oauth_authorization_server: 404 on all hosts (2026-08-13)
+  detail: >-
+    No RFC 8414 metadata and no OIDC discovery document, so the token endpoint cannot be discovered
+    programmatically — it is only documented in prose.
+exceptions:
+  - operation: postSubmitCCPARequest
+    detail: >-
+      POST /stats/api/v1.0/data_requests/submit is the one operation the provider documents without
+      a bearer token in its example. It is form-encoded and identifies the consumer through a
+      `Cookie: __ID=…` header, because it is issued from the consumer's browser context.

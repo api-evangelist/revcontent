@@ -1,15 +1,12 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
-  title: RevContent Stats & Management Access CCPA API
-  description: 'REST API providing programmatic access to RevContent''s native advertising platform for managing boosts (campaigns), widgets, content, targeting, bidding, and statistical reporting. Authenticated via OAuth 2.0 client credentials flow. Access tokens are valid for 24 hours.
-
-    '
+  title: RevContent CCPA API
+  description: CCPA consumer data request, retrieval and deletion endpoints for publishers.
   version: '1.0'
   contact:
     name: RevContent Support
     url: https://www.revcontent.com/resources/contact-us
     email: developer@revcontent.com
-  x-api-changelog: https://help.revcontent.com/knowledge/api-changelog
 servers:
 - url: https://api.revcontent.io
   description: RevContent Production API
@@ -17,79 +14,273 @@ security:
 - BearerAuth: []
 tags:
 - name: CCPA
-  description: CCPA data request and deletion
+  description: CCPA consumer data request, retrieval and deletion endpoints for publishers.
 paths:
   /stats/api/v1.0/data_requests/submit:
     post:
-      operationId: submitCCPADataRequest
-      summary: Submit CCPA Data or Deletion Request
-      description: 'Submits a CCPA data request or data deletion request for a specific user. Processing typically takes a couple of hours. Retained deletion data is purged within 90 days.
-
-        '
+      operationId: postSubmitCCPARequest
+      summary: Submit CCPA Data Request
+      description: Submit CCPA request on behalf of user using client side request. The request should
+        include credentials https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials
       tags:
       - CCPA
-      security: []
       requestBody:
         required: true
         content:
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/CCPADataRequest'
+              type: object
+              properties:
+                domain:
+                  type: string
+                  description: Domain on which widget exists
+                pub_id:
+                  type: integer
+                  description: Publisher Revcontent User Id
+                request_id:
+                  type: string
+                  description: Request ID
+                email:
+                  type: string
+                  description: Email
+                delete_data:
+                  type: integer
+                  description: Should Users Data be deleted? 1 for yes. Otherwise 0
+              required:
+              - domain
+              - pub_id
+              - request_id
+              - email
+              - delete_data
       responses:
         '200':
-          description: CCPA request registered successfully
+          description: Successful response.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CCPAResponse'
-        '400':
-          description: Invalid request parameters
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Requests successfully processed true/false
+                  message:
+                    type: string
+                    description: Message
+                required:
+                - success
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Submit CCPA Data Request
+        source: |-
+          curl --location --request POST 'https://www.revcontent.com/stats/api/v1.0/data_requests/submit' \
+               --header 'Content-Type: application/x-www-form-urlencoded' \
+               --header 'Cookie: __ID=identifier_cookie_value' \
+               --data-urlencode 'domain=https://domain.com' \
+               --data-urlencode 'pub_id=1000' \
+               --data-urlencode 'request_id=abc123' \
+               --data-urlencode 'email=abc1234@gmail.com' \
+               --data-urlencode 'delete_data=1'
+  /stats/api/v1.0/data_requests/data:
+    post:
+      operationId: postUserData
+      summary: CCPA Data Request
+      description: Get user's data on behalf of user for submitted ccpa data requests. If request_id is
+        wrong or already resolved success=false will be returned.
+      tags:
+      - CCPA
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                request_id:
+                  type: string
+                  description: Request ID
+              required:
+              - request_id
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Requests successfully processed true/false
+                  status:
+                    type: string
+                    description: Pending/Ready
+                  csv:
+                    type: array
+                    items:
+                      type: string
+                    description: List of data csv's
+                  message:
+                    type: string
+                    description: Message
+                required:
+                - success
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error 500
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                errors:
+                - code: 500
+                  title: There was a problem serving the requested information. Try again, the problem
+                    may be temporary. Please contact support if the problem persists.
+      x-codeSamples:
+      - lang: json
+        label: Get Request Data
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/x-www-form-urlencoded" \
+               -H "Cache-Control: no-cache" \
+               -d '{"request_id": "XXXXXXXX"}' \
+               'https://api.revcontent.io/stats/api/v1.0/data_requests/data'
+  /stats/api/v1.0/data_requests/multiple_data:
+    post:
+      operationId: postUsersData
+      summary: CCPA Multiple Data Request
+      description: Get multiple user's data on behalf of users for submitted ccpa data requests. Requests
+        object in response will have request_id and their respective data. If request_id missing in requests
+        key then consider it failed either because request not registered or already resolved.
+      tags:
+      - CCPA
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                request_ids:
+                  type: string
+                  description: Request ID's (separated by comma)
+              required:
+              - request_ids
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Requests successfully processed true/false
+                  requests:
+                    type: object
+                    description: Request Objects
+                    properties:
+                      request_id:
+                        type: object
+                        description: Request Objects for request with id request_id
+                        properties:
+                          csv:
+                            type: array
+                            items:
+                              type: string
+                            description: Request's List of data csv's
+                          status:
+                            type: string
+                            description: Request's status
+                        required:
+                        - csv
+                        - status
+                  message:
+                    type: string
+                    description: Message
+                required:
+                - success
+              example:
+                success: true
+                requests:
+                  XXXXXXXX:
+                    status: ready
+                    csv:
+                    - https://revcontent-s1.s3.amazonaws.com/data_privacy_requests/42fd1956-664f-43a7-a13d-eaede8d4050d/impressions/de2fdd6f-e95f-40db-8464-ee4c7bcd745a.csv
+                    - https://revcontent-s1.s3.amazonaws.com/data_privacy_requests/42fd1956-664f-43a7-a13d-eaede8d4050d/views/f20760d7-dbb2-48de-b4e8-bbd3f61d02ea.csv
+                    - https://revcontent-s1.s3.amazonaws.com/data_privacy_requests/42fd1956-664f-43a7-a13d-eaede8d4050d/clicks/447b3a56-5a7e-43a0-85b8-32431b9d7238.csv
+                  YYYYYYYY:
+                    status: pending
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error 500
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                errors:
+                - code: 500
+                  title: There was a problem serving the requested information. Try again, the problem
+                    may be temporary. Please contact support if the problem persists.
+      x-codeSamples:
+      - lang: json
+        label: Get Multiple Requests Data
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/x-www-form-urlencoded" \
+               -H "Cache-Control: no-cache" \
+               -d '{"request_ids": "XXXXXXXX,YYYYYYYY"}' \
+               'https://www.revcontent.com/stats/api/v1.0/data_requests/multiple_data'
 components:
-  schemas:
-    CCPAResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          description: Whether the CCPA request was successfully registered
-        message:
-          type: string
-          description: Status message
-        request_id:
-          type: string
-          description: The request ID provided, for tracking/polling
-    CCPADataRequest:
-      type: object
-      required:
-      - request_id
-      - delete_data
-      - email
-      - pub_id
-      - domain
-      properties:
-        request_id:
-          type: string
-          maxLength: 64
-          description: Unique identifier for the request, used for polling
-        delete_data:
-          type: integer
-          enum:
-          - 0
-          - 1
-          description: 1 for deletion request, 0 for data fetch request
-        email:
-          type: string
-          format: email
-          description: User email address for auditing purposes
-        pub_id:
-          type: integer
-          description: Publisher account ID (also accepted as publisher_id)
-        domain:
-          type: string
-          description: Domain from which the REST call is made, must include protocol
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: JWT
-      description: OAuth 2.0 Bearer token obtained from /oauth/token
+      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for
+        24 hours.
+  schemas:
+    Error:
+      type: object
+      description: RevContent error envelope.
+      properties:
+        success:
+          type: boolean
+          const: false
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: integer
+                description: HTTP-aligned error code.
+              title:
+                type: string
+                description: Short error title.
+              detail:
+                type: string
+                description: Human readable error detail.
+x-source: https://api.revcontent.io/docs/stats/api_data.json
+x-source-format: apiDoc 0.17.7
+x-generated: '2026-08-13'
+x-method: derived

@@ -1,0 +1,20 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "name": "Conversion 1",
+      "amount": "1.75"
+    },
+    {
+      "id": 2,
+      "name": "Conversion 2",
+      "amount": "1.00"
+    },
+    {
+      "id": 3,
+      "name": "Conversion 3",
+      "amount": "2.00"
+    }
+  ]
+}

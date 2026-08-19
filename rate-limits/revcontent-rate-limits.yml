@@ -1,55 +1,78 @@
+generated: '2026-08-13'
+method: searched
+source: https://api.revcontent.io/docs/stats/api_data.json
+docs: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
 name: RevContent API Rate Limits
-description: RevContent's Stats and Management API uses OAuth 2.0 access tokens
-  with a 24-hour validity window. Specific numeric rate limits (requests per minute
-  or per hour) are not publicly documented; limits are enforced at the account level
-  and subject to account type and representative approval.
+description: >-
+  RevContent publishes NO rate limits. The provider's full machine-readable contract (287KB,
+  regenerated 2026-07-31) documents no request quota, no throttling window and no rate-limit
+  response header on any of its 43 operations, and neither does the help centre. An agent
+  integrating this API has no runtime signal to pace against — the only feedback available is a 500.
 url: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
 created: '2026-06-13'
-modified: '2026-06-13'
+modified: '2026-08-13'
 
-authentication:
-  type: OAuth 2.0 Client Credentials
-  tokenEndpoint: https://api.revcontent.io/oauth/token
-  grantType: client_credentials
-  tokenValidity: 24 hours
-  credentialsLocation: Account Settings page under "Stats API Credentials"
-  notes:
-    - API access must be enabled by an account representative before use.
-    - Credentials (client_id and client_secret) are available in Account Settings.
-    - Access tokens are passed as Bearer tokens in the Authorization header.
+limit_count: 0
 
-rateLimits:
-  - scope: API Token
-    description: Access tokens are valid for 24 hours and must be refreshed after
-      expiration via a new POST to the token endpoint.
-    windowSeconds: 86400
-    limit: null
-    notes: Numeric per-minute or per-hour request caps are not publicly disclosed.
+rate_limits: []
 
-  - scope: Bulk Update Safety
-    description: A "do_all" safety parameter was introduced in the Boosts API (March
-      2021) to prevent unintended bulk updates to all boosts. Callers must explicitly
-      pass this parameter to perform bulk operations.
-    limit: Explicit opt-in required
-    notes: Designed to prevent accidental mass campaign changes.
+response_headers:
+  published: []
+  checked:
+    - X-RateLimit-Limit
+    - X-RateLimit-Remaining
+    - X-RateLimit-Reset
+    - RateLimit-Limit
+    - RateLimit-Remaining
+    - RateLimit-Reset
+    - Retry-After
+  result: >-
+    None documented on any operation. Only Authorization and Content-type appear in the contract's
+    header definitions (plus Cookie on the CCPA submit call).
+  exhaustion_status_code: null
 
-  - scope: Minimum Bid Validation
-    description: The API enforces a minimum CPC bid of $0.01 for boost creation
-      and update endpoints, including targeting endpoints.
-    minimumBid: 0.01
-    currency: USD
-    notes: Bids below the minimum are rejected at the API level.
+related_ceilings:
+  description: >-
+    These are NOT rate limits. They are the quantitative constraints the API does enforce, recorded
+    here because they are what integrators most often mistake for rate limiting.
+  items:
+    - name: Access token lifetime
+      value: 86400 seconds
+      scope: per credential pair
+      detail: >-
+        Tokens from POST /oauth/token are valid 24 hours. No refresh token — re-POST client_id and
+        client_secret. A 401 mid-run almost always means the token aged out.
+    - name: Page size ceiling
+      value: 1000
+      scope: per list operation
+      detail: >-
+        `limit` defaults to 100 and caps at 1000 on most list operations — except
+        GET /stats/api/v1.0/widgets_geo, which caps at 100. Paired with `offset`. No total count and
+        no cursor is returned.
+    - name: Minimum CPC bid
+      value: 0.01 USD
+      scope: campaign and widget-target bids
+      detail: Enforced at the API since 2021-09-13. Lower values are rejected outright.
+    - name: Bulk-update safety opt-in
+      value: explicit parameter required
+      scope: bulk campaign updates
+      detail: >-
+        Introduced 2021-03-08 to stop an unscoped update from applying to every campaign on the
+        account.
+    - name: CCPA processing time
+      value: hours to fetch, up to 90 days to delete
+      scope: CCPA data requests
+      detail: Asynchronous. Not a rate limit, but it is the throughput constraint on that surface.
 
-  - scope: CCPA Data Processing
-    description: CCPA data requests submitted via the REST API are processed
-      asynchronously. Data deletion is completed within 90 days. No per-request
-      rate limit is published.
-    processingTime: Several hours for data fetch; up to 90 days for deletion
+access_gating:
+  self_serve: false
+  detail: >-
+    API access must be enabled by a RevContent account representative before Stats API credentials
+    appear in Account Settings. Whatever account-level throttling exists is negotiated with that
+    representative and is not published.
 
 notes:
-  - RevContent does not publicly document explicit request-per-minute or per-hour
-    rate limits in their help center documentation.
-  - Rate limiting behavior is enforced at the account level; contact your account
-    representative for specific limits applicable to your account type.
-  - The API changelog (last updated 2021) shows ongoing validation enforcement
-    at endpoint level for bids, targeting, and bulk operations.
+  - Absence recorded as data. limit_count is 0 because RevContent publishes zero numeric limits, not
+    because the search was incomplete.
+  - Without RateLimit-* or Retry-After headers there is no way for a client to back off correctly.
+    Treat 500 as the only pressure signal and pace bulk reads conservatively.

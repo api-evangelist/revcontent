@@ -1,0 +1,32 @@
+{
+  "success": true,
+  "data": [
+    {
+      "date": "2016-11-07",
+      "impressions": "185766183",
+      "viewable_impressions": "45665587",
+      "clicks": "519170",
+      "conversions": "0",
+      "ctr": "0.2795",
+      "vctr": "1.6795",
+      "average_cpc": "0.06643828",
+      "cost": "34492.7600",
+      "return": "0.0000",
+      "profit": "-34492.7600"
+    },
+    {
+      "date": "2016-11-06",
+      "impressions": "212554031",
+      "viewable_impressions": "0",
+      "clicks": "690782",
+      "conversions": "0",
+      "ctr": "0.3250",
+      "vctr": "1.6795",
+      "vtr": "0.000",
+      "average_cpc": "0.05746427",
+      "cost": "39695.2800",
+      "return": "0.0000",
+      "profit": "-39695.2800"
+    }
+  ]
+}

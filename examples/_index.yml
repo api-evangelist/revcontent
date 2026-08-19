@@ -1,0 +1,79 @@
+generated: '2026-08-13'
+method: searched
+source: https://api.revcontent.io/docs/stats/api_data.json
+description: >-
+  Request and response examples published by RevContent in its own generated API reference, saved
+  verbatim. These REPLACE an earlier hand-written set that was derived from a superseded,
+  prose-authored spec and used field names the API does not accept (bid, devices, traffic_type,
+  zip_codes, schedule_start/schedule_end) and a campaign status enum (active/paused/deleted) that
+  does not exist. Example credential values carried in the provider's own docs are replaced by the
+  pipeline's secret sanitizer.
+examples:
+  - file: access-token-response.json
+    operation: getOauthAccess
+    kind: response
+    note: >-
+      Reveals the token shape RevContent documents nowhere else — expires_in 86400, token_type
+      Bearer, and scope "advertiser publisher". This is the only published evidence that the API
+      has scopes at all.
+  - file: campaign-list-response.json
+    operation: getAllBoosts
+    kind: response
+  - file: campaign-list-error-response.json
+    operation: getAllBoosts
+    kind: error
+    note: The vendor error envelope, verbatim from the provider's 400 example.
+  - file: campaign-performance-response.json
+    operation: getBoostPerformance
+    kind: response
+  - file: campaign-settings-request.json
+    operation: postBoostSettings
+    kind: request
+    note: >-
+      Shows that settings is a partial update — the provider's example sends only a name field.
+  - file: campaign-widget-stats-response.json
+    operation: getWidgetStats
+    kind: response
+  - file: content-list-response.json
+    operation: getAllBoostContent
+    kind: response
+  - file: conversion-list-response.json
+    operation: getConversions
+    kind: response
+  - file: widget-list-response.json
+    operation: getAllWidgets
+    kind: response
+  - file: widget-subid-stats-response.json
+    operation: getSubIDStats
+    kind: response
+  - file: sub-account-list-response.json
+    operation: listAccounts
+    kind: response
+  - file: widget-blacklist-response.json
+    operation: getTargetsOptimizerWidgets
+    kind: response
+  - file: widget-blacklist-add-request.json
+    operation: postTargetsWidgetsOptimizerAdd
+    kind: request
+    note: 'Comma-separated widget IDs inside a single string: {"id": "32,35,57"}.'
+  - file: helpers-countries-response.json
+    operation: getCountries
+    kind: response
+  - file: helpers-devices-response.json
+    operation: getDevices
+    kind: response
+  - file: helpers-operating-systems-response.json
+    operation: getOperatingSystems
+    kind: response
+  - file: ccpa-submit-request.json
+    operation: postSubmitCCPARequest
+    kind: request
+    note: Form-encoded, not JSON.
+  - file: ccpa-data-request.json
+    operation: postUserData
+    kind: request
+notes:
+  - >-
+    No example exists for postBoostAdd. RevContent documents 26 body fields for campaign creation
+    and no worked example of the request, which is the single largest documentation gap on the
+    write path.

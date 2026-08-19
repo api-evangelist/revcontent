@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RevContent Conversions API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Conversions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Conversions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/conversions",
+            "params": [
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+              }
+            ]
+          },
+          "docs": "Get All Conversions"
+        },
+        {
+          "info": {
+            "name": "Add Conversion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revcontent.io/stats/api/v1.0/conversions/add",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add Conversion."
+        },
+        {
+          "info": {
+            "name": "Delete Conversion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revcontent.io/stats/api/v1.0/conversions/:conversion_id/delete",
+            "params": [
+              {
+                "name": "conversion_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+              }
+            ]
+          },
+          "docs": "Delete Conversion"
+        },
+        {
+          "info": {
+            "name": "Update Conversion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revcontent.io/stats/api/v1.0/conversions/:conversion_id/update",
+            "params": [
+              {
+                "name": "conversion_id",
+                "value": "",
+                "type": "path",
+                "description": "Conversion ID."
+              },
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Conversion Settings"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RevContent Targeting API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Targeting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Campaign Widget Targets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/boosts/:boost_id/widgets",
+            "params": [
+              {
+                "name": "boost_id",
+                "value": "",
+                "type": "path",
+                "description": "Campaign ID."
+              },
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+              },
+              {
+                "name": "enabled",
+                "value": "",
+                "type": "query",
+                "description": "Status of the targets. Values: \"enabled\", \"disabled\"."
+              },
+              {
+                "name": "date_from",
+                "value": "",
+                "type": "query",
+                "description": "Start date for the statistics in Y-m-d format."
+              },
+              {
+                "name": "date_to",
+                "value": "",
+                "type": "query",
+                "description": "End date for the statistics in Y-m-d format."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return. Max 1000. Default 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for the records to return."
+              }
+            ]
+          },
+          "docs": "Get all the campaign's current widget targets and the statistics for the given time period."
+        },
+        {
+          "info": {
+            "name": "Update Campaign Widget Targeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revcontent.io/stats/api/v1.0/boosts/:boost_id/widgets",
+            "params": [
+              {
+                "name": "boost_id",
+                "value": "",
+                "type": "path",
+                "description": "Campaign Id."
+              },
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update widget targets"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

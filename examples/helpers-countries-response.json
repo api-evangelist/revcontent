@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": "A2",
+      "name": "Satellite Provider"
+    },
+    {
+      "id": "AD",
+      "name": "Andorra"
+    }
+  ]
+}

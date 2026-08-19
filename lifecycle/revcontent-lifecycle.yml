@@ -1,0 +1,95 @@
+generated: '2026-08-13'
+method: probed
+source: https://help.revcontent.com/knowledge/api-changelog + live probes 2026-08-13
+description: >-
+  Lifecycle posture for the RevContent Stats & Management API. The headline finding is negative and
+  it was verified by probe: RevContent has no working status page, no deprecation policy, no SLA,
+  and a changelog that stopped in 2021 while the API kept changing.
+
+versioning:
+  scheme: uri-path
+  current: v1.0
+  form: https://api.revcontent.io/stats/api/v1.0/...
+  policy_url: null
+  note: >-
+    v1.0 has been the only version since the API was first documented. The provider's contract
+    reports version 0.1.0 on all 43 operations, which is an apiDoc default rather than a
+    per-operation version.
+
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  evidence: >-
+    No deprecation or versioning policy page exists on revcontent.com or help.revcontent.com. No
+    Sunset or Deprecation response header is documented on any of the 43 operations. Deprecations
+    have historically been announced only as one-line changelog entries, and the changelog stopped
+    in 2021.
+  observed_deprecations:
+    - item: bid_amount request field on campaign create
+      status: deprecated-in-contract
+      evidence: >-
+        'This is a deprecated parameter for backward compatibility, use default_bids section
+        instead' — POST /stats/api/v1.0/boosts/add, provider contract 2026-07-31.
+      openapi: openapi/revcontent-boosts-api-openapi.yml#postBoostAdd
+    - item: legacy targeting parameters
+      status: announced-deprecated 2020-10-14
+      evidence: https://help.revcontent.com/knowledge/api-changelog
+    - item: widget segments
+      status: announced-deprecated 2020-04-02
+      evidence: https://help.revcontent.com/knowledge/api-changelog
+    - item: traffic-types helper endpoint
+      status: silently-removed
+      evidence: >-
+        Announced 2020-10-14, present in earlier documentation, absent from the 2026-07-31
+        generated contract. No removal notice was published.
+
+deprecated_operations: []
+
+sla:
+  url: null
+  uptime_target: null
+  evidence: No SLA or uptime commitment is published on revcontent.com or in the help centre.
+
+status_page:
+  url: null
+  status: none
+  evidence:
+    - url: http://status.revcontent.com/
+      result: DNS does not resolve (dig +short returns nothing); curl exit with no HTTP status
+      checked: '2026-08-13'
+    - url: https://revcontent.statuspage.io/
+      http_status: 200
+      result: >-
+        Atlassian Statuspage exists but is disabled — the page body reads "RevContent Status - Page
+        Inactive ... This page is currently inactive and can only be viewed by team members." No
+        components, no status, no incident history.
+      checked: '2026-08-13'
+  correction: >-
+    apis.yml previously carried a StatusPage pointer to http://status.revcontent.com/. That host
+    does not resolve, so the pointer asserted an operational surface that does not exist. It has
+    been removed in this pass rather than re-pointed, because the alternative Statuspage instance
+    is explicitly inactive.
+
+changelog:
+  url: https://help.revcontent.com/knowledge/api-changelog
+  last_entry: '2021-09-13'
+  artifact: changelog/revcontent-changelog.yml
+  note: >-
+    Real, dated, operation-level — and 1,795 days stale at capture, while the contract it describes
+    was regenerated 2026-07-31. See the undocumented_drift block in the changelog artifact.
+
+support:
+  contact_url: https://www.revcontent.com/resources/contact-us
+  email: developer@revcontent.com
+  help_center: https://help.revcontent.com/knowledge
+  gating: >-
+    API access must be enabled by a RevContent account representative before Stats API credentials
+    are issued, so the lifecycle of a caller's access is account-managed, not self-serve.
+
+sdk_lifecycle:
+  note: >-
+    The client-SDK surface is the one place RevContent is currently shipping. iOS 0.2.0 released
+    2026-08-11, Android 0.2.1 released 2026-07-06, React Native 1.1.1 released 2025-10-23. All are
+    ad-delivery SDKs; none wraps the REST API. See packages/revcontent-packages.yml.

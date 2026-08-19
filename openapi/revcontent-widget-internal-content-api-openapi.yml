@@ -1,0 +1,432 @@
+openapi: 3.1.0
+info:
+  title: RevContent Widget Internal Content API
+  description: Publisher-owned internal content served inside a widget.
+  version: '1.0'
+  contact:
+    name: RevContent Support
+    url: https://www.revcontent.com/resources/contact-us
+    email: developer@revcontent.com
+servers:
+- url: https://api.revcontent.io
+  description: RevContent Production API
+security:
+- BearerAuth: []
+tags:
+- name: Widget Internal Content
+  description: Publisher-owned internal content served inside a widget.
+paths:
+  /stats/api/v1.0/widgets/{widget_id}/internal_content:
+    get:
+      operationId: getWidgetInternalContent
+      summary: Get Widget Internal Content
+      description: Get all the widgets's internal content and the statistics for the given time period.
+      tags:
+      - Widget Internal Content
+      x-permission:
+      - Publisher
+      parameters:
+      - name: widget_id
+        in: path
+        required: true
+        description: Widget ID.
+        schema:
+          type: number
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: 'User status of the content. Values: "enabled", "disabled". If is not passed,
+                    all status are included.'
+                devices:
+                  type: string
+                  description: 'List of devices. Values: "desktop, tablet, phone, unknown". If is not
+                    passed, all devices are included.'
+                date_from:
+                  type: string
+                  description: Start date for the statistics in Y-m-d format.
+                  default: first day of the month
+                date_to:
+                  type: string
+                  description: End date for the statistics in Y-m-d format.
+                  default: last day of the month date
+                limit:
+                  type: number
+                  description: Number of records to return. Max 100.
+                  default: 100
+                offset:
+                  type: number
+                  description: Offset for the records to return.
+                  default: 0
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: 'true'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        trending_id:
+                          type: string
+                          description: Content id
+                        headline:
+                          type: string
+                          description: Content headline
+                        target_url:
+                          type: string
+                          description: Content target_url
+                        image_url:
+                          type: string
+                          description: Content image_url
+                        status:
+                          type: string
+                          description: Content status ('approved','deleted','denied','pending')
+                        impressions:
+                          type: string
+                          description: Total number of impressions for selected content
+                        clicks:
+                          type: string
+                          description: Total number of clicks for selected content
+                        ctr:
+                          type: string
+                          description: CTR for selected date
+                      required:
+                      - trending_id
+                      - headline
+                      - target_url
+                      - image_url
+                      - status
+                      - impressions
+                      - clicks
+                      - ctr
+                    description: List of widget's internal content and their statistics
+                required:
+                - success
+                - data
+              example:
+                success: true
+                data:
+                - impressions: '0'
+                  clicks: '0'
+                  ctr: '0.0000'
+                  image_url: https://www.revcontent.com/assets/img/v2/widgets/cookie-cutter.png
+                  target_url: http://www.revcontent.com/link2
+                  headline: Cookie cutter rules
+                  provider: Foxnews
+                  created: '2016-07-13 18:28:24'
+                  updated: '2016-07-13 18:28:24'
+                  trending_id: '2099893'
+                  status: enabled
+                - impressions: '0'
+                  clicks: '0'
+                  ctr: '0.0000'
+                  image_url: https://www.revcontent.com/assets/img/v2/widgets/cookie-cutter.png
+                  target_url: http://www.revcontent.com/link1
+                  headline: Cookie cutter rules
+                  provider: Foxnews
+                  created: '2016-07-13 15:39:30'
+                  updated: '2016-07-13 15:39:30'
+                  trending_id: '2099892'
+                  status: enabled
+                - impressions: '0'
+                  clicks: '0'
+                  ctr: '0.0000'
+                  image_url: https://www.revcontent.com/assets/img/v2/widgets/cookie-cutter.png
+                  target_url: https://www.revcontent.com
+                  headline: Cookie cutter rules
+                  provider: Foxnews
+                  created: '2016-07-13 15:38:56'
+                  updated: '2016-07-13 15:38:56'
+                  trending_id: '2099891'
+                  status: enabled
+                - impressions: '0'
+                  clicks: '0'
+                  ctr: '0.0000'
+                  image_url: https://revcontent-production.s3.amazonaws.com/prod/assets/content_images/emb/fe5230513a5da294c39d0abdfb1406e0-0.png
+                  target_url: http://blog.revcontent.com/revcontent-honored-with-best-places-to-work-in-tampa-bay/
+                  headline: RevContent Honored with Best Places to Work in Tampa Bay!
+                  provider: RevContent
+                  created: '2016-04-30 20:00:04'
+                  updated: '2016-04-30 20:00:04'
+                  trending_id: '1759587'
+                  status: enabled
+                - impressions: '0'
+                  clicks: '0'
+                  ctr: '0.0000'
+                  image_url: https://revcontent-production.s3.amazonaws.com/prod/assets/content_images/emb/f29f1fe12df90411b7d54f5cbd878b34-0.png
+                  target_url: http://blog.revcontent.com/revcontent-video-overlay-launched-for-seamless-content-context/
+                  headline: RevContent Video Overlay Launched for Seamless Content Context
+                  provider: RevContent
+                  created: '2016-04-17 16:00:01'
+                  updated: '2016-04-17 16:00:01'
+                  trending_id: '1622432'
+                  status: enabled
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                errors:
+                  success: false
+                  status: 400
+                  title: Invalid parameters.
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Get Widget's Current Content
+        source: |-
+          curl -X GET \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/widgets/6512/internal_content?limit=5,devices=tablet,phone'
+  /stats/api/v1.0/widgets/{widget_id}/internal_content/add:
+    post:
+      operationId: postWidgetInternalContentAdd
+      summary: Add Widget Internal Content
+      description: Add Widget Internal Content.
+      tags:
+      - Widget Internal Content
+      x-permission:
+      - Publisher
+      parameters:
+      - name: widget_id
+        in: path
+        required: true
+        description: Widget ID.
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                target_url:
+                  type: string
+                  maxLength: 255
+                  description: 'Destination image URL. Supports: {CITY}, {STATE}, {COUNTRY}, {BOOST_ID},
+                    {CONTENT_ID}, {ACC_ID}, {WIDGET_ID}'
+                image:
+                  type: string
+                  description: 'URL for an image (up to 2MB). Allowed file types: jpg, jpeg, gif, png'
+                headline:
+                  type: string
+                  maxLength: 80
+                  description: 'Content headline. Supports: {CITY}, {STATE}, {COUNTRY}'
+                provider:
+                  type: string
+                  maxLength: 30
+                  description: Content provider brand name - Open to direct sell publishers only
+              required:
+              - target_url
+              - image
+              - headline
+              - provider
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Determines if content was updated.
+                  content:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        description: Content Id
+                      enabled:
+                        type: boolean
+                        description: Content enabled or not
+                    required:
+                    - id
+                    - enabled
+                required:
+                - success
+              example:
+                success: true
+                content:
+                  id: 2099892
+                  enabled: true
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 100
+                  title: Invalid Argument
+                  detail: Invalid ID value
+      x-codeSamples:
+      - lang: json
+        label: Add widget internal content
+        source: |-
+          curl -X POST \
+               -H "Content-Type: application/json" \
+               -H "Authorization: Bearer 552a2cb6cb120a001ea369be9ae21884735a6bd2" \
+               -H "Cache-Control: no-cache" \
+               -d '{"target_url" : "https://www.revcontent.com","image" : "https://www.revcontent.com/assets/img/v2/widgets/cookie-cutter.png","headline" : "Cookie cutter rules"}' \
+               'https://api.revcontent.io/stats/api/v1.0/widgets/6512/internal_content/add'
+  /stats/api/v1.0/widgets/{widget_id}/internal_content/update:
+    post:
+      operationId: postWidgetInternalContentUpdate
+      summary: Update Widget Internal Content
+      description: Update Widget Internal Content.
+      tags:
+      - Widget Internal Content
+      x-permission:
+      - Publisher
+      parameters:
+      - name: widget_id
+        in: path
+        required: true
+        description: Widget ID.
+        schema:
+          type: number
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: number
+                  description: Content ID. If is not included, provided values will be apply to all contents.
+                enabled:
+                  type: string
+                  description: 'Content status. Values: "on", "off".'
+                target_url:
+                  type: string
+                  maxLength: 255
+                  description: 'Destination image URL. Supports: {CITY}, {STATE}, {COUNTRY}, {BOOST_ID},
+                    {CONTENT_ID}, {ACC_ID}, {WIDGET_ID}'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Determines if content was updated.
+                required:
+                - success
+              example:
+                success: true
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 100
+                  title: Invalid Argument
+                  detail: Invalid ID value
+      x-codeSamples:
+      - lang: json
+        label: Update content
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               -d '{"id": 690, "enabled" : "on", "target_url":"http://www.mcngmarketing.com/foo"}' \
+               'https://api.revcontent.io/stats/api/v1.0/widgets/6512/internal_content/update'
+      - lang: json
+        label: Update multiple content
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               -d '[{"id": 690, "enabled": "on", "target_url":"http://www.mcngmarketing.com/foo"},{"id": 790, "enabled" : "off"}]' \
+               'https://api.revcontent.io/stats/api/v1.0/widgets/6512/internal_content/update'
+      - lang: json
+        label: Update all content
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               -d '{"enabled" : "off", "target_url":"http://www.mcngmarketing.com/foo"}' \
+               'https://api.revcontent.io/stats/api/v1.0/widgets/6512/internal_content/update'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for
+        24 hours.
+  schemas:
+    Error:
+      type: object
+      description: RevContent error envelope.
+      properties:
+        success:
+          type: boolean
+          const: false
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: integer
+                description: HTTP-aligned error code.
+              title:
+                type: string
+                description: Short error title.
+              detail:
+                type: string
+                description: Human readable error detail.
+x-source: https://api.revcontent.io/docs/stats/api_data.json
+x-source-format: apiDoc 0.17.7
+x-generated: '2026-08-13'
+x-method: derived

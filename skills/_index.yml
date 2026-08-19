@@ -1,0 +1,32 @@
+generated: '2026-08-13'
+method: generated
+source: >-
+  openapi/ (11 specs, 43 operations, transformed from RevContent's published apiDoc contract at
+  https://api.revcontent.io/docs/stats/api_data.json) + conventions/revcontent-conventions.yml +
+  errors/revcontent-problem-types.yml
+description: >-
+  Packaged Agent Skills for the RevContent Stats & Management API. Every step is grounded in an
+  operationId that exists verbatim in openapi/. RevContent publishes no AGENTS.md or skill files of
+  its own (checked across revcontent.com, help.revcontent.com and the 13 public repos in the
+  RevContent GitHub organization, 2026-08-13), so these are generated.
+skills:
+  - file: revcontent-launch-campaign.md
+    name: Launch a RevContent campaign
+    api: openapi/revcontent-boosts-api-openapi.yml
+    operations: [getOauthAccess, getCountries, getRegions, getDevices, getOperatingSystems, getLanguages, getBrowsers, getDmas, postBoostAdd, postBoostContentAdd, getAllBoosts, postBoostsStatus]
+  - file: revcontent-optimize-widget-spend.md
+    name: Optimize RevContent campaign spend by widget
+    api: openapi/revcontent-targeting-api-openapi.yml
+    operations: [getBoostPerformance, getWidgetStats, getBoostWidgets, postBoostWidgets, getTargetsOptimizerWidgets, postTargetsWidgetsOptimizerAdd, postTargetsWidgetsOptimizerRemove]
+  - file: revcontent-conversion-tracking.md
+    name: Set up RevContent CPA conversion tracking
+    api: openapi/revcontent-conversions-api-openapi.yml
+    operations: [getConversions, postConversionAdd, postConversionEdit, postConversionDelete, postBoostSettings, getBoostPerformance, getWidgetStats]
+  - file: revcontent-publisher-reporting.md
+    name: Pull RevContent publisher widget reporting
+    api: openapi/revcontent-widgets-api-openapi.yml
+    operations: [getAllWidgets, getAllWidgetsGeo, getSubIDStats, getWidgetInternalContent, postWidgetInternalContentAdd, postWidgetInternalContentUpdate]
+  - file: revcontent-ccpa-data-request.md
+    name: Handle a RevContent CCPA data request
+    api: openapi/revcontent-ccpa-api-openapi.yml
+    operations: [postSubmitCCPARequest, postUserData, postUsersData]

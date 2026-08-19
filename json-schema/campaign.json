@@ -1,0 +1,266 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/revcontent/refs/heads/main/json-schema/campaign.json",
+  "title": "Campaign",
+  "description": "A RevContent campaign (boost): budget, bidding, pacing, scheduling and all targeting.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Campaign id"
+    },
+    "name": {
+      "type": "string",
+      "description": "Campaign name"
+    },
+    "start_date": {
+      "type": "string",
+      "description": "Campaign Start date (YY-mm-dd HH:mm:ss)"
+    },
+    "end_date": {
+      "type": "string",
+      "description": "Campaign End date (YY-mm-dd HH:mm:ss)"
+    },
+    "enabled": {
+      "type": "string",
+      "description": "Campaign enabled or disabled ('active', 'inactive')"
+    },
+    "status": {
+      "type": "string",
+      "description": "Campaign status ('active','balance_issue','budget_exhausted','inactive','disabled','archived', 'non_archived')"
+    },
+    "bid_type": {
+      "type": "string",
+      "description": "Campaign Bid Type"
+    },
+    "default_bid": {
+      "type": "string",
+      "description": "Default bid for the campaign."
+    },
+    "min_bid": {
+      "type": "string",
+      "description": "Campaign Minimum CPC Bid"
+    },
+    "max_bid": {
+      "type": "string",
+      "description": "Campaign Maximum CPC Bid"
+    },
+    "budget": {
+      "type": "string",
+      "description": "Campaign Budget amount"
+    },
+    "pacing": {
+      "type": "string",
+      "description": "Campaign Pacing is available for all campaigns with a limited budget. Enabling pacing forces your budget to spend evenly throughout the day rather than spending as quickly as possible. If budget is set to 'unlimited', pacing will default to 'off'. Otherwise, default is 'on'."
+    },
+    "schedule": {
+      "type": "string",
+      "description": "Campaign Scheduling. Allows for setting hours where campaign is on. All other hours campaign is off. Ex. schedule: [15,16,17] Campaign will be on for 3pm - 5pm in your audiences time zone. Note: NULL value implies no schedule is set."
+    },
+    "impressions": {
+      "type": "string",
+      "description": "Total number of Impression for selected date"
+    },
+    "viewable_impressions": {
+      "type": "string",
+      "description": "Total number of Viewable Impressions for selected date"
+    },
+    "clicks": {
+      "type": "string",
+      "description": "Total number of clicks for selected date"
+    },
+    "conversions": {
+      "type": "string",
+      "description": "Total number of conversion for selected date"
+    },
+    "ctr": {
+      "type": "string",
+      "description": "CTR for selected date"
+    },
+    "vctr": {
+      "type": "string",
+      "description": "vCTR for selected date"
+    },
+    "avg_cpc": {
+      "type": "string",
+      "description": "Average CPC for selected date"
+    },
+    "cost": {
+      "type": "string",
+      "description": "Cost for selected date"
+    },
+    "return": {
+      "type": "string",
+      "description": "Return for selected date"
+    },
+    "profit": {
+      "type": "string",
+      "description": "Profit for selected date"
+    },
+    "utm_codes": {
+      "type": "string",
+      "description": "Campaign UTM codes"
+    },
+    "pixel_url": {
+      "type": "string",
+      "description": "Pixel URL"
+    },
+    "optimize": {
+      "type": "string",
+      "description": "Optimize for strategy ('cpc' or 'cpa')"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "When the campaign was created at."
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "When the campaign was last updated."
+    },
+    "country_codes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of ISO country abbreviations. Ex. country_codes\": [\"US\"]"
+    },
+    "device_targeting": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of device targeting for the campaign. Ex. device_targeting: [\"1\",\"2\"] See section Helpers :: Get Devices for values."
+    },
+    "os_targeting": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of operating systems for the campaign. Ex. device_targeting: [\"1\",\"2\"] See section Helpers :: Get Operating Systems for values. IDs must match device_targeting."
+    },
+    "region_codes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of regions codes Ex. region_codes\": [\"FL\",\"CA\"]"
+    },
+    "region_targeting": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Targeting type"
+    },
+    "language_targeting": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of languages targeting for the campaign. Ex. language_targeting: [\"1\",\"2\"] See section Helpers :: Get Languages for values."
+    },
+    "browser_targeting": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of browser targeting for the campaign. Only available when targeting Desktop device. Ex. browser_targeting: [\"1\",\"2\"] See section Helpers :: Get Browsers for values."
+    },
+    "dma_targeting": {
+      "type": "string",
+      "description": "DMA Targeting. Values: 'all', 'include', 'exclude'."
+    },
+    "dma_codes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of DMA codes for the campaign. See section Helpers :: Get DMA Codes"
+    },
+    "zipcode_targeting": {
+      "type": "string",
+      "description": "Zipcode Targeting. Values: 'all', 'include', 'exclude'."
+    },
+    "zipcode_codes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of valid US zip codes for the campaign. Ex: [\"11220\", \"34243\", \"48212\"]"
+    },
+    "pixels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Conversion pixel id."
+          },
+          "name": {
+            "type": "string",
+            "description": "Conversion pixel name."
+          },
+          "amount": {
+            "type": "string",
+            "description": "Conversion pixel amount."
+          },
+          "pixel": {
+            "type": "string",
+            "description": "Conversion pixel code."
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "amount",
+          "pixel"
+        ]
+      },
+      "description": "Conversion pixels information. Only included when conversion(s) exist."
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "start_date",
+    "end_date",
+    "enabled",
+    "status",
+    "bid_type",
+    "default_bid",
+    "min_bid",
+    "max_bid",
+    "budget",
+    "pacing",
+    "schedule",
+    "impressions",
+    "viewable_impressions",
+    "clicks",
+    "conversions",
+    "ctr",
+    "vctr",
+    "avg_cpc",
+    "cost",
+    "return",
+    "profit",
+    "utm_codes",
+    "pixel_url",
+    "optimize",
+    "created_at",
+    "updated_at",
+    "country_codes",
+    "device_targeting",
+    "os_targeting",
+    "region_codes",
+    "region_targeting",
+    "language_targeting",
+    "browser_targeting",
+    "dma_targeting",
+    "dma_codes",
+    "zipcode_targeting",
+    "zipcode_codes",
+    "pixels"
+  ],
+  "x-source": "https://api.revcontent.io/docs/stats/api_data.json#GetAllBoosts"
+}

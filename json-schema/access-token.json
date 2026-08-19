@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/revcontent/refs/heads/main/json-schema/access-token.json",
+  "title": "AccessToken",
+  "description": "The OAuth 2.0 client-credentials token response from POST /oauth/token.",
+  "type": "object",
+  "properties": {
+    "access_token": {
+      "type": "string",
+      "description": "Bearer token to send as 'Authorization: Bearer {access_token}'."
+    },
+    "expires_in": {
+      "type": "integer",
+      "description": "Token lifetime in seconds. RevContent issues 86400 (24 hours).",
+      "const": 86400
+    },
+    "token_type": {
+      "type": "string",
+      "description": "Always 'Bearer'.",
+      "const": "Bearer"
+    },
+    "scope": {
+      "type": "string",
+      "description": "Space-delimited roles granted to this credential pair. Observed value: 'advertiser publisher'. Not requestable."
+    }
+  },
+  "required": [
+    "access_token",
+    "expires_in",
+    "token_type"
+  ],
+  "x-source": "https://api.revcontent.io/docs/stats/api_data.json#GetOauthAccess"
+}

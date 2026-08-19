@@ -1,0 +1,60 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": "218",
+      "name": "Test Widget 1",
+      "widget_imps": "149756",
+      "page_views": "149756",
+      "ad_ctr": "7.1189",
+      "ad_clicks": "10661",
+      "ad_cpc": "0.05792852",
+      "ad_rpm": "4.123881513929325035390902",
+      "ad_revenue": "617.57600000000000000000"
+    },
+    {
+      "id": "219",
+      "name": "Test Widget 2",
+      "widget_imps": "107",
+      "page_views": "107",
+      "ad_ctr": "8.4112",
+      "ad_clicks": "9",
+      "ad_cpc": "0.27294444",
+      "ad_rpm": "22.957943925233644859813084",
+      "ad_revenue": "2.45650000000000000000"
+    },
+    {
+      "id": "220",
+      "name": "Test Widget 3",
+      "widget_imps": "25977",
+      "page_views": "25977",
+      "ad_ctr": "0.0154",
+      "ad_clicks": "4",
+      "ad_cpc": "0.06375000",
+      "ad_rpm": "0.009816376024945143781037",
+      "ad_revenue": "0.25500000000000000000"
+    },
+    {
+      "id": "221",
+      "name": "Test Widget 4",
+      "widget_imps": "121904",
+      "page_views": "121904",
+      "ad_ctr": "2.1845",
+      "ad_clicks": "2663",
+      "ad_cpc": "0.06075122",
+      "ad_rpm": "1.327113958524740779629872",
+      "ad_revenue": "161.78050000000000000000"
+    },
+    {
+      "id": "222",
+      "name": "Test Widget 5",
+      "widget_imps": "99914",
+      "page_views": "99914",
+      "ad_ctr": "0.0230",
+      "ad_clicks": "23",
+      "ad_cpc": "0.54991304",
+      "ad_rpm": "0.126588866425125608022899",
+      "ad_revenue": "12.64800000000000000000"
+    }
+  ]
+}

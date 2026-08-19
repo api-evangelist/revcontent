@@ -1,0 +1,356 @@
+openapi: 3.1.0
+info:
+  title: RevContent Sub Accounts API
+  description: Create, edit, list and enable/disable sub accounts under a parent account.
+  version: '1.0'
+  contact:
+    name: RevContent Support
+    url: https://www.revcontent.com/resources/contact-us
+    email: developer@revcontent.com
+servers:
+- url: https://api.revcontent.io
+  description: RevContent Production API
+security:
+- BearerAuth: []
+tags:
+- name: Sub Accounts
+  description: Create, edit, list and enable/disable sub accounts under a parent account.
+paths:
+  /stats/api/v1.0/sub_accounts/add_account:
+    post:
+      operationId: addAccount
+      summary: Add Account
+      description: Add Account Data
+      tags:
+      - Sub Accounts
+      x-permission:
+      - Advertiser, Publisher
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Full name
+                email:
+                  type: string
+                  description: User email
+                permissions:
+                  type: string
+                  description: 'Permission. Allowed options: full or child'
+              required:
+              - name
+              - email
+              - permissions
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Determines if account is added.
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        account_id:
+                          type: number
+                          description: Created Account ID
+                      required:
+                      - account_id
+                    description: Sub Account Data
+                required:
+                - success
+                - data
+              example:
+                success: true
+                data:
+                  account_id: 2323444
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 400
+                  title: Missing parameter
+                  detail: Invalid Parameters sent
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Edit Account
+        source: |-
+          curl -X GET \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/sub_accounts/add_account'
+  /stats/api/v1.0/sub_accounts/edit_account:
+    post:
+      operationId: editAccount
+      summary: Edit Account
+      description: Edit Account Data
+      tags:
+      - Sub Accounts
+      x-permission:
+      - Advertiser, Publisher
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: number
+                  description: Sub Account ID
+                email:
+                  type: string
+                  description: User email
+                name:
+                  type: string
+                  description: Full name
+                permissions:
+                  type: string
+                  description: 'Permission. Allowed options: full or child'
+              required:
+              - user_id
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Determines if account is updated.
+                required:
+                - success
+              example:
+                success: true
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 400
+                  title: Missing parameter
+                  detail: Invalid Parameters sent
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Edit Account
+        source: |-
+          curl -X GET \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/sub_accounts/edit_account'
+  /stats/api/v1.0/sub_accounts/list_accounts:
+    get:
+      operationId: listAccounts
+      summary: List Accounts
+      description: Get list of sub accounts
+      tags:
+      - Sub Accounts
+      x-permission:
+      - Advertiser, Publisher
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        user_id:
+                          type: string
+                          description: Account ID
+                        user_email:
+                          type: string
+                          description: Account Email
+                        status:
+                          type: string
+                          description: Account Status
+                        created:
+                          type: string
+                          description: Account Created Date
+                      required:
+                      - user_id
+                      - user_email
+                      - status
+                      - created
+                    description: List of Sub Accounts
+                required:
+                - data
+              example:
+                success: true
+                data:
+                - user_id: '1'
+                  user_email: user@example.com
+                  status: active
+                  permissions: full
+                  created: '2021-05-01 14:15:10'
+                - user_id: '2'
+                  user_email: another@example.com
+                  status: pending
+                  permissions: child
+                  created: '2021-05-02 14:15:10'
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error 500
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                errors:
+                - code: 500
+                  title: There was a problem serving the requested information. Try again, the problem
+                    may be temporary. Please contact support if the problem persists.
+      x-codeSamples:
+      - lang: json
+        label: List Accounts
+        source: |-
+          curl -X GET \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/sub_accounts/list_accounts'
+  /stats/api/v1.0/sub_accounts/update_account_status:
+    post:
+      operationId: updateAccountStatus
+      summary: Update Account Status
+      description: Enable or Disable Sub Account
+      tags:
+      - Sub Accounts
+      x-permission:
+      - Advertiser, Publisher
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: number
+                  description: Sub Account ID
+                status:
+                  type: string
+                  description: 'Account status. Allowed options: active or terminated'
+                  default: active
+              required:
+              - user_id
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Determines if account was updated.
+                required:
+                - success
+              example:
+                success: true
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 400
+                  title: Missing parameter
+                  detail: Invalid Parameters sent
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Update Account Status
+        source: |-
+          curl -X GET \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/sub_accounts/update_account_status'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for
+        24 hours.
+  schemas:
+    Error:
+      type: object
+      description: RevContent error envelope.
+      properties:
+        success:
+          type: boolean
+          const: false
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: integer
+                description: HTTP-aligned error code.
+              title:
+                type: string
+                description: Short error title.
+              detail:
+                type: string
+                description: Human readable error detail.
+x-source: https://api.revcontent.io/docs/stats/api_data.json
+x-source-format: apiDoc 0.17.7
+x-generated: '2026-08-13'
+x-method: derived

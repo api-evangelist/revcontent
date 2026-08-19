@@ -1,57 +1,107 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://api.revcontent.io/schemas/content-item",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/revcontent/refs/heads/main/json-schema/content-item.json",
   "title": "ContentItem",
-  "description": "A RevContent ad content item associated with a boost, including performance metrics.",
+  "description": "An ad creative attached to a campaign, with its performance metrics.",
   "type": "object",
   "properties": {
-    "content_id": {
-      "type": "integer",
-      "description": "Unique content item identifier"
-    },
     "boost_id": {
-      "type": "integer",
-      "description": "Identifier of the parent boost"
+      "type": "string",
+      "description": "Campaign id"
+    },
+    "content_id": {
+      "type": "string",
+      "description": "Content id"
     },
     "headline": {
       "type": "string",
-      "description": "Ad content headline text"
+      "description": "Content headline"
+    },
+    "target_url": {
+      "type": "string",
+      "description": "Content target_url"
     },
     "image_url": {
       "type": "string",
-      "format": "uri",
-      "description": "URL of the content image"
+      "description": "Content image_url"
+    },
+    "brand_name": {
+      "type": "string",
+      "description": "Content brand_name"
+    },
+    "admin_status": {
+      "type": "string",
+      "description": "Content status ('approved','deleted','denied','pending')"
+    },
+    "enabled": {
+      "type": "string",
+      "description": "Content User Status ('active', 'inactive')"
+    },
+    "utm_codes": {
+      "type": "string",
+      "description": "UTM codes"
+    },
+    "avg_position": {
+      "type": "string",
+      "description": "Average position"
     },
     "impressions": {
-      "type": "integer",
-      "minimum": 0,
-      "description": "Total impressions served"
+      "type": "string",
+      "description": "Total number of impressions for selected content"
     },
     "clicks": {
-      "type": "integer",
-      "minimum": 0,
-      "description": "Total clicks recorded"
-    },
-    "ctr": {
-      "type": "number",
-      "minimum": 0,
-      "description": "Click-through rate (clicks / impressions)"
-    },
-    "spend": {
-      "type": "number",
-      "minimum": 0,
-      "description": "Total spend in USD"
+      "type": "string",
+      "description": "Total number of clicks for selected content"
     },
     "conversions": {
-      "type": "integer",
-      "minimum": 0,
-      "description": "Total conversions attributed"
+      "type": "string",
+      "description": "Total number of conversion for selected content"
     },
-    "cost_per_conversion": {
-      "type": "number",
-      "minimum": 0,
-      "description": "Average cost per conversion in USD"
+    "ctr": {
+      "type": "string",
+      "description": "CTR for selected date"
+    },
+    "avg_cpc": {
+      "type": "string",
+      "description": "Average CPC for selected content"
+    },
+    "cost": {
+      "type": "string",
+      "description": "Cost for selected content"
+    },
+    "cost_per_conv": {
+      "type": "string",
+      "description": "Cost per conversion for selected content"
+    },
+    "return": {
+      "type": "string",
+      "description": "Return for selected content"
+    },
+    "profit": {
+      "type": "string",
+      "description": "Profit for selected content"
     }
   },
-  "required": ["content_id", "boost_id"]
+  "required": [
+    "boost_id",
+    "content_id",
+    "headline",
+    "target_url",
+    "image_url",
+    "brand_name",
+    "admin_status",
+    "enabled",
+    "utm_codes",
+    "avg_position",
+    "impressions",
+    "clicks",
+    "conversions",
+    "ctr",
+    "avg_cpc",
+    "cost",
+    "cost_per_conv",
+    "return",
+    "profit"
+  ],
+  "x-source": "https://api.revcontent.io/docs/stats/api_data.json#GetAllBoostContent"
 }

@@ -1,0 +1,121 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.revcontent.com/policy/security + openapi/ + https://api.revcontent.io/docs/stats/api_data.json
+description: >-
+  Which cross-cutting standards and compliance programs the RevContent API and platform actually
+  conform to. Standards claims are derived from the provider's published contract; compliance
+  claims are read from RevContent's own security policy page.
+
+standards:
+  - id: oauth2-client-credentials
+    conforms: true
+    evidence: >-
+      POST https://api.revcontent.io/oauth/token with grant_type=client_credentials, client_id and
+      client_secret, application/x-www-form-urlencoded, returning a bearer access_token valid 24h.
+      RFC 6749 section 4.4.
+  - id: rfc6750-bearer-token
+    conforms: true
+    evidence: 'Authorization: Bearer {access token} on every one of the 43 documented operations.'
+  - id: oauth2-scopes
+    conforms: partial
+    evidence: >-
+      Scopes exist but are not requestable. The documented token response returns
+      "scope": "advertiser publisher", and every operation carries an advertiser/publisher
+      permission marker, but the token request accepts no scope parameter and no scopes reference
+      page is published. Sub-account reach is unscoped entirely. See scopes/revcontent-scopes.yml.
+  - id: oidc
+    conforms: false
+    evidence: /.well-known/openid-configuration 404 on all three hosts (2026-08-13).
+  - id: rfc8414-oauth-authorization-server-metadata
+    conforms: false
+    evidence: /.well-known/oauth-authorization-server 404 on all three hosts (2026-08-13).
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors use a vendor envelope {"success": false, "errors":[{code,title,detail}]} with
+      application/json, not application/problem+json. See errors/revcontent-problem-types.yml.
+  - id: openapi
+    conforms: false
+    evidence: >-
+      RevContent publishes no OpenAPI. Its machine-readable contract is apiDoc 0.17.7 JSON at
+      https://api.revcontent.io/docs/stats/api_data.json. The specs in openapi/ are API Evangelist's
+      faithful transform of that document.
+  - id: asyncapi
+    conforms: false
+    evidence: No event, streaming or webhook surface is documented. Nothing to describe.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: /.well-known/security.txt 404 on all three hosts (2026-08-13).
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: No Sunset or Deprecation header documented on any operation.
+  - id: ietf-ratelimit-headers
+    conforms: false
+    evidence: No RateLimit-* or X-RateLimit-* header documented; no published quota.
+  - id: idempotency-key
+    conforms: false
+    evidence: >-
+      Zero occurrences of "idempot" in the 287KB published contract. No client-supplied request
+      identifier on any write.
+  - id: pagination-limit-offset
+    conforms: true
+    evidence: >-
+      limit (default 100, max 1000; max 100 on widgets_geo) and offset on 8 list operations. No
+      total count, cursor or Link header.
+  - id: iso-3166-country-codes
+    conforms: true
+    evidence: >-
+      country_codes takes ISO country abbreviations; GET /stats/api/v1.0/countries is the reference
+      list. region_codes takes ISO country-region abbreviations.
+  - id: ccpa
+    conforms: true
+    evidence: >-
+      Dedicated CCPA API — POST /data_requests/submit, /data_requests/data, /data_requests/multiple_data
+      — plus https://help.revcontent.com/knowledge/ccpa-data-request-data-deletion-request-api.
+      Deletion completes within 90 days.
+  - id: gdpr
+    conforms: true
+    evidence: >-
+      https://www.revcontent.com/policy/security documents GDPR breach-notification obligations and
+      the technical/organisational measures framing; https://www.revcontent.com/policy/privacy-policy
+      documents data-subject rights.
+  - id: eu-us-data-privacy-framework
+    conforms: true
+    evidence: >-
+      https://www.revcontent.com/policy/security states participation in the EU-U.S. Data Privacy
+      Framework and the Swiss-U.S. Data Privacy Framework.
+
+compliance_program:
+  url: https://www.revcontent.com/policy/security
+  published: true
+  measures:
+    - Encryption at rest via AWS KMS; encryption in transit via TLS/HTTPS
+    - Multi-factor authentication and VPN-gated access
+    - Automated vulnerability scanning and intrusion detection
+    - Multi-location data replication
+    - Documented incident response and breach notification
+    - Personnel security training every 18 months, confidentiality acknowledgements
+  certifications_claimed:
+    - name: ISO 27001
+      held_by: AWS (infrastructure provider)
+      first_party: false
+    - name: SOC 2
+      held_by: AWS (infrastructure provider)
+      first_party: false
+    - name: EU-U.S. Data Privacy Framework
+      held_by: RevContent
+      first_party: true
+    - name: Swiss-U.S. Data Privacy Framework
+      held_by: RevContent
+      first_party: true
+  caveat: >-
+    IMPORTANT — RevContent's security page attributes ISO 27001 and SOC 2 to AWS, its hosting
+    provider, not to RevContent. Do not read those as RevContent certifications. The only
+    first-party attestations named on the page are the two Data Privacy Framework participations.
+  no_trust_center: >-
+    trust.revcontent.com and security.revcontent.com do not resolve (2026-08-13). There is no trust
+    portal, no report request flow and no subprocessor list, so no TrustCenter pointer is emitted.
+  no_vulnerability_disclosure: >-
+    The security page names no security@ address, no responsible-disclosure process and no bug
+    bounty. /.well-known/security.txt 404s on every host. No VulnerabilityDisclosure pointer is
+    emitted.

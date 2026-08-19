@@ -1,0 +1,360 @@
+openapi: 3.1.0
+info:
+  title: RevContent Conversions API
+  description: Conversion pixel management used by CPA-optimized campaigns.
+  version: '1.0'
+  contact:
+    name: RevContent Support
+    url: https://www.revcontent.com/resources/contact-us
+    email: developer@revcontent.com
+servers:
+- url: https://api.revcontent.io
+  description: RevContent Production API
+security:
+- BearerAuth: []
+tags:
+- name: Conversions
+  description: Conversion pixel management used by CPA-optimized campaigns.
+paths:
+  /stats/api/v1.0/conversions:
+    get:
+      operationId: getConversions
+      summary: Get All Conversions
+      description: Get All Conversions
+      tags:
+      - Conversions
+      x-permission:
+      - Advertiser
+      parameters:
+      - name: sub_account_id
+        in: query
+        required: false
+        description: Sub Account ID. By default all actions are for your user account if sub account ID
+          is not specified.
+        schema:
+          type: number
+      responses:
+        '100':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 100
+                  title: Invalid Argument
+                  detail: Invalid ID value
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: 'true'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                          description: Conversion id
+                        name:
+                          type: string
+                          description: Conversion name
+                        amount:
+                          type: string
+                          description: Conversion amount
+                      required:
+                      - id
+                      - name
+                      - amount
+                    description: List of user conversions
+                required:
+                - success
+                - data
+              example:
+                success: true
+                data:
+                - id: 1
+                  name: Conversion 1
+                  amount: '1.75'
+                - id: 2
+                  name: Conversion 2
+                  amount: '1.00'
+                - id: 3
+                  name: Conversion 3
+                  amount: '2.00'
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Get All Conversions
+        source: |-
+          curl -X GET \
+               https://api.revcontent.io/stats/api/v1.0/conversions \
+               -H 'authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d' \
+               -H 'cache-control: no-cache' \
+               -H 'content-type: application/json'
+  /stats/api/v1.0/conversions/add:
+    post:
+      operationId: postConversionAdd
+      summary: Add Conversion
+      description: Add Conversion.
+      tags:
+      - Conversions
+      x-permission:
+      - Advertiser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sub_account_id:
+                  type: number
+                  description: Sub Account ID. By default all actions are for your user account if sub
+                    account ID is not specified.
+                name:
+                  type: string
+                  description: Conversion name
+                amount:
+                  type: string
+                  description: Conversion amount
+              required:
+              - name
+              - amount
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Determines if conversion was updated.
+                  conversion_id:
+                    type: number
+                    description: Conversion ID
+                required:
+                - success
+                - conversion_id
+              example:
+                success: true
+                conversion_id: 900
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 100
+                  title: Invalid Argument
+                  detail: Invalid ID value
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Add Conversion
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               -d '{"name":"Conversion 1","amount":"1.75"}' \
+               'https://api.revcontent.io/stats/api/v1.0/conversions/add'
+  /stats/api/v1.0/conversions/{conversion_id}/delete:
+    post:
+      operationId: postConversionDelete
+      summary: Delete Conversion
+      description: Delete Conversion
+      tags:
+      - Conversions
+      x-permission:
+      - Advertiser
+      parameters:
+      - name: conversion_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: sub_account_id
+        in: query
+        required: false
+        description: Sub Account ID. By default all actions are for your user account if sub account ID
+          is not specified.
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Determines if the conversion was deleted.
+                required:
+                - success
+              example:
+                success: true
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 400
+                  title: Invalid Parameters
+                  detail: Invalid Parameters sent
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Delete Conversion
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/conversions/308/delete'
+  /stats/api/v1.0/conversions/{conversion_id}/update:
+    post:
+      operationId: postConversionEdit
+      summary: Update Conversion
+      description: Update Conversion Settings
+      tags:
+      - Conversions
+      x-permission:
+      - Advertiser
+      parameters:
+      - name: conversion_id
+        in: path
+        required: true
+        description: Conversion ID.
+        schema:
+          type: number
+      - name: sub_account_id
+        in: query
+        required: false
+        description: Sub Account ID. By default all actions are for your user account if sub account ID
+          is not specified.
+        schema:
+          type: number
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Conversion name.
+                amount:
+                  type: string
+                  description: Conversion amount.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Determines if the conversion was updated.
+                required:
+                - success
+              example:
+                success: true
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 400
+                  title: Invalid Parameters
+                  detail: Invalid Parameters sent
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Update Conversion
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               -d '{"name": "New Conversion Name", "amount": "1.99"}' \
+               'https://api.revcontent.io/stats/api/v1.0/conversions/308/update'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for
+        24 hours.
+  schemas:
+    Error:
+      type: object
+      description: RevContent error envelope.
+      properties:
+        success:
+          type: boolean
+          const: false
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: integer
+                description: HTTP-aligned error code.
+              title:
+                type: string
+                description: Short error title.
+              detail:
+                type: string
+                description: Human readable error detail.
+x-source: https://api.revcontent.io/docs/stats/api_data.json
+x-source-format: apiDoc 0.17.7
+x-generated: '2026-08-13'
+x-method: derived

@@ -1,15 +1,13 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
-  title: RevContent Stats & Management Access Helpers API
-  description: 'REST API providing programmatic access to RevContent''s native advertising platform for managing boosts (campaigns), widgets, content, targeting, bidding, and statistical reporting. Authenticated via OAuth 2.0 client credentials flow. Access tokens are valid for 24 hours.
-
-    '
+  title: RevContent Helpers API
+  description: Reference lookups for browsers, countries, devices, DMAs, languages, operating systems
+    and regions.
   version: '1.0'
   contact:
     name: RevContent Support
     url: https://www.revcontent.com/resources/contact-us
     email: developer@revcontent.com
-  x-api-changelog: https://help.revcontent.com/knowledge/api-changelog
 servers:
 - url: https://api.revcontent.io
   description: RevContent Production API
@@ -17,132 +15,538 @@ security:
 - BearerAuth: []
 tags:
 - name: Helpers
-  description: Reference data for devices, OS, traffic types, and DMAs
+  description: Reference lookups for browsers, countries, devices, DMAs, languages, operating systems
+    and regions.
 paths:
-  /stats/api/v1.0/helpers/devices:
+  /stats/api/v1.0/browsers:
+    get:
+      operationId: getBrowsers
+      summary: Get Browsers
+      description: Get supported browser list
+      tags:
+      - Helpers
+      x-permission:
+      - Advertiser
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Browser id
+                        name:
+                          type: string
+                          description: Browser name
+                      required:
+                      - id
+                      - name
+                    description: List of Browsers
+                required:
+                - data
+              example:
+                success: true
+                data:
+                - id: '1'
+                  name: Browser name 1
+                - id: '2'
+                  name: Browser name 2
+                - id: '3'
+                  name: Browser name 3
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error 500
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                errors:
+                - code: 500
+                  title: There was a problem serving the requested information. Try again, the problem
+                    may be temporary. Please contact support if the problem persists.
+      x-codeSamples:
+      - lang: json
+        label: Get Languages
+        source: |-
+          curl -X GET \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/languages'
+  /stats/api/v1.0/countries:
+    get:
+      operationId: getCountries
+      summary: Get Countries
+      description: Get list of Country codes
+      tags:
+      - Helpers
+      x-permission:
+      - Advertiser
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Country id
+                        name:
+                          type: string
+                          description: Country name
+                      required:
+                      - id
+                      - name
+                    description: List of countries
+                required:
+                - data
+              example:
+                success: true
+                data:
+                - id: A2
+                  name: Satellite Provider
+                - id: AD
+                  name: Andorra
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error 500
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                errors:
+                - code: 500
+                  title: There was a problem serving the requested information. Try again, the problem
+                    may be temporary. Please contact support if the problem persists.
+      x-codeSamples:
+      - lang: json
+        label: Get countries
+        source: |-
+          curl -X GET \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/countries'
+  /stats/api/v1.0/devices:
     get:
       operationId: getDevices
       summary: Get Devices
-      description: Returns top-level device categories available for targeting.
+      description: Get supported devices
       tags:
       - Helpers
+      x-permission:
+      - Advertiser
       responses:
         '200':
-          description: List of device categories
+          description: Successful response.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeviceListResponse'
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Device id
+                        name:
+                          type: string
+                          description: Device name
+                      required:
+                      - id
+                      - name
+                    description: List of devices
+                required:
+                - data
+              example:
+                success: true
+                data:
+                - id: '1'
+                  name: device 1
+                - id: '2'
+                  name: device 2
+                - id: '3'
+                  name: device 3
         '401':
-          description: Unauthorized
-  /stats/api/v1.0/helpers/operating-systems:
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error 500
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                errors:
+                - code: 500
+                  title: There was a problem serving the requested information. Try again, the problem
+                    may be temporary. Please contact support if the problem persists.
+      x-codeSamples:
+      - lang: json
+        label: Get Devices
+        source: |-
+          curl -X GET \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/devices'
+  /stats/api/v1.0/dmas:
+    get:
+      operationId: getDmas
+      summary: Get DMA List
+      description: Get list of DMAs
+      tags:
+      - Helpers
+      x-permission:
+      - Advertiser
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: DMA ID
+                        name:
+                          type: string
+                          description: DMA Name
+                      required:
+                      - id
+                      - name
+                    description: List of DMAs
+                required:
+                - data
+              example:
+                success: true
+                data:
+                - id: '501'
+                  name: New York
+                - id: '803'
+                  name: Los Angeles
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error 500
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                errors:
+                - code: 500
+                  title: There was a problem serving the requested information. Try again, the problem
+                    may be temporary. Please contact support if the problem persists.
+      x-codeSamples:
+      - lang: json
+        label: Get dmas
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/dmas'
+  /stats/api/v1.0/languages:
+    get:
+      operationId: getLanguages
+      summary: Get Languages
+      description: Get supported languages list
+      tags:
+      - Helpers
+      x-permission:
+      - Advertiser
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Language id
+                        name:
+                          type: string
+                          description: Language name
+                      required:
+                      - id
+                      - name
+                    description: List of languages
+                required:
+                - data
+              example:
+                success: true
+                data:
+                - id: '1'
+                  name: language name 1
+                - id: '2'
+                  name: language name 2
+                - id: '3'
+                  name: language name 3
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error 500
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                errors:
+                - code: 500
+                  title: There was a problem serving the requested information. Try again, the problem
+                    may be temporary. Please contact support if the problem persists.
+      x-codeSamples:
+      - lang: json
+        label: Get Languages
+        source: |-
+          curl -X GET \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/languages'
+  /stats/api/v1.0/os:
     get:
       operationId: getOperatingSystems
-      summary: Get Operating Systems
-      description: Maps devices to compatible operating system targets.
+      summary: Get Operating Systems List
+      description: Get list of Operating Systems For All Devices
       tags:
       - Helpers
+      x-permission:
+      - Advertiser
       responses:
         '200':
-          description: Operating systems mapped to devices
+          description: Successful response.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OperatingSystemListResponse'
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: array
+                          items:
+                            type: string
+                          description: Device Type
+                      required:
+                      - type
+                    description: List of Operating Systems
+                required:
+                - data
+              example:
+                success: true
+                data:
+                - id: '4'
+                  name: android
+                  allowed_devices:
+                  - mobile
+                  - tablet
+                - id: '5'
+                  name: ios
+                  allowed_devices:
+                  - mobile
+                  - tablet
+                - id: '6'
+                  name: windows
+                  allowed_devices:
+                  - mobile
+                  - tablet
+                - id: '7'
+                  name: macos
+                  allowed_devices:
+                  - desktop
+                - id: '8'
+                  name: windows
+                  allowed_devices:
+                  - desktop
         '401':
-          description: Unauthorized
-  /stats/api/v1.0/helpers/traffic-types:
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error 500
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                errors:
+                - code: 500
+                  title: There was a problem serving the requested information. Try again, the problem
+                    may be temporary. Please contact support if the problem persists.
+      x-codeSamples:
+      - lang: json
+        label: Get Operating Systems
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/os'
+  /stats/api/v1.0/regions:
     get:
-      operationId: getTrafficTypes
-      summary: Get Traffic Types
-      description: Provides traffic type identifiers for targeting.
+      operationId: getRegions
+      summary: Get Regions
+      description: Get list of Regions by Country code
       tags:
       - Helpers
+      x-permission:
+      - Advertiser
+      parameters:
+      - name: country
+        in: query
+        required: true
+        description: Country Code
+        schema:
+          type: string
       responses:
         '200':
-          description: List of traffic types
+          description: Successful response.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TrafficTypeListResponse'
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Region id
+                        name:
+                          type: string
+                          description: Region name
+                      required:
+                      - id
+                      - name
+                    description: List of Regions
+                required:
+                - data
+              example:
+                success: true
+                data:
+                - id: FL
+                  name: Florida
+                - id: CA
+                  name: California
         '401':
-          description: Unauthorized
-  /stats/api/v1.0/helpers/dma:
-    get:
-      operationId: getDMAList
-      summary: Get DMA List
-      description: Supplies designated market area (DMA) names and codes for geo-targeting.
-      tags:
-      - Helpers
-      responses:
-        '200':
-          description: List of DMA codes and names
+          description: Missing or invalid access token.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DMAListResponse'
-        '401':
-          description: Unauthorized
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error 500
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                errors:
+                - code: 500
+                  title: There was a problem serving the requested information. Try again, the problem
+                    may be temporary. Please contact support if the problem persists.
+      x-codeSamples:
+      - lang: json
+        label: Get regions
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/regions?country=US'
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for
+        24 hours.
   schemas:
-    TrafficTypeListResponse:
+    Error:
       type: object
+      description: RevContent error envelope.
       properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              name:
-                type: string
-                description: Traffic type name
-    OperatingSystemListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              device_id:
-                type: integer
-              os_id:
-                type: integer
-              name:
-                type: string
-                description: Operating system name
-    DeviceListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              name:
-                type: string
-                description: Top-level device category name
-    DMAListResponse:
-      type: object
-      properties:
-        data:
+        success:
+          type: boolean
+          const: false
+        errors:
           type: array
           items:
             type: object
             properties:
               code:
+                type: integer
+                description: HTTP-aligned error code.
+              title:
                 type: string
-                description: DMA code
-              name:
+                description: Short error title.
+              detail:
                 type: string
-                description: Designated market area name
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: OAuth 2.0 Bearer token obtained from /oauth/token
+                description: Human readable error detail.
+x-source: https://api.revcontent.io/docs/stats/api_data.json
+x-source-format: apiDoc 0.17.7
+x-generated: '2026-08-13'
+x-method: derived

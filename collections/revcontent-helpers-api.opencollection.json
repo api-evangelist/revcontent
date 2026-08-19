@@ -1,0 +1,109 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RevContent Helpers API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Helpers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Browsers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/browsers"
+          },
+          "docs": "Get supported browser list"
+        },
+        {
+          "info": {
+            "name": "Get Countries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/countries"
+          },
+          "docs": "Get list of Country codes"
+        },
+        {
+          "info": {
+            "name": "Get Devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/devices"
+          },
+          "docs": "Get supported devices"
+        },
+        {
+          "info": {
+            "name": "Get DMA List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/dmas"
+          },
+          "docs": "Get list of DMAs"
+        },
+        {
+          "info": {
+            "name": "Get Languages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/languages"
+          },
+          "docs": "Get supported languages list"
+        },
+        {
+          "info": {
+            "name": "Get Operating Systems List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/os"
+          },
+          "docs": "Get list of Operating Systems For All Devices"
+        },
+        {
+          "info": {
+            "name": "Get Regions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/regions",
+            "params": [
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country Code"
+              }
+            ]
+          },
+          "docs": "Get list of Regions by Country code"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

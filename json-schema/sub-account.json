@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/revcontent/refs/heads/main/json-schema/sub-account.json",
+  "title": "SubAccount",
+  "description": "A child account under a parent RevContent account.",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "description": "Account ID"
+    },
+    "user_email": {
+      "type": "string",
+      "description": "Account Email"
+    },
+    "status": {
+      "type": "string",
+      "description": "Account Status"
+    },
+    "created": {
+      "type": "string",
+      "description": "Account Created Date"
+    }
+  },
+  "required": [
+    "user_id",
+    "user_email",
+    "status",
+    "created"
+  ],
+  "x-source": "https://api.revcontent.io/docs/stats/api_data.json#ListAccounts"
+}

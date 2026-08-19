@@ -1,0 +1,644 @@
+{
+  "item": [
+    {
+      "id": "c1760591-1aa5-450a-9b4b-e74beeaa2871",
+      "name": "Targeting",
+      "description": {
+        "content": "Per-campaign widget targeting and widget-level bid overrides.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b8a09120-5a82-4289-be8a-364d5ed9f56d",
+          "name": "Get Campaign Widget Targets",
+          "request": {
+            "name": "Get Campaign Widget Targets",
+            "description": {
+              "content": "Get all the campaign's current widget targets and the statistics for the given time period.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "api",
+                "v1.0",
+                "boosts",
+                ":boost_id",
+                "widgets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sub_account_id",
+                  "value": "<number>",
+                  "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+                },
+                {
+                  "disabled": false,
+                  "key": "enabled",
+                  "value": "<string>",
+                  "description": "Status of the targets. Values: \"enabled\", \"disabled\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "date_from",
+                  "value": "today's date",
+                  "description": "Start date for the statistics in Y-m-d format."
+                },
+                {
+                  "disabled": false,
+                  "key": "date_to",
+                  "value": "today's date",
+                  "description": "End date for the statistics in Y-m-d format."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of records to return. Max 1000. Default 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Offset for the records to return."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "boost_id",
+                  "description": "(Required) Campaign ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "836f55f9-5e9f-4185-a45b-3552f9f65a21",
+              "name": "Successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "boosts",
+                    ":boost_id",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "enabled",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "boost_id",
+                      "description": "(Required) Campaign ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"widget_id\": \"88\",\n      \"domain\": \"revcontent.com\",\n      \"enabled\": \"enabled\",\n      \"bid_type\": \"cpc\",\n      \"bid\": \"0.22\",\n      \"viewable_impressions\": \"456\",\n      \"clicks\": \"0\",\n      \"conversions\": \"0\",\n      \"ctr\": \"0.0000\",\n      \"cost\": \"0.0000\",\n      \"cost_per_conv\": \"0.0000\",\n      \"return\": \"0.0000\",\n      \"profit\": \"0.0000\"\n    },\n    {\n      \"widget_id\": \"1761961\",\n      \"domain\": \"revcontent.com\",\n      \"enabled\": \"enabled\",\n      \"bid_type\": \"cpc\",\n      \"bid\": \"0.24\",\n      \"viewable_impressions\": \"476\",\n      \"clicks\": \"0\",\n      \"conversions\": \"0\",\n      \"ctr\": \"0.0000\",\n      \"cost\": \"0.0000\",\n      \"cost_per_conv\": \"0.0000\",\n      \"return\": \"0.0000\",\n      \"profit\": \"0.0000\"\n    },\n    {\n      \"widget_id\": \"86\",\n      \"domain\": \"revcontent.com\",\n      \"enabled\": \"disabled\",\n      \"bid_type\": \"cpc\",\n      \"bid\": \"0.29\",\n      \"viewable_impressions\": \"522\",\n      \"impressions\": \"0\",\n      \"clicks\": \"0\",\n      \"conversions\": \"0\",\n      \"ctr\": \"0.0000\",\n      \"cost\": \"0.0000\",\n      \"cost_per_conv\": \"0.0000\",\n      \"return\": \"0.0000\",\n      \"profit\": \"0.0000\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a072f82-da58-486f-8843-6f861874ffed",
+              "name": "Error-Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "boosts",
+                    ":boost_id",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "enabled",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "boost_id",
+                      "description": "(Required) Campaign ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"errors\": [\n    {\n      \"code\": 400,\n      \"title\": \"Invalid Parameters\",\n      \"detail\": \"Invalid Parameters sent\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bda9dec0-345a-459d-a046-f8140bddc64c",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "boosts",
+                    ":boost_id",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "enabled",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "boost_id",
+                      "description": "(Required) Campaign ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"errors\": [\n    {\n      \"code\": 394,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"code\": 4226,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8d40ba86-dd34-48f3-9089-7e25815f94b8",
+          "name": "Update Campaign Widget Targeting",
+          "request": {
+            "name": "Update Campaign Widget Targeting",
+            "description": {
+              "content": "Update widget targets",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "api",
+                "v1.0",
+                "boosts",
+                ":boost_id",
+                "widgets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sub_account_id",
+                  "value": "<number>",
+                  "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "boost_id",
+                  "description": "(Required) Campaign Id."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<number>\",\n  \"bid\": \"Campaign CPC\",\n  \"enabled\": \"on\",\n  \"reset\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a1bcafc7-fa8c-46fd-b02b-2abae676a52f",
+              "name": "Successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "boosts",
+                    ":boost_id",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "boost_id",
+                      "description": "(Required) Campaign Id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<number>\",\n  \"bid\": \"Campaign CPC\",\n  \"enabled\": \"on\",\n  \"reset\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ebe8eb91-3bbe-4c72-b353-ee68abba6da6",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "boosts",
+                    ":boost_id",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "boost_id",
+                      "description": "(Required) Campaign Id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<number>\",\n  \"bid\": \"Campaign CPC\",\n  \"enabled\": \"on\",\n  \"reset\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"errors\": [\n    {\n      \"code\": 394,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"code\": 4226,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85e866a5-7910-4f7d-90f8-15d5dec1e464",
+              "name": "Error-Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "boosts",
+                    ":boost_id",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "boost_id",
+                      "description": "(Required) Campaign Id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<number>\",\n  \"bid\": \"Campaign CPC\",\n  \"enabled\": \"on\",\n  \"reset\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"errors\": [\n    {\n      \"code\": 100,\n      \"title\": \"Invalid Argument\",\n      \"detail\": \"Invalid ID value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.revcontent.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "701eb335-0eed-46d2-a988-eb21e9e40ae8",
+    "name": "RevContent Targeting API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Per-campaign widget targeting and widget-level bid overrides.\n\nContact Support:\n Name: RevContent Support\n Email: developer@revcontent.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,321 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RevContent Campaigns API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Campaigns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/boosts",
+            "params": [
+              {
+                "name": "boost_id",
+                "value": "",
+                "type": "query",
+                "description": "Campaign ID"
+              },
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "System status of the campaign. Values: \"active\", \"balance_issue\", \"budget_exhausted\", \"inactive\", \"disabled\", \"archived\"."
+              },
+              {
+                "name": "enabled",
+                "value": "",
+                "type": "query",
+                "description": "User status of the campaign. Values: \"active\", \"inactive\"."
+              },
+              {
+                "name": "date_from",
+                "value": "",
+                "type": "query",
+                "description": "Start date for the statistics in Y-m-d format. Defaults to first of the current month."
+              },
+              {
+                "name": "date_to",
+                "value": "",
+                "type": "query",
+                "description": "End date for the statistics in Y-m-d format. Defaults to today."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return. Max 1000. Default 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for the records to return."
+              },
+              {
+                "name": "aggregate",
+                "value": "",
+                "type": "query",
+                "description": "If 'yes', statistics aggregated by date are retrieved."
+              },
+              {
+                "name": "created_at",
+                "value": "",
+                "type": "query",
+                "description": "If set, will bring back campaigns created on or after specified date."
+              },
+              {
+                "name": "updated_at",
+                "value": "",
+                "type": "query",
+                "description": "If set, will bring back campaigns updated on or after specified date."
+              }
+            ]
+          },
+          "docs": "Get list of Campaigns"
+        },
+        {
+          "info": {
+            "name": "Update Campaign Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revcontent.io/stats/api/v1.0/boosts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Campaign Status."
+        },
+        {
+          "info": {
+            "name": "Get Campaign Performance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/boosts/performance",
+            "params": [
+              {
+                "name": "boost_id",
+                "value": "",
+                "type": "query",
+                "description": "Campaign ID (If empty, all campaigns aggregated statistics are retrieved)."
+              },
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+              },
+              {
+                "name": "date_from",
+                "value": "",
+                "type": "query",
+                "description": "Start date for the statistics in Y-m-d format. Defaults to first of the current month."
+              },
+              {
+                "name": "date_to",
+                "value": "",
+                "type": "query",
+                "description": "End date for the statistics in Y-m-d format. Defaults to today."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return. Max 1000. Default 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for the records to return."
+              },
+              {
+                "name": "all_boosts",
+                "value": "",
+                "type": "query",
+                "description": "If 'yes', and boost_id is not provided, statistics aggregated by Id are retrieved."
+              },
+              {
+                "name": "created_at",
+                "value": "",
+                "type": "query",
+                "description": "If set, will bring back campaigns created on or after specified date."
+              },
+              {
+                "name": "updated_at",
+                "value": "",
+                "type": "query",
+                "description": "If set, will bring back campaigns updated on or after specified date."
+              }
+            ]
+          },
+          "docs": "Get Performance Statistics for All Campaigns / Specific Campaign"
+        },
+        {
+          "info": {
+            "name": "Get Widget Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/boosts/:boost_id/widgets/stats",
+            "params": [
+              {
+                "name": "boost_id",
+                "value": "",
+                "type": "path",
+                "description": "Campaign ID."
+              },
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+              },
+              {
+                "name": "widget_id",
+                "value": "",
+                "type": "query",
+                "description": "Widget ID to look for."
+              },
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "Domain to look for."
+              },
+              {
+                "name": "min_spend",
+                "value": "",
+                "type": "query",
+                "description": "Min. spend to look for."
+              },
+              {
+                "name": "date_from",
+                "value": "",
+                "type": "query",
+                "description": "Start date for the statistics in Y-m-d format. Defaults to first of the current month."
+              },
+              {
+                "name": "date_to",
+                "value": "",
+                "type": "query",
+                "description": "End date for the statistics in Y-m-d format. Defaults to today. Limit 60 days after \"date_from\"."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return. Max 1000. Default 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for the records to return."
+              }
+            ]
+          },
+          "docs": "Get list of widget stats"
+        },
+        {
+          "info": {
+            "name": "Add Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revcontent.io/stats/api/v1.0/boosts/add",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a campaign"
+        },
+        {
+          "info": {
+            "name": "Archive Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revcontent.io/stats/api/v1.0/boosts/:boost_id/archive",
+            "params": [
+              {
+                "name": "boost_id",
+                "value": "",
+                "type": "path",
+                "description": "Campaign ID."
+              },
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+              }
+            ]
+          },
+          "docs": "Archive campaign"
+        },
+        {
+          "info": {
+            "name": "Update Campaign Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revcontent.io/stats/api/v1.0/boosts/:boost_id/settings",
+            "params": [
+              {
+                "name": "boost_id",
+                "value": "",
+                "type": "path",
+                "description": "Campaign ID."
+              },
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Campaign Settings"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,85 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/RevContent/adcode-devkit
+description: >-
+  RevContent's client-side embeddable surface. This is where the company's real developer product
+  lives: publishers embed a widget, they do not call the REST API to render anything. Distinct from
+  the SDK packages in packages/revcontent-packages.yml (which are the distribution channel for the
+  mobile ones).
+
+families:
+  - name: Web ad code (widget)
+    description: >-
+      A declarative div plus a shared loader script. The loader scans the page for elements carrying
+      data-rc-widget and renders a recommendation widget into each.
+    loader: https://assets.revcontent.com/master/delivery.js
+    loader_pinned: false
+    docs: https://github.com/RevContent/adcode-devkit
+    embed: |
+      <div id="rcjs_load_x9cns"
+           data-rc-widget
+           data-endpoint="trends.revcontent.com"
+           data-widget-id="XXXXX"></div>
+      <script src="https://assets.revcontent.com/master/delivery.js" defer></script>
+    attributes:
+      - name: data-rc-widget
+        required: true
+        description: Marks the element as a render target.
+      - name: data-endpoint
+        required: true
+        description: Content delivery host, e.g. trends.revcontent.com.
+      - name: data-widget-id
+        required: true
+        description: Numeric widget identifier from the publisher account.
+      - name: id
+        required: false
+        description: Optional, recommended so custom code can reach the element.
+    capabilities:
+      - topic: Manual renders
+        docs: https://github.com/RevContent/adcode-devkit/blob/master/manual-renders.md
+      - topic: Multiple widget placements on one page
+        docs: https://github.com/RevContent/adcode-devkit/blob/master/multiple-widget-placements.md
+      - topic: Adblocker detection
+        docs: https://github.com/RevContent/adcode-devkit/blob/master/detecting-adblockers.md
+      - topic: RevMore (infinite/more-content unit)
+        docs: https://github.com/RevContent/adcode-devkit/blob/master/using-revmore.md
+      - topic: AMP widgets
+        docs: https://github.com/RevContent/adcode-devkit/blob/master/using-amp-widgets.md
+      - topic: Sub IDs (per-placement attribution, readable back via the Stats API)
+        docs: https://github.com/RevContent/adcode-devkit/blob/master/using-subids.md
+      - topic: Technical considerations
+        docs: https://github.com/RevContent/adcode-devkit/blob/master/technical-considerations.md
+
+  - name: iOS widget SDK
+    description: Native iOS component rendering Revcontent widgets. Binary xcframework via Swift Package Manager.
+    package: RevcontentSDK
+    version: 0.2.0
+    docs: https://github.com/RevContent/revcontent-ios-sdk
+    minimum_platform: iOS 16
+
+  - name: Android widget SDK
+    description: Native Android component rendering Revcontent widgets. Published to a self-hosted Maven repo.
+    package: com.revcontent:revcontent-sdk
+    version: 0.2.1
+    docs: https://github.com/RevContent/revcontent-android-sdk
+
+  - name: React Native widget SDK
+    description: React Native component wrapping the native widget views.
+    package: '@revcontent/react-native-sdk'
+    version: 1.1.1
+    docs: https://github.com/RevContent/react-native-sdk-examples
+
+  - name: Web integration examples
+    description: Reference implementations for embedding widgets in single-page and webview contexts.
+    examples:
+      - https://github.com/RevContent/react-spa-example
+      - https://github.com/RevContent/react-native-webview-example
+      - https://github.com/RevContent/SimpleWebViewExample
+
+notes:
+  - The web loader URL is unversioned (/master/delivery.js). Publishers cannot pin a build, and
+    RevContent can change widget behaviour on every page that embeds it without a release.
+  - >-
+    Sub IDs are the join between the embed surface and the API. A Sub ID set in the ad code is
+    reported back through GET /stats/api/v1.0/widgets/{widget_id}/revsub.
+  - The adcode-devkit repository has not been updated since 2023-07-12.

@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "data": [
+    "https://revcontent.s3.amazonaws.com/sub_id_stats/20160315/30/20160315_10985_sub_id_stats_0.csv.gz?AWSAccessKeyId=REDACTED_AWS_ACCESS_KEY_ID&Expires=1460495122&Signature=4%2BcSnsC1rVWCCbasazNVrv8blFQ%3D",
+    "https://revcontent.s3.amazonaws.com/sub_id_stats/20160315/30/20160315_10985_sub_id_stats_1.csv.gz?AWSAccessKeyId=REDACTED_AWS_ACCESS_KEY_ID&Expires=1460495122&Signature=Jyd5F77HIho1xcYlhT2kuo0bzMw%3D",
+    "https://revcontent.s3.amazonaws.com/sub_id_stats/20160315/30/20160315_10985_sub_id_stats_2.csv.gz?AWSAccessKeyId=REDACTED_AWS_ACCESS_KEY_ID&Expires=1460495122&Signature=Y6%2F86vJEGZq8NqY5aaOPpCzjAdE%3D"
+  ]
+}

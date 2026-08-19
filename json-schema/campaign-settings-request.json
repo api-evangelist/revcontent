@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/revcontent/refs/heads/main/json-schema/campaign-settings-request.json",
+  "title": "CampaignSettingsRequest",
+  "description": "Partial-update body for POST /stats/api/v1.0/boosts/{boost_id}/settings.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Campaign name."
+    },
+    "default_bid": {
+      "type": "number",
+      "description": "Default bid amount for the campaign (CPC). This is a deprecated parameter for backward compatibility, use 'default_bids' section instead"
+    },
+    "budget_type": {
+      "type": "string",
+      "description": "Budget type for the campaign. Values: daily, unlimited. CSR accounts can not have unlimited budgets."
+    },
+    "budget_amount": {
+      "type": "number",
+      "description": "Budget for the campaign in USD (applies only if budget_type is set to 'daily'). Min: 50."
+    },
+    "pacing": {
+      "type": "string",
+      "description": "Pacing enable. Values: on, off (applies only if budget_type is set to 'daily'). Will default to 'on' when budget_type is set to 'daily', or will default to 'off' when 'unlimited'."
+    },
+    "schedule": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      },
+      "description": "Campaign Scheduling. Allows for setting hours where campaign is on. All other hours campaign is off. Ex. schedule: [15,16,17] Campaign will be on for 3pm - 5pm in your audiences time zone. To clear a schedule and serve ads normally, send an empty list: Ex. schedule: [] Note: Only available for campaigns with unlimited budgets."
+    },
+    "optimize": {
+      "type": "string",
+      "description": "Optimize for strategy: Supports 'cpc' or 'cpa'."
+    },
+    "conversion": {
+      "type": "object",
+      "description": "Conversion pixels information. Only mandatory when optimize is 'cpa'",
+      "properties": {
+        "id": {
+          "type": "object",
+          "description": "Conversion ID to add to campaign (or remove from campaign if delete flag is set)."
+        },
+        "delete": {
+          "type": "object",
+          "description": "Set to true to remove from conversion from campaign. Optional."
+        }
+      },
+      "required": [
+        "id",
+        "delete"
+      ]
+    },
+    "start_date_time": {
+      "type": "string",
+      "description": "Start date and time for the campaign in y-m-d h:m:s format."
+    },
+    "has_end_date": {
+      "type": "string",
+      "description": "Determines whether an end date for the campaign is set. Setting to false means the campaign will run continously. Values: true, false."
+    },
+    "end_date_time": {
+      "type": "string",
+      "description": "End date and time for the campaign in y-m-d h:m:s format. NOTE: has_end_date must be set to true to use this parameter."
+    },
+    "country_targeting": {
+      "type": "string",
+      "description": "The type of geographic targeting set for the campaign. Values: \"all\", \"include\", \"exclude\"."
+    },
+    "country_codes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of ISO country abbreviations. Ex. \"country_codes\": [\"PE\"]. See section Helpers :: Get Countries for values. Is mandatory if country_targeting is not 'all'."
+    },
+    "region_targeting": {
+      "type": "string",
+      "description": "The type of region geographic targeting set for the campaign. Supports: 'all', 'include', 'exclude'."
+    },
+    "region_codes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of ISO country region abbreviations. Ex. region_codes\": [\"FL\"] . See section Helpers :: Get Regions. Is mandatory if region_targeting is not 'all'. * country_codes values is required to update region_codes."
+    },
+    "device_targeting": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of device targeting for the campaign. Ex. device_targeting: [\"1\",\"2\"] See section Helpers :: Get Devices for values."
+    },
+    "os_targeting": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of operating systems for the campaign. Ex. device_targeting: [\"1\",\"2\"] See section Helpers :: Get Operating Systems for values. IDs must match device_targeting. Note: When targeting OS IDs 4/5, or IDs 6/7/8 it will reset to targeting All."
+    },
+    "language_traffic": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of languages targeting for the campaign. Ex. \"language_traffic: [\"1\",\"2\"]\" See section Helpers :: Get Languages for values. If you want to target all languages, use 'all'. Ex. language_traffic:\"all\"."
+    },
+    "browser_targeting": {
+      "type": "string",
+      "description": "List of browser targeting for the campaign. Only available when targeting Desktop device. Ex. browser_targeting: [\"1\",\"2\"] See section Helpers :: Get Browsers for values."
+    },
+    "dma_targeting": {
+      "type": "string",
+      "description": "DMA Targeting. Supports: 'all', 'include', 'exclude'."
+    },
+    "dma_codes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of DMA codes for the campaign. See section Helpers :: Get DMA Codes"
+    },
+    "zipcode_targeting": {
+      "type": "string",
+      "description": "Zipcode Targeting. Supports: 'all', 'include', 'exclude'. If set to 'include', country_codes must contain US in the list."
+    },
+    "zipcode_codes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of valid US zip codes for the campaign. Ex: [\"11220\", \"34243\", \"48212\"]"
+    },
+    "utm_codes": {
+      "type": "string",
+      "description": "UTM code string (Max: 2048 characters)."
+    },
+    "pixel_url": {
+      "type": "string",
+      "description": "Campaign Pixel Tracking URL (only open to select users)."
+    },
+    "default_bids": {
+      "type": "object",
+      "description": "Default bid amounts for different traffic types",
+      "properties": {
+        "email": {
+          "type": "number",
+          "description": "Default bid for email widgets"
+        },
+        "apple_news": {
+          "type": "number",
+          "description": "Default bid for Apple News widgets"
+        },
+        "web": {
+          "type": "number",
+          "description": "Default bid for all non-email, non-Apple News widgets"
+        }
+      },
+      "required": [
+        "email",
+        "apple_news",
+        "web"
+      ]
+    }
+  },
+  "x-source": "https://api.revcontent.io/docs/stats/api_data.json#PostBoostSettings"
+}

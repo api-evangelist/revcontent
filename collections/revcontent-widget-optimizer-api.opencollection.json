@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RevContent Widget Optimizer API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Widget Optimizer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get list of blacklisted widget ids",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/boosts/:boost_id/targets/blacklist/widgets",
+            "params": [
+              {
+                "name": "boost_id",
+                "value": "",
+                "type": "path",
+                "description": "Campaign ID."
+              },
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+              }
+            ]
+          },
+          "docs": "Get list of widget ids that are blacklisted"
+        },
+        {
+          "info": {
+            "name": "Add Blacklist Widget",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revcontent.io/stats/api/v1.0/boosts/:boost_id/targets/blacklist/widgets/add",
+            "params": [
+              {
+                "name": "boost_id",
+                "value": "",
+                "type": "path",
+                "description": "Campaign ID."
+              },
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add widget id to widget blacklists."
+        },
+        {
+          "info": {
+            "name": "Remove Widget Blacklist",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revcontent.io/stats/api/v1.0/boosts/:boost_id/targets/blacklist/widgets/remove",
+            "params": [
+              {
+                "name": "boost_id",
+                "value": "",
+                "type": "path",
+                "description": "Campaign ID."
+              },
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove widget ids from Widget Blacklists."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

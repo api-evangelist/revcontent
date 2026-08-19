@@ -1,0 +1,183 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RevContent Widget API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Widget",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Widgets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/widgets",
+            "params": [
+              {
+                "name": "widget",
+                "value": "",
+                "type": "query",
+                "description": "Filter stats by a specific widget. For example \"1234\". Defaults to all widgets."
+              },
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "Filter widgets by a specific domain. For example \"revcontent.com\". Defaults to all domains."
+              },
+              {
+                "name": "device",
+                "value": "",
+                "type": "query",
+                "description": "Filter stats by a specific device. Values: \"all\", \"desktop\", \"tablet\", \"mobile\", \"unknown\". Defaults to all."
+              },
+              {
+                "name": "date_from",
+                "value": "",
+                "type": "query",
+                "description": "Start date for the statistics in Y-m-d format. Defaults to first of the current month."
+              },
+              {
+                "name": "date_to",
+                "value": "",
+                "type": "query",
+                "description": "End date for the statistics in Y-m-d format. Defaults to today."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return. Max 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for the records to return."
+              },
+              {
+                "name": "aggregate",
+                "value": "",
+                "type": "query",
+                "description": "If 'yes', statistics aggregated by date are retrieved."
+              }
+            ]
+          },
+          "docs": "Get list of widgets"
+        },
+        {
+          "info": {
+            "name": "Get All Widgets Geo Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/widgets_geo",
+            "params": [
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Filter stats by a specific country. Values: ISO 3166-1 alpha-2 country codes, for example \"US\", or \"unknown\". Defaults to all countries."
+              },
+              {
+                "name": "widget",
+                "value": "",
+                "type": "query",
+                "description": "Filter stats by a specific widget. For example \"1234\". Defaults to all widgets."
+              },
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "Filter widgets by a specific domain. For example \"revcontent.com\". Defaults to all domains."
+              },
+              {
+                "name": "device",
+                "value": "",
+                "type": "query",
+                "description": "Filter stats by a specific device. Values: \"all\", \"desktop\", \"tablet\", \"mobile\", \"unknown\". Defaults to all."
+              },
+              {
+                "name": "date_from",
+                "value": "",
+                "type": "query",
+                "description": "Start date for the statistics in Y-m-d format. Defaults to today."
+              },
+              {
+                "name": "date_to",
+                "value": "",
+                "type": "query",
+                "description": "End date for the statistics in Y-m-d format. Defaults to today. Maximum of 60 days after the Start Date."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return. Max 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for the records to return."
+              },
+              {
+                "name": "aggregate",
+                "value": "",
+                "type": "query",
+                "description": "If 'yes', statistics aggregated by date are retrieved."
+              }
+            ]
+          },
+          "docs": "Get list of widgets and their stats broken down by country"
+        },
+        {
+          "info": {
+            "name": "Get Sub ID Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/widgets/:widget_id/revsub",
+            "params": [
+              {
+                "name": "widget_id",
+                "value": "",
+                "type": "path",
+                "description": "Widget ID."
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Date of statistics in Y-m-d format (EST timezone)."
+              },
+              {
+                "name": "hour",
+                "value": "",
+                "type": "query",
+                "description": "Get stats for a specific hour. Should be in 24-hour format and between 00-23 (EST timezone). For ex: \"hour=01\""
+              }
+            ]
+          },
+          "docs": "Get list of sub id statistic csv's for a specific widget. The stats are not realtime and are behind by an hour."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

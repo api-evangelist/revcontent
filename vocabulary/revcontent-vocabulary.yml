@@ -49,11 +49,6 @@ vocabulary:
       - geo-targeting
       - DMA code
 
-  - term: traffic_type
-    definition: A classification of the type of traffic a boost targets (e.g. desktop,
-      mobile, in-app). Traffic type identifiers are retrieved from the helpers/traffic-types
-      endpoint.
-
   - term: publisher_id
     definition: Unique identifier for a RevContent publisher account. Publisher IDs
       are included in widget-level content statistics for advertiser reporting.
@@ -90,3 +85,70 @@ vocabulary:
   - term: RevGPT
     definition: RevContent's generative AI headline creation tool that uses large language
       models to suggest native ad headlines for boost content.
+
+  # Added 2026-08-13 from RevContent's published contract
+  # (https://api.revcontent.io/docs/stats/api_data.json, regenerated 2026-07-31).
+  - term: campaign
+    definition: What RevContent's own current documentation calls a boost. The provider renamed
+      the concept in its API reference (group "Campaigns", titles "Add Campaign", "Get All
+      Campaigns") while leaving the URL space on /boosts. Both names refer to the same object.
+    related:
+      - boost
+
+  - term: sub_account_id
+    definition: The tenancy parameter. Omit it to act on the authenticating account; supply it to
+      act on a child account. Present on 18 of 43 operations as a plain query or body parameter,
+      not as a token boundary — one client-credentials token reaches every child account.
+    related:
+      - sub account
+      - tenancy
+
+  - term: pacing
+    definition: Spreads a limited campaign budget evenly through the day rather than spending as
+      fast as possible. Defaults to on for limited budgets; forced off when budget is "unlimited".
+
+  - term: default_bids
+    definition: The current per-surface bid structure on a campaign, with web, email and
+      apple_news keys. Supersedes the flat bid_amount field, which RevContent's contract marks
+      deprecated and retained only for backward compatibility.
+    related:
+      - bid
+      - bid_amount
+
+  - term: widget optimizer
+    definition: The campaign-level widget blacklist. Distinct from widget targeting — a widget can
+      be an enabled target and still be blacklisted. Managed under
+      /boosts/{boost_id}/targets/blacklist/widgets.
+    related:
+      - blacklist
+      - targeting
+
+  - term: Sub ID
+    definition: A publisher-set identifier placed in the widget ad code and reported back through
+      GET /stats/api/v1.0/widgets/{widget_id}/revsub. The only join between what a publisher
+      deployed on-page and what the API reports.
+    related:
+      - revsub
+
+  - term: internal content
+    definition: Publisher-owned articles injected into that publisher's own widget alongside
+      RevContent demand.
+
+  - term: vCPM
+    definition: Viewable cost per thousand impressions. The alternative bid_type to cpc on a
+      campaign.
+
+  - term: conversion pixel
+    definition: A tracking definition created through the Conversions API and bound to a campaign
+      via conversion.id. Mandatory whenever a campaign sets optimize to "cpa".
+
+  - term: aggregate
+    definition: A query parameter on three list operations. When set to "yes" the response carries
+      an additional statistics rollup keyed by date alongside the row-level data.
+
+  - term: traffic_type
+    definition: RETIRED. Announced 2020-10-14 as a campaign targeting parameter with a matching
+      helper endpoint, and documented as such through 2021. Neither the parameter nor the
+      /helpers/traffic-types endpoint appears in the contract RevContent generated on 2026-07-31.
+      No removal notice was ever published.
+    status: retired

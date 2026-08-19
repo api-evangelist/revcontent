@@ -1,0 +1,124 @@
+generated: '2026-08-13'
+method: searched
+source: https://help.revcontent.com/knowledge/api-changelog
+description: >-
+  RevContent maintains a dated API changelog in its help centre. It is real and it is
+  operation-level specific, but it has not been updated since 13 September 2021 — nearly five
+  years. Meanwhile the provider's own generated contract at
+  https://api.revcontent.io/docs/stats/api_data.json was regenerated on 2026-07-31 and documents
+  operations (Conversions, Sub Accounts, Widget Optimizer, browsers/languages/regions helpers) that
+  the changelog never announced. The changelog and the shipped API have diverged.
+
+versioning:
+  scheme: date-based entries; no version numbers
+  api_version: v1.0 (URI path)
+  breaking_change_notice: none published
+
+current:
+  latest_entry: '2021-09-13'
+  entry_count_captured: 16
+  staleness_days_at_capture: 1795
+
+entries:
+  - date: '2021-09-13'
+    breaking: true
+    areas: [Campaigns, Targeting]
+    highlights:
+      - 'Campaigns: bid_amount below 0.01 for CPC is no longer accepted (minimum bid enforced).'
+      - 'Targeting: bid validation added for widget targets.'
+  - date: '2021-07-06'
+    breaking: false
+    areas: [Campaigns, Content, Targeting]
+    highlights:
+      - 'Cost-per-conversion metric added to campaign, content and targeting statistics responses.'
+  - date: '2021-03-12'
+    breaking: false
+    areas: [Content]
+    highlights:
+      - 'Publisher ID field appended to content response data.'
+  - date: '2021-03-08'
+    breaking: false
+    areas: [Campaigns]
+    highlights:
+      - 'Safety parameter introduced to prevent unintended bulk updates across all campaigns.'
+  - date: '2021-03-03'
+    breaking: true
+    areas: [Campaigns, Helpers]
+    highlights:
+      - 'Device and OS targeting separated into distinct parameters.'
+      - 'New operating-system helper endpoint added; device helper narrowed to top-level results.'
+  - date: '2021-02-17'
+    breaking: false
+    areas: [Targeting]
+    highlights:
+      - 'Bug fix: enabled field behaviour on widget targets.'
+  - date: '2021-01-04'
+    breaking: true
+    areas: [Campaigns]
+    highlights:
+      - 'DMA code validation enforced.'
+      - 'Zip codes converted to array format.'
+  - date: '2020-11-09'
+    breaking: false
+    areas: [Campaigns]
+    highlights:
+      - 'Campaign scheduling introduced (hour-level activation control).'
+  - date: '2020-10-28'
+    breaking: true
+    areas: [Campaigns, Targeting]
+    highlights:
+      - 'Boost ID parameter added; targeting type parameter removed.'
+      - 'Widget ID validation implemented.'
+  - date: '2020-10-20'
+    breaking: false
+    areas: [Campaigns]
+    highlights:
+      - 'Unlimited-budget restrictions applied to CSR user accounts.'
+  - date: '2020-10-14'
+    breaking: true
+    areas: [Campaigns, Helpers]
+    highlights:
+      - 'Traffic types parameter introduced; legacy targeting parameters deprecated.'
+      - 'Traffic-type helper endpoint created; topic-targets endpoint removed.'
+  - date: '2020-08-03'
+    breaking: false
+    areas: [Access]
+    highlights:
+      - 'Account reactivation request added.'
+  - date: '2020-07-21'
+    breaking: false
+    areas: [Campaigns]
+    highlights:
+      - 'Pixel URL field introduced (restricted to select advertisers).'
+  - date: '2020-06-09'
+    breaking: false
+    areas: [CCPA]
+    highlights:
+      - 'CCPA data request endpoints added for publishers.'
+  - date: '2020-04-02'
+    breaking: true
+    areas: [Widget]
+    highlights:
+      - 'Widget segments feature deprecated.'
+  - date: '2020-04-01'
+    breaking: false
+    areas: [Campaigns, Helpers]
+    highlights:
+      - 'DMA and zipcode targeting fields introduced.'
+      - 'DMA list helper endpoint created.'
+
+undocumented_drift:
+  description: >-
+    Capabilities present in the provider's live generated contract (2026-07-31) that no changelog
+    entry announces. Each is real and callable; none has a dated release note.
+  operations:
+    - 'Conversions: GET /conversions, POST /conversions/add, /conversions/{id}/update, /conversions/{id}/delete'
+    - 'Sub Accounts: add_account, edit_account, list_accounts, update_account_status'
+    - 'Widget Optimizer: blacklist widgets add/remove/list per campaign'
+    - 'Helpers: /browsers, /languages, /regions (the changelog only ever announced devices, os, traffic-types and dma)'
+    - 'Widget Internal Content: get/add/update publisher-owned widget content'
+    - 'Campaigns: POST /boosts/{boost_id}/archive'
+    - 'CCPA: POST /data_requests/data and /data_requests/multiple_data'
+  removed_since_changelog:
+    - 'Helpers: the traffic-types endpoint announced on 2020-10-14 is not in the 2026-07-31 contract.'
+    - 'Campaigns: the interest/topic/brand target helpers referenced in the contract ordering metadata are no longer documented operations.'

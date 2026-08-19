@@ -1,0 +1,286 @@
+openapi: 3.1.0
+info:
+  title: RevContent Widget Optimizer API
+  description: Campaign-level widget blacklisting (widget optimizer).
+  version: '1.0'
+  contact:
+    name: RevContent Support
+    url: https://www.revcontent.com/resources/contact-us
+    email: developer@revcontent.com
+servers:
+- url: https://api.revcontent.io
+  description: RevContent Production API
+security:
+- BearerAuth: []
+tags:
+- name: Widget Optimizer
+  description: Campaign-level widget blacklisting (widget optimizer).
+paths:
+  /stats/api/v1.0/boosts/{boost_id}/targets/blacklist/widgets:
+    get:
+      operationId: getTargetsOptimizerWidgets
+      summary: Get list of blacklisted widget ids
+      description: Get list of widget ids that are blacklisted
+      tags:
+      - Widget Optimizer
+      x-permission:
+      - Advertiser
+      parameters:
+      - name: boost_id
+        in: path
+        required: true
+        description: Campaign ID.
+        schema:
+          type: number
+      - name: sub_account_id
+        in: query
+        required: false
+        description: Sub Account ID. By default all actions are for your user account if sub account ID
+          is not specified.
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: array
+                          items:
+                            type: object
+                          description: Widget id
+                      required:
+                      - id
+                    description: List of widget ids
+                required:
+                - data
+              example:
+                data:
+                - id: '100'
+                - id: '123'
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error 500
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                errors:
+                - code: 500
+                  title: There was a problem serving the requested information. Try again, the problem
+                    may be temporary. Please contact support if the problem persists.
+      x-codeSamples:
+      - lang: json
+        label: Get targets optimizer widgets
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/boosts/308/targets/blacklist/widgets'
+  /stats/api/v1.0/boosts/{boost_id}/targets/blacklist/widgets/add:
+    post:
+      operationId: postTargetsWidgetsOptimizerAdd
+      summary: Add Blacklist Widget
+      description: Add widget id to widget blacklists.
+      tags:
+      - Widget Optimizer
+      x-permission:
+      - Advertiser
+      parameters:
+      - name: boost_id
+        in: path
+        required: true
+        description: Campaign ID.
+        schema:
+          type: number
+      - name: sub_account_id
+        in: query
+        required: false
+        description: Sub Account ID. By default all actions are for your user account if sub account ID
+          is not specified.
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Widget id list divided by commas
+              required:
+              - id
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Determines if target was updated.
+                required:
+                - success
+              example:
+                success: true
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Not divided by commas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                widgets:
+                - '21'
+                errors:
+                - code: 100
+                  title: Invalid Argument
+                  detail: Invalid widget id 1000
+      x-codeSamples:
+      - lang: json
+        label: Add widget id
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               -d '{"id": "32,35,57"}' \
+               'https://api.revcontent.io/stats/api/v1.0/boosts/308/targets/blacklist/widgets/add'
+  /stats/api/v1.0/boosts/{boost_id}/targets/blacklist/widgets/remove:
+    post:
+      operationId: postTargetsWidgetsOptimizerRemove
+      summary: Remove Widget Blacklist
+      description: Remove widget ids from Widget Blacklists.
+      tags:
+      - Widget Optimizer
+      x-permission:
+      - Advertiser
+      parameters:
+      - name: boost_id
+        in: path
+        required: true
+        description: Campaign ID.
+        schema:
+          type: number
+      - name: sub_account_id
+        in: query
+        required: false
+        description: Sub Account ID. By default all actions are for your user account if sub account ID
+          is not specified.
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Widget id list divided by commas
+              required:
+              - id
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Determines if target was updated.
+                required:
+                - success
+              example:
+                success: true
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Not divided by commas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                widgets: []
+                errors:
+                - code: 100
+                  title: Invalid Argument
+                  detail: Invalid id value 21|1000
+      x-codeSamples:
+      - lang: json
+        label: Remove widget id
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               -d '{"id": "32,35,57"}' \
+               'https://api.revcontent.io/stats/api/v1.0/boosts/308/targets/blacklist/widgets/remove'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for
+        24 hours.
+  schemas:
+    Error:
+      type: object
+      description: RevContent error envelope.
+      properties:
+        success:
+          type: boolean
+          const: false
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: integer
+                description: HTTP-aligned error code.
+              title:
+                type: string
+                description: Short error title.
+              detail:
+                type: string
+                description: Human readable error detail.
+x-source: https://api.revcontent.io/docs/stats/api_data.json
+x-source-format: apiDoc 0.17.7
+x-generated: '2026-08-13'
+x-method: derived

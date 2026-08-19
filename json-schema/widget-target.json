@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/revcontent/refs/heads/main/json-schema/widget-target.json",
+  "title": "WidgetTarget",
+  "description": "A per-campaign, per-widget targeting row with its enabled flag and bid override.",
+  "type": "object",
+  "properties": {
+    "widget_id": {
+      "type": "string",
+      "description": "Widget id"
+    },
+    "domain": {
+      "type": "string",
+      "description": "Widget Domain"
+    },
+    "enabled": {
+      "type": "string",
+      "description": "Content status ('disabled','enabled')"
+    },
+    "bid_type": {
+      "type": "string",
+      "description": "Campaign bid type"
+    },
+    "bid": {
+      "type": "string",
+      "description": "Target bid amount"
+    },
+    "avg_cpc": {
+      "type": "string",
+      "description": "Average CPC for selected target (Returned for CPC bids)"
+    },
+    "impressions": {
+      "type": "string",
+      "description": "Total number of impressions for selected target (Returned for CPC bids)"
+    },
+    "viewable_impressions": {
+      "type": "string",
+      "description": "Total number of viewable impressions for selected target"
+    },
+    "clicks": {
+      "type": "string",
+      "description": "Total number of clicks for selected target"
+    },
+    "conversions": {
+      "type": "string",
+      "description": "Total number of conversion for selected target"
+    },
+    "ctr": {
+      "type": "string",
+      "description": "CTR for selected target"
+    },
+    "cost": {
+      "type": "string",
+      "description": "Cost for selected target"
+    },
+    "cost_per_conv": {
+      "type": "string",
+      "description": "Cost per conversion for selected target"
+    },
+    "return": {
+      "type": "string",
+      "description": "Return for selected target"
+    },
+    "profit": {
+      "type": "string",
+      "description": "Profit for selected target"
+    }
+  },
+  "required": [
+    "widget_id",
+    "domain",
+    "enabled",
+    "bid_type",
+    "bid",
+    "avg_cpc",
+    "impressions",
+    "viewable_impressions",
+    "clicks",
+    "conversions",
+    "ctr",
+    "cost",
+    "cost_per_conv",
+    "return",
+    "profit"
+  ],
+  "x-source": "https://api.revcontent.io/docs/stats/api_data.json#GetBoostWidgets"
+}

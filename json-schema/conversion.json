@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/revcontent/refs/heads/main/json-schema/conversion.json",
+  "title": "Conversion",
+  "description": "A conversion pixel definition used by CPA-optimized campaigns.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "number",
+      "description": "Conversion id"
+    },
+    "name": {
+      "type": "string",
+      "description": "Conversion name"
+    },
+    "amount": {
+      "type": "string",
+      "description": "Conversion amount"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "amount"
+  ],
+  "x-source": "https://api.revcontent.io/docs/stats/api_data.json#GetConversions"
+}

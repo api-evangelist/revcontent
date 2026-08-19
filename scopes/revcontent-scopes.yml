@@ -1,0 +1,103 @@
+generated: '2026-08-13'
+method: searched
+source: https://api.revcontent.io/docs/stats/api_data.json
+docs: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
+description: >-
+  RevContent's OAuth 2.0 client-credentials token carries scopes, but they are NOT requestable and
+  RevContent publishes no scopes reference page. The evidence is the token response the provider
+  itself documents — `"scope": "advertiser publisher"` — cross-referenced against the per-operation
+  `permission` marker on all 43 operations in the same contract. Two role scopes exist; a caller
+  cannot narrow to one.
+
+schemes:
+  - name: BearerAuth
+    type: oauth2
+    flow: clientCredentials
+    tokenUrl: https://api.revcontent.io/oauth/token
+    scope_parameter_supported: false
+    source: https://api.revcontent.io/docs/stats/api_data.json#GetOauthAccess
+    evidence: >-
+      Documented token response: {"access_token": "…", "expires_in": 86400, "token_type": "Bearer",
+      "scope": "advertiser publisher"}. The token request accepts only grant_type, client_id and
+      client_secret — there is no scope parameter to send.
+
+scopes:
+  - scope: advertiser
+    description: >-
+      The buy side. Campaigns (boosts), creative content, conversion pixels, widget targeting,
+      widget blacklisting, and every Helpers reference lookup used to build a targeting request.
+    flows: [clientCredentials]
+    operation_count: 28
+    operations:
+      - getAllBoosts
+      - getBoostPerformance
+      - getWidgetStats
+      - postBoostAdd
+      - postBoostArchive
+      - postBoostSettings
+      - postBoostsStatus
+      - getAllBoostContent
+      - getBoostContent
+      - getContentWidgetStats
+      - postBoostContentAdd
+      - postBoostContentUpdate
+      - getConversions
+      - postConversionAdd
+      - postConversionDelete
+      - postConversionEdit
+      - getBrowsers
+      - getCountries
+      - getDevices
+      - getDmas
+      - getLanguages
+      - getOperatingSystems
+      - getRegions
+      - getBoostWidgets
+      - postBoostWidgets
+      - getTargetsOptimizerWidgets
+      - postTargetsWidgetsOptimizerAdd
+      - postTargetsWidgetsOptimizerRemove
+  - scope: publisher
+    description: >-
+      The sell side. Widget inventory, geo and Sub ID reporting, and publisher-owned internal
+      content inside a widget.
+    flows: [clientCredentials]
+    operation_count: 6
+    operations:
+      - getAllWidgets
+      - getAllWidgetsGeo
+      - getSubIDStats
+      - getWidgetInternalContent
+      - postWidgetInternalContentAdd
+      - postWidgetInternalContentUpdate
+
+shared_operations:
+  description: Operations the contract marks as available to both roles.
+  advertiser_and_publisher:
+    - getOauthAccess
+    - getReactivateAccount
+    - addAccount
+    - editAccount
+    - listAccounts
+    - updateAccountStatus
+  unscoped:
+    description: >-
+      The three CCPA operations declare no permission at all. postSubmitCCPARequest is documented
+      without a bearer token — it is issued from the consumer's browser with a `Cookie: __ID=…`
+      header — which makes it the one genuinely unauthenticated write in the API.
+    operations:
+      - postSubmitCCPARequest
+      - postUserData
+      - postUsersData
+
+gaps:
+  - No scopes or permissions reference page exists on revcontent.com or help.revcontent.com. The
+    scope values are only discoverable by reading the token response example inside the generated
+    API reference.
+  - Scopes cannot be narrowed. A credential entitled to both roles always receives both, so
+    least-privilege is not achievable through this API.
+  - >-
+    Sub-account access is not scoped at all. sub_account_id is a request parameter, so one token
+    reaches every child account of the parent.
+  - No /.well-known/oauth-authorization-server document (404), so neither the token endpoint nor the
+    supported scopes are programmatically discoverable.

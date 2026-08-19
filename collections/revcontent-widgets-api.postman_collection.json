@@ -1,0 +1,963 @@
+{
+  "item": [
+    {
+      "id": "a5544b77-7796-47fa-8415-81745a306dc5",
+      "name": "Widget",
+      "description": {
+        "content": "Publisher widget inventory, geo statistics and Sub ID reporting.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2a9fb65f-bce8-4d84-b1a4-f4e82761e3d4",
+          "name": "Get All Widgets",
+          "request": {
+            "name": "Get All Widgets",
+            "description": {
+              "content": "Get list of widgets",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "api",
+                "v1.0",
+                "widgets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "widget",
+                  "value": "<number>",
+                  "description": "Filter stats by a specific widget. For example \"1234\". Defaults to all widgets."
+                },
+                {
+                  "disabled": false,
+                  "key": "domain",
+                  "value": "<string>",
+                  "description": "Filter widgets by a specific domain. For example \"revcontent.com\". Defaults to all domains."
+                },
+                {
+                  "disabled": false,
+                  "key": "device",
+                  "value": "<string>",
+                  "description": "Filter stats by a specific device. Values: \"all\", \"desktop\", \"tablet\", \"mobile\", \"unknown\". Defaults to all."
+                },
+                {
+                  "disabled": false,
+                  "key": "date_from",
+                  "value": "first of the month",
+                  "description": "Start date for the statistics in Y-m-d format. Defaults to first of the current month."
+                },
+                {
+                  "disabled": false,
+                  "key": "date_to",
+                  "value": "today's date",
+                  "description": "End date for the statistics in Y-m-d format. Defaults to today."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of records to return. Max 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Offset for the records to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "aggregate",
+                  "value": "no",
+                  "description": "If 'yes', statistics aggregated by date are retrieved."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5b2ea35e-019a-4692-a99a-b745a9187d9b",
+              "name": "Successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "widget",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "device",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "first of the month"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "aggregate",
+                      "value": "no"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": \"218\",\n      \"name\": \"Test Widget 1\",\n      \"widget_imps\": \"149756\",\n      \"page_views\": \"149756\",\n      \"ad_ctr\": \"7.1189\",\n      \"ad_clicks\": \"10661\",\n      \"ad_cpc\": \"0.05792852\",\n      \"ad_rpm\": \"4.123881513929325035390902\",\n      \"ad_revenue\": \"617.57600000000000000000\"\n    },\n    {\n      \"id\": \"219\",\n      \"name\": \"Test Widget 2\",\n      \"widget_imps\": \"107\",\n      \"page_views\": \"107\",\n      \"ad_ctr\": \"8.4112\",\n      \"ad_clicks\": \"9\",\n      \"ad_cpc\": \"0.27294444\",\n      \"ad_rpm\": \"22.957943925233644859813084\",\n      \"ad_revenue\": \"2.45650000000000000000\"\n    },\n    {\n      \"id\": \"220\",\n      \"name\": \"Test Widget 3\",\n      \"widget_imps\": \"25977\",\n      \"page_views\": \"25977\",\n      \"ad_ctr\": \"0.0154\",\n      \"ad_clicks\": \"4\",\n      \"ad_cpc\": \"0.06375000\",\n      \"ad_rpm\": \"0.009816376024945143781037\",\n      \"ad_revenue\": \"0.25500000000000000000\"\n    },\n    {\n      \"id\": \"221\",\n      \"name\": \"Test Widget 4\",\n      \"widget_imps\": \"121904\",\n      \"page_views\": \"121904\",\n      \"ad_ctr\": \"2.1845\",\n      \"ad_clicks\": \"2663\",\n      \"ad_cpc\": \"0.06075122\",\n      \"ad_rpm\": \"1.327113958524740779629872\",\n      \"ad_revenue\": \"161.78050000000000000000\"\n    },\n    {\n      \"id\": \"222\",\n      \"name\": \"Test Widget 5\",\n      \"widget_imps\": \"99914\",\n      \"page_views\": \"99914\",\n      \"ad_ctr\": \"0.0230\",\n      \"ad_clicks\": \"23\",\n      \"ad_cpc\": \"0.54991304\",\n      \"ad_rpm\": \"0.126588866425125608022899\",\n      \"ad_revenue\": \"12.64800000000000000000\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "128cc19d-e671-43e4-af5b-063342cfc525",
+              "name": "Error-Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "widget",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "device",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "first of the month"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "aggregate",
+                      "value": "no"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"errors\": [\n    {\n      \"code\": 400,\n      \"title\": \"Invalid Parameters\",\n      \"detail\": \"Invalid Parameters sent\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "048c7d2f-6e54-4bc8-ac6c-1b37a6bc85c8",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "widgets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "widget",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "device",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "first of the month"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "aggregate",
+                      "value": "no"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"errors\": [\n    {\n      \"code\": 2085,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"code\": 1527,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "876be349-95b9-48b7-baaf-1713985c434e",
+          "name": "Get All Widgets Geo Stats",
+          "request": {
+            "name": "Get All Widgets Geo Stats",
+            "description": {
+              "content": "Get list of widgets and their stats broken down by country",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "api",
+                "v1.0",
+                "widgets_geo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "Filter stats by a specific country. Values: ISO 3166-1 alpha-2 country codes, for example \"US\", or \"unknown\". Defaults to all countries."
+                },
+                {
+                  "disabled": false,
+                  "key": "widget",
+                  "value": "<number>",
+                  "description": "Filter stats by a specific widget. For example \"1234\". Defaults to all widgets."
+                },
+                {
+                  "disabled": false,
+                  "key": "domain",
+                  "value": "<string>",
+                  "description": "Filter widgets by a specific domain. For example \"revcontent.com\". Defaults to all domains."
+                },
+                {
+                  "disabled": false,
+                  "key": "device",
+                  "value": "<string>",
+                  "description": "Filter stats by a specific device. Values: \"all\", \"desktop\", \"tablet\", \"mobile\", \"unknown\". Defaults to all."
+                },
+                {
+                  "disabled": false,
+                  "key": "date_from",
+                  "value": "today's date",
+                  "description": "Start date for the statistics in Y-m-d format. Defaults to today."
+                },
+                {
+                  "disabled": false,
+                  "key": "date_to",
+                  "value": "today's date",
+                  "description": "End date for the statistics in Y-m-d format. Defaults to today. Maximum of 60 days after the Start Date."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of records to return. Max 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Offset for the records to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "aggregate",
+                  "value": "no",
+                  "description": "If 'yes', statistics aggregated by date are retrieved."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d2eb6c75-1d39-4703-845e-2516c7a862a1",
+              "name": "Successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "widgets_geo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "widget",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "device",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "aggregate",
+                      "value": "no"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": \"218\",\n      \"name\": \"Test Widget 1\",\n      \"country\": \"AU\",\n      \"widget_imps\": \"149756\",\n      \"ad_ctr\": \"7.1189\",\n      \"ad_clicks\": \"10661\",\n      \"ad_cpc\": \"0.05792852\",\n      \"ad_rpm\": \"4.123881513929325035390902\",\n      \"ad_revenue\": \"617.57600000000000000000\"\n    },\n    {\n      \"id\": \"218\",\n      \"name\": \"Test Widget 1\",\n      \"country\": \"BR\",\n      \"widget_imps\": \"107\",\n      \"ad_ctr\": \"8.4112\",\n      \"ad_clicks\": \"9\",\n      \"ad_cpc\": \"0.27294444\",\n      \"ad_rpm\": \"22.957943925233644859813084\",\n      \"ad_revenue\": \"2.45650000000000000000\"\n    },\n    {\n      \"id\": \"218\",\n      \"name\": \"Test Widget 1\",\n      \"country\": \"CA\",\n      \"widget_imps\": \"25977\",\n      \"ad_ctr\": \"0.0154\",\n      \"ad_clicks\": \"4\",\n      \"ad_cpc\": \"0.06375000\",\n      \"ad_rpm\": \"0.009816376024945143781037\",\n      \"ad_revenue\": \"0.25500000000000000000\"\n    },\n    {\n      \"id\": \"218\",\n      \"name\": \"Test Widget 1\",\n      \"country\": \"GB\",\n      \"widget_imps\": \"121904\",\n      \"ad_ctr\": \"2.1845\",\n      \"ad_clicks\": \"2663\",\n      \"ad_cpc\": \"0.06075122\",\n      \"ad_rpm\": \"1.327113958524740779629872\",\n      \"ad_revenue\": \"161.78050000000000000000\"\n    },\n    {\n      \"id\": \"218\",\n      \"name\": \"Test Widget 1\",\n      \"country\": \"US\",\n      \"widget_imps\": \"99914\",\n      \"ad_ctr\": \"0.0230\",\n      \"ad_clicks\": \"23\",\n      \"ad_cpc\": \"0.54991304\",\n      \"ad_rpm\": \"0.126588866425125608022899\",\n      \"ad_revenue\": \"12.64800000000000000000\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c023e2ab-35fe-4220-bad8-85291c2507e4",
+              "name": "Error-Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "widgets_geo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "widget",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "device",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "aggregate",
+                      "value": "no"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"errors\": [\n    {\n      \"code\": 400,\n      \"title\": \"Invalid Parameters\",\n      \"detail\": \"Invalid Parameters sent\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "690bc33c-725e-48e1-92a6-5cb6450f8681",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "widgets_geo"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "widget",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "device",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "aggregate",
+                      "value": "no"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"errors\": [\n    {\n      \"code\": 2085,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"code\": 1527,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1766860f-638f-448f-9989-83fc0ef6ea85",
+          "name": "Get Sub ID Stats",
+          "request": {
+            "name": "Get Sub ID Stats",
+            "description": {
+              "content": "Get list of sub id statistic csv's for a specific widget. The stats are not realtime and are behind by an hour.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "api",
+                "v1.0",
+                "widgets",
+                ":widget_id",
+                "revsub"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<string>",
+                  "description": "(Required) Date of statistics in Y-m-d format (EST timezone)."
+                },
+                {
+                  "disabled": false,
+                  "key": "hour",
+                  "value": "Returns stats for all available hours of the date",
+                  "description": "Get stats for a specific hour. Should be in 24-hour format and between 00-23 (EST timezone). For ex: \"hour=01\""
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "widget_id",
+                  "description": "(Required) Widget ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "343da73d-5767-4b0a-9560-24e6ea5c61b7",
+              "name": "Successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "widgets",
+                    ":widget_id",
+                    "revsub"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hour",
+                      "value": "Returns stats for all available hours of the date"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "widget_id",
+                      "description": "(Required) Widget ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    \"https://revcontent.s3.amazonaws.com/sub_id_stats/20160315/30/20160315_10985_sub_id_stats_0.csv.gz?AWSAccessKeyId=REDACTED_AWS_ACCESS_KEY_ID&Expires=1460495122&Signature=4%2BcSnsC1rVWCCbasazNVrv8blFQ%3D\",\n    \"https://revcontent.s3.amazonaws.com/sub_id_stats/20160315/30/20160315_10985_sub_id_stats_1.csv.gz?AWSAccessKeyId=REDACTED_AWS_ACCESS_KEY_ID&Expires=1460495122&Signature=Jyd5F77HIho1xcYlhT2kuo0bzMw%3D\",\n    \"https://revcontent.s3.amazonaws.com/sub_id_stats/20160315/30/20160315_10985_sub_id_stats_2.csv.gz?AWSAccessKeyId=REDACTED_AWS_ACCESS_KEY_ID&Expires=1460495122&Signature=Y6%2F86vJEGZq8NqY5aaOPpCzjAdE%3D\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "967bd07e-c9ba-48d8-b5da-e018a87cf2b0",
+              "name": "Error-Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "widgets",
+                    ":widget_id",
+                    "revsub"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hour",
+                      "value": "Returns stats for all available hours of the date"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "widget_id",
+                      "description": "(Required) Widget ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"errors\": [\n    {\n      \"code\": 400,\n      \"title\": \"Invalid Parameters\",\n      \"detail\": \"Invalid Parameters sent\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b95e0721-e07d-480d-8649-187ff02df08c",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "widgets",
+                    ":widget_id",
+                    "revsub"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hour",
+                      "value": "Returns stats for all available hours of the date"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "widget_id",
+                      "description": "(Required) Widget ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"errors\": [\n    {\n      \"code\": 2085,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"code\": 1527,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.revcontent.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "08314e6b-5e38-432c-83b9-23e02ff29e6a",
+    "name": "RevContent Widget API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Publisher widget inventory, geo statistics and Sub ID reporting.\n\nContact Support:\n Name: RevContent Support\n Email: developer@revcontent.com",
+      "type": "text/plain"
+    }
+  }
+}

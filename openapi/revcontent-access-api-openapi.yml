@@ -1,15 +1,12 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
-  title: RevContent Stats & Management Access API
-  description: 'REST API providing programmatic access to RevContent''s native advertising platform for managing boosts (campaigns), widgets, content, targeting, bidding, and statistical reporting. Authenticated via OAuth 2.0 client credentials flow. Access tokens are valid for 24 hours.
-
-    '
+  title: RevContent Access API
+  description: OAuth 2.0 token issuance and account reactivation.
   version: '1.0'
   contact:
     name: RevContent Support
     url: https://www.revcontent.com/resources/contact-us
     email: developer@revcontent.com
-  x-api-changelog: https://help.revcontent.com/knowledge/api-changelog
 servers:
 - url: https://api.revcontent.io
   description: RevContent Production API
@@ -17,81 +14,181 @@ security:
 - BearerAuth: []
 tags:
 - name: Access
-  description: OAuth authentication and account access
+  description: OAuth 2.0 token issuance and account reactivation.
 paths:
   /oauth/token:
     post:
-      operationId: getAccessToken
-      summary: Get OAuth Access Token
-      description: 'Obtain a Bearer access token using the OAuth 2.0 client credentials flow. Tokens are valid for 24 hours.
-
-        '
+      operationId: getOauthAccess
+      summary: Get access token
+      description: To get access, please get in touch with your representative.
       tags:
       - Access
-      security: []
+      x-permission:
+      - Advertiser Publisher
       requestBody:
         required: true
         content:
-          application/x-www-form-urlencoded:
+          application/json:
             schema:
               type: object
+              properties:
+                grant_type:
+                  type: string
+                  description: '"client_credentials"'
+                client_id:
+                  type: string
+                  description: Client's users id
+                client_secret:
+                  type: string
+                  maxLength: 40
+                  description: Client's secret id
               required:
               - grant_type
               - client_id
               - client_secret
-              properties:
-                grant_type:
-                  type: string
-                  enum:
-                  - client_credentials
-                  description: OAuth 2.0 grant type
-                client_id:
-                  type: string
-                  description: Client ID from Account Settings
-                client_secret:
-                  type: string
-                  description: Client secret from Account Settings
       responses:
         '200':
-          description: Access token issued successfully
+          description: Successful response.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AccessToken'
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    description: User unique access token
+                  expires_in:
+                    type: number
+                    description: Number of seconds left in the lifetime of the access token
+                    default: 86400
+                  type:
+                    type: string
+                    description: '"Bearer"'
+                  scope:
+                    type: string
+                    description: Defines the authorization granted to the client
+                required:
+                - access_token
+                - expires_in
+                - type
+                - scope
+              example:
+                access_token: 20b9c0a27315af753c2006dfcf6065ffdcae7fe2
+                expires_in: 86400
+                token_type: Bearer
+                scope: advertiser publisher
+        '400':
+          description: Error 400
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: invalid_client
+                error_description: The client credentials are invalid
         '401':
-          description: Invalid client credentials
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Get access token
+        source: |-
+          curl -X POST \
+               -H "Content-Type: application/x-www-form-urlencoded" \
+               -H "Cache-Control: no-cache" \
+               -d 'grant_type=client_credentials&client_id=<CLIENT_ID>&client_secret=<CLIENT_SECRET>'
+               'https://api.revcontent.io/oauth/token'
   /stats/api/v1.0/account/reactivate:
-    post:
-      operationId: reactivateAccount
+    get:
+      operationId: getReactivateAccount
       summary: Reactivate Account
-      description: Enables reactivation of an inactive RevContent account.
+      description: Send out email activation for inactive accounts
       tags:
       - Access
+      x-permission:
+      - Advertiser Publisher
+      parameters:
+      - name: email
+        in: query
+        required: false
+        description: URL Encoded account email address. Must match the account email address.
+        schema:
+          type: string
       responses:
         '200':
-          description: Account reactivated successfully
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: 'true'
+                required:
+                - success
+              example:
+                success: true
         '400':
-          description: Account already active or cannot be reactivated
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 400
+                  title: Invalid Email
+                  detail: Invalid Parameters sent
         '401':
-          description: Unauthorized
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Send Re-activation email
+        source: |-
+          curl -X GET \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/account/reactivate?email=email%2Bencoded@provider.com'
 components:
-  schemas:
-    AccessToken:
-      type: object
-      properties:
-        access_token:
-          type: string
-          description: Bearer token for API authentication
-        token_type:
-          type: string
-          example: Bearer
-        expires_in:
-          type: integer
-          description: Token validity in seconds (86400 = 24 hours)
-          example: 86400
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: JWT
-      description: OAuth 2.0 Bearer token obtained from /oauth/token
+      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for
+        24 hours.
+  schemas:
+    Error:
+      type: object
+      description: RevContent error envelope.
+      properties:
+        success:
+          type: boolean
+          const: false
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: integer
+                description: HTTP-aligned error code.
+              title:
+                type: string
+                description: Short error title.
+              detail:
+                type: string
+                description: Human readable error detail.
+x-source: https://api.revcontent.io/docs/stats/api_data.json
+x-source-format: apiDoc 0.17.7
+x-generated: '2026-08-13'
+x-method: derived

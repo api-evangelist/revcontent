@@ -1,15 +1,12 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
-  title: RevContent Stats & Management Access Content API
-  description: 'REST API providing programmatic access to RevContent''s native advertising platform for managing boosts (campaigns), widgets, content, targeting, bidding, and statistical reporting. Authenticated via OAuth 2.0 client credentials flow. Access tokens are valid for 24 hours.
-
-    '
+  title: RevContent Content API
+  description: Ad content (creatives) attached to campaigns, plus per-widget content performance.
   version: '1.0'
   contact:
     name: RevContent Support
     url: https://www.revcontent.com/resources/contact-us
     email: developer@revcontent.com
-  x-api-changelog: https://help.revcontent.com/knowledge/api-changelog
 servers:
 - url: https://api.revcontent.io
   description: RevContent Production API
@@ -17,195 +14,854 @@ security:
 - BearerAuth: []
 tags:
 - name: Content
-  description: Ad content management and performance
+  description: Ad content (creatives) attached to campaigns, plus per-widget content performance.
 paths:
-  /stats/api/v1.0/boosts/{boost_id}/content:
+  /stats/api/v1.0/boosts/content:
     get:
       operationId: getAllBoostContent
-      summary: Get All Boost Content
-      description: 'Returns content performance data including conversion cost metrics for all content associated with a boost.
-
-        '
+      summary: Get All Campaigns Content
+      description: Get all the content for current account and the statistics for the given time period.
       tags:
       - Content
+      x-permission:
+      - Advertiser
       parameters:
-      - name: boost_id
-        in: path
-        required: true
-        schema:
-          type: integer
-        description: Unique identifier of the boost
-      - name: from_date
+      - name: sub_account_id
         in: query
+        required: false
+        description: Sub Account ID. By default all actions are for your user account if sub account ID
+          is not specified.
+        schema:
+          type: number
+      - name: date_from
+        in: query
+        required: false
+        description: Start date for the statistics in Y-m-d format.
         schema:
           type: string
-          format: date
-        description: Start date for metrics (YYYY-MM-DD)
-      - name: to_date
+          default: today's date
+      - name: date_to
         in: query
+        required: false
+        description: End date for the statistics in Y-m-d format.
         schema:
           type: string
-          format: date
-        description: End date for metrics (YYYY-MM-DD)
+          default: today's date
       responses:
         '200':
-          description: Content performance data
+          description: Successful response.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentListResponse'
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: 'true'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        boost_id:
+                          type: string
+                          description: Campaign id
+                        content_id:
+                          type: string
+                          description: Content id
+                        headline:
+                          type: string
+                          description: Content headline
+                        target_url:
+                          type: string
+                          description: Content target_url
+                        image_url:
+                          type: string
+                          description: Content image_url
+                        brand_name:
+                          type: string
+                          description: Content brand_name
+                        admin_status:
+                          type: string
+                          description: Content status ('approved','deleted','denied','pending')
+                        enabled:
+                          type: string
+                          description: Content User Status ('active', 'inactive')
+                        utm_codes:
+                          type: string
+                          description: UTM codes
+                        avg_position:
+                          type: string
+                          description: Average position
+                        impressions:
+                          type: string
+                          description: Total number of impressions for selected content
+                        clicks:
+                          type: string
+                          description: Total number of clicks for selected content
+                        conversions:
+                          type: string
+                          description: Total number of conversion for selected content
+                        ctr:
+                          type: string
+                          description: CTR for selected date
+                        avg_cpc:
+                          type: string
+                          description: Average CPC for selected content
+                        cost:
+                          type: string
+                          description: Cost for selected content
+                        cost_per_conv:
+                          type: string
+                          description: Cost per conversion for selected content
+                        return:
+                          type: string
+                          description: Return for selected content
+                        profit:
+                          type: string
+                          description: Profit for selected content
+                      required:
+                      - boost_id
+                      - content_id
+                      - headline
+                      - target_url
+                      - image_url
+                      - brand_name
+                      - admin_status
+                      - enabled
+                      - utm_codes
+                      - avg_position
+                      - impressions
+                      - clicks
+                      - conversions
+                      - ctr
+                      - avg_cpc
+                      - cost
+                      - cost_per_conv
+                      - return
+                      - profit
+                    description: List of campaign's content and their statistics
+                required:
+                - success
+                - data
+              example:
+                success: true
+                data:
+                - boost_id: '1'
+                  content_id: '94441'
+                  headline: Fox News
+                  target_url: http://fox.com/easy-tricks-to-drive-traffic-from-content-recommendations/
+                  image_url: https://revcontent.s3.amazonaws.com/assets/content_images/emb/4cabeafbe52602b30d505aaa73eb5a28-0.png
+                  brand_name: fox
+                  status: approved
+                  enabled: active
+                  utm_codes: utm_content_id={content_id}&utm_boost_id={boost_id}&utm_targeting={adv_targets}&utm_widget_id={widget_id}
+                  avg_position: '4.191992'
+                  impressions: '875349'
+                  clicks: '1287'
+                  conversions: '1'
+                  ctr: '0.1470'
+                  avg_cpc: '0.15343434'
+                  cost: '197.4700'
+                  cost_per_conv: '197.4700'
+                  return: '54.0000'
+                  'profit ': '-143.4700'
+                - boost_id: '1'
+                  content_id: '94863'
+                  headline: BBC
+                  target_url: http://bbc.com/easy-tricks-to-drive-traffic-from-content-recommendations/
+                  image_url: https://revcontent.s3.amazonaws.com/assets/content_images/emb/4casdfsdfsfbe52602b30d505aaa73eb5a28-0.png
+                  brand_name: bbc
+                  status: approved
+                  enabled: inactive
+                  utm_codes: utm_content_id={content_id}&utm_boost_id={boost_id}&utm_targeting={adv_targets}&utm_widget_id={widget_id}
+                  avg_position: '3.036587'
+                  impressions: '1577539'
+                  clicks: '9646'
+                  conversions: '7'
+                  ctr: '0.6115'
+                  avg_cpc: '0.08108646'
+                  cost: '782.1600'
+                  cost_per_conv: '111.7371'
+                  return: '378.0000'
+                  'profit ': '-404.1600'
+                - boost_id: '2'
+                  content_id: '96865'
+                  headline: CNN
+                  target_url: http://cnn.com/easy-tricks-to-drive-traffic-from-content-recommendations/
+                  image_url: https://revcontent.s3.amazonaws.com/assets/content_images/emb/4casdfsdfsfbe52602b30d505234j3hgf28-0.png
+                  brand_name: cnn
+                  status: approved
+                  enabled: active
+                  utm_codes: utm_content_id={content_id}&utm_boost_id={boost_id}&utm_targeting={adv_targets}&utm_widget_id={widget_id}
+                  avg_position: '4.429076'
+                  impressions: '1106711'
+                  clicks: '1178'
+                  conversions: '0'
+                  ctr: '0.1064'
+                  avg_cpc: '0.10245331'
+                  cost: '120.6900'
+                  cost_per_conv: '0.000'
+                  return: '0.0000'
+                  'profit ': '-120.6900'
+                - boost_id: '2'
+                  content_id: '96866'
+                  headline: ABC
+                  target_url: http://bbc.com/easy-tricks-to-drive-traffic-from-content-recommendations/
+                  image_url: https://revcontent.s3.amazonaws.com/assets/content_images/emb/4544sdfsfbe52602b30d505234j3hgf28-0.png
+                  brand_name: abc
+                  status: approved
+                  enabled: active
+                  utm_codes: utm_content_id={content_id}&utm_boost_id={boost_id}&utm_targeting={adv_targets}&utm_widget_id={widget_id}
+                  avg_position: '4.803899400000001'
+                  impressions: '3555458'
+                  clicks: '3042'
+                  conversions: '4'
+                  ctr: '0.0856'
+                  avg_cpc: '0.14745891'
+                  cost: '448.5700'
+                  cost_per_conv: '112.1425'
+                  return: '216.0000'
+                  'profit ': '-232.5700'
+                - boost_id: '3'
+                  content_id: '96869'
+                  headline: NBC
+                  target_url: http://nbc.com/easy-tricks-to-drive-traffic-from-content-recommendations/
+                  image_url: https://revcontent.s3.amazonaws.com/assets/content_images/emb/123be52602b30d505234j3hgf28-0.png
+                  brand_name: nbc
+                  status: approved
+                  enabled: inactive
+                  utm_codes: utm_content_id={content_id}&utm_boost_id={boost_id}&utm_targeting={adv_targets}&utm_widget_id={widget_id}
+                  avg_position: '4.500694666666667'
+                  impressions: '948708'
+                  clicks: '787'
+                  conversions: '0'
+                  ctr: '0.0830'
+                  avg_cpc: '0.13548920'
+                  cost: '106.6300'
+                  cost_per_conv: '0.000'
+                  return: '0.0000'
+                  'profit ': '-106.6300'
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 400
+                  title: Invalid Parameters
+                  detail: Invalid Parameters sent
         '401':
-          description: Unauthorized
-  /stats/api/v1.0/boosts/{boost_id}/content/{content_id}:
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Get All Campaign Content
+        source: |-
+          curl -X GET \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/boosts/content'
+  /stats/api/v1.0/boosts/{boost_id}/content:
     get:
       operationId: getBoostContent
-      summary: Get Boost Content
-      description: Fetches individual content item performance data for a specific boost.
+      summary: Get Campaign Content
+      description: Get all the campaign's current content and the statistics for the given time period.
       tags:
       - Content
+      x-permission:
+      - Advertiser
       parameters:
       - name: boost_id
         in: path
         required: true
+        description: Campaign ID.
         schema:
-          type: integer
-        description: Unique identifier of the boost
-      - name: content_id
-        in: path
-        required: true
-        schema:
-          type: integer
-        description: Unique identifier of the content item
-      - name: from_date
+          type: number
+      - name: sub_account_id
         in: query
+        required: false
+        description: Sub Account ID. By default all actions are for your user account if sub account ID
+          is not specified.
+        schema:
+          type: number
+      - name: admin_status
+        in: query
+        required: false
+        description: 'Admin status of the content. Values: "approved", "denied", "pending".'
         schema:
           type: string
-          format: date
-        description: Start date for metrics (YYYY-MM-DD)
-      - name: to_date
+      - name: enabled
         in: query
+        required: false
+        description: 'User status of the content. Values: "active", "inactive".'
         schema:
           type: string
-          format: date
-        description: End date for metrics (YYYY-MM-DD)
+      - name: date_from
+        in: query
+        required: false
+        description: Start date for the statistics in Y-m-d format.
+        schema:
+          type: string
+          default: today's date
+      - name: date_to
+        in: query
+        required: false
+        description: End date for the statistics in Y-m-d format.
+        schema:
+          type: string
+          default: today's date
+      - name: limit
+        in: query
+        required: false
+        description: Number of records to return. Max 1000. Default 100.
+        schema:
+          type: number
+          default: 100
+      - name: offset
+        in: query
+        required: false
+        description: Offset for the records to return.
+        schema:
+          type: number
+          default: 0
       responses:
         '200':
-          description: Content item performance data
+          description: Successful response.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentItem'
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: 'true'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        content_id:
+                          type: string
+                          description: Content id
+                        headline:
+                          type: string
+                          description: Content headline
+                        target_url:
+                          type: string
+                          description: Content target_url
+                        image_url:
+                          type: string
+                          description: Content image_url
+                        brand_name:
+                          type: string
+                          description: Content brand_name
+                        admin_status:
+                          type: string
+                          description: Content status ('approved','deleted','denied','pending')
+                        creative_denial_reason:
+                          type: string
+                          description: Denial Reasons given by administration for denied creatives (separated
+                            by comma). 'N/A' otherwise.
+                        enabled:
+                          type: string
+                          description: Content User Status ('active', 'inactive')
+                        avg_position:
+                          type: string
+                          description: Average position
+                        impressions:
+                          type: string
+                          description: Total number of impressions for selected content
+                        viewable_impressions:
+                          type: string
+                          description: Total number of viewable impressions for selected content
+                        clicks:
+                          type: string
+                          description: Total number of clicks for selected content
+                        conversions:
+                          type: string
+                          description: Total number of conversion for selected content
+                        ctr:
+                          type: string
+                          description: CTR for selected date
+                        avg_cpc:
+                          type: string
+                          description: Average CPC for selected content
+                        cost:
+                          type: string
+                          description: Cost for selected content
+                        cost_per_conv:
+                          type: string
+                          description: Cost for conversions for selected content
+                        return:
+                          type: string
+                          description: Return for selected content
+                        profit:
+                          type: string
+                          description: Profit for selected content
+                      required:
+                      - content_id
+                      - headline
+                      - target_url
+                      - image_url
+                      - brand_name
+                      - admin_status
+                      - creative_denial_reason
+                      - enabled
+                      - avg_position
+                      - impressions
+                      - viewable_impressions
+                      - clicks
+                      - conversions
+                      - ctr
+                      - avg_cpc
+                      - cost
+                      - cost_per_conv
+                      - return
+                      - profit
+                    description: List of campaign's content and their statistics
+                required:
+                - success
+                - data
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 400
+                  title: Invalid Parameters
+                  detail: Invalid Parameters sent
         '401':
-          description: Unauthorized
-        '404':
-          description: Content not found
-  /stats/api/v1.0/boosts/{boost_id}/content/{content_id}/widget-stats:
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Get Campaign's Current Content
+        source: |-
+          curl -X GET \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/boosts/308/content'
+    post:
+      operationId: postBoostContentUpdate
+      summary: Update Campaign Content
+      description: Update Content.
+      tags:
+      - Content
+      x-permission:
+      - Advertiser
+      parameters:
+      - name: boost_id
+        in: path
+        required: true
+        description: Campaign ID.
+        schema:
+          type: number
+      - name: sub_account_id
+        in: query
+        required: false
+        description: Sub Account ID. By default all actions are for your user account if sub account ID
+          is not specified.
+        schema:
+          type: number
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: number
+                  description: Content ID. If is not included, provided values will be apply to all contents.
+                target_url:
+                  type: string
+                  maxLength: 255
+                  description: 'Destination image URL. Supports: {CITY}, {STATE}, {COUNTRY}, {BOOST_ID},
+                    {CONTENT_ID}, {ACC_ID}, {WIDGET_ID}'
+                headline:
+                  type: string
+                  maxLength: 80
+                  description: 'Content headline. Supports: {CITY}, {STATE}, {COUNTRY}'
+                description:
+                  type: string
+                  maxLength: 250
+                  description: Content Body Description.
+                brand_name:
+                  type: string
+                  maxLength: 30
+                  description: Image provider
+                enabled:
+                  type: string
+                  description: 'Content status. Values: "on", "off".'
+                  default: 'on'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Determines if content was updated.
+                required:
+                - success
+              example:
+                success: true
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 100
+                  title: Invalid Argument
+                  detail: Invalid ID value
+      x-codeSamples:
+      - lang: json
+        label: Update content
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               -d '{"id": 690, "enabled" : "on", "target_url":"http://www.mcngmarketing.com/foo"}' \
+               'https://api.revcontent.io/stats/api/v1.0/boosts/308/content'
+      - lang: json
+        label: Update multiple content
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               -d '[{"id": 690, "enabled": "on", "target_url":"http://www.mcngmarketing.com/foo"},{"id": 790, "enabled" : "off"}]' \
+               'https://api.revcontent.io/stats/api/v1.0/boosts/308/content'
+      - lang: json
+        label: Update all content
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               -d '{"enabled" : "off", "target_url":"http://www.mcngmarketing.com/foo"}' \
+               'https://api.revcontent.io/stats/api/v1.0/boosts/308/content'
+  /stats/api/v1.0/contents/{content_id}/widgets/stats:
     get:
       operationId: getContentWidgetStats
       summary: Get Content Widget Stats
-      description: 'Provides widget-level statistics for a specific content item within a boost. Includes publisher IDs.
-
-        '
+      description: Get list content by widget
       tags:
       - Content
+      x-permission:
+      - Advertiser
+      parameters:
+      - name: content_id
+        in: path
+        required: true
+        description: Content ID to look for.
+        schema:
+          type: number
+      - name: sub_account_id
+        in: query
+        required: false
+        description: Sub Account ID. By default all actions are for your user account if sub account ID
+          is not specified.
+        schema:
+          type: number
+      - name: date
+        in: query
+        required: false
+        description: Date for the statistics in Y-m-d format. Defaults to today.
+        schema:
+          type: string
+          default: today's date
+      - name: limit
+        in: query
+        required: false
+        description: Number of records to return. Max 1000. Default 100.
+        schema:
+          type: number
+          default: 100
+      - name: offset
+        in: query
+        required: false
+        description: Offset for the records to return.
+        schema:
+          type: number
+          default: 0
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: 'true'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        pub_id:
+                          type: string
+                          description: Publisher ID
+                        widget_id:
+                          type: string
+                          description: Widget ID
+                        impressions:
+                          type: string
+                          description: Total number of impressions for date and widget
+                        viewable_impressions:
+                          type: string
+                          description: Total number of viewable impressions for widget
+                        clicks:
+                          type: string
+                          description: Total number of clicks for date and widget
+                        ctr:
+                          type: string
+                          description: CTR for date and widget
+                        vctr:
+                          type: string
+                          description: Viewable CTR for date and widget
+                        avg_cpc:
+                          type: string
+                          description: Average CPC for date and widget
+                        spend:
+                          type: string
+                          description: Spend for date and widget
+                        conversion:
+                          type: string
+                          description: Total number of conversions for date and widget
+                        cost_per_conv:
+                          type: string
+                          description: Cost per conversion for date and widget
+                        profit:
+                          type: string
+                          description: Profit for date and widget
+                      required:
+                      - pub_id
+                      - widget_id
+                      - impressions
+                      - viewable_impressions
+                      - clicks
+                      - ctr
+                      - vctr
+                      - avg_cpc
+                      - spend
+                      - conversion
+                      - cost_per_conv
+                      - profit
+                    description: Statistics by widget
+                required:
+                - success
+                - data
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 400
+                  title: Invalid Parameters
+                  detail: Invalid Parameters sent
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Get Content Stats (content_id = 756776)
+        source: |-
+          curl -X GET \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d"
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               "https://api.revcontent.io/stats/api/v1.0/contents/756776/widgets/stats?date=2017-03-21"
+  /stats/api/v1.0/boosts/{boost_id}/content/add:
+    post:
+      operationId: postBoostContentAdd
+      summary: Add Campaign Content
+      description: Add Content.
+      tags:
+      - Content
+      x-permission:
+      - Advertiser
       parameters:
       - name: boost_id
         in: path
         required: true
+        description: Campaign ID.
         schema:
-          type: integer
-        description: Unique identifier of the boost
-      - name: content_id
-        in: path
+          type: number
+      - name: sub_account_id
+        in: query
+        required: false
+        description: Sub Account ID. By default all actions are for your user account if sub account ID
+          is not specified.
+        schema:
+          type: number
+      requestBody:
         required: true
-        schema:
-          type: integer
-        description: Unique identifier of the content item
-      - name: from_date
-        in: query
-        schema:
-          type: string
-          format: date
-        description: Start date for metrics (YYYY-MM-DD)
-      - name: to_date
-        in: query
-        schema:
-          type: string
-          format: date
-        description: End date for metrics (YYYY-MM-DD)
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                target_url:
+                  type: string
+                  maxLength: 255
+                  description: 'Destination image URL. Supports: {CITY}, {STATE}, {COUNTRY}, {BOOST_ID},
+                    {CONTENT_ID}, {ACC_ID}, {WIDGET_ID}'
+                image:
+                  type: string
+                  description: 'URL for an image (up to 2MB). Allowed file types: jpg, jpeg, gif, png,
+                    webp. Optional if video is provided. Accepts animated gif/webp images. When using
+                    an animated image, the first frame is used for non participating sites.'
+                video:
+                  type: string
+                  description: 'URL for a video (up to 5GB). Allowed file types: mp4, mov. Optional if
+                    image is provided.'
+                headline:
+                  type: string
+                  maxLength: 80
+                  description: 'Content headline. Supports: {CITY}, {STATE}, {COUNTRY}'
+                description:
+                  type: string
+                  maxLength: 250
+                  description: Content body description.
+                brand_name:
+                  type: string
+                  maxLength: 30
+                  description: Image/Video provider
+              required:
+              - target_url
+              - image
+              - video
+              - headline
+              - description
+              - brand_name
       responses:
         '200':
-          description: Widget-level statistics including publisher IDs
+          description: Successful response.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WidgetStatsResponse'
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Determines if content was updated.
+                  creative:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        description: Creative Id
+                      status:
+                        type: boolean
+                        description: Creative current status
+                    required:
+                    - id
+                    - status
+                required:
+                - success
+              example:
+                success: true
+                creative:
+                  id: 900
+                  status: pending
         '401':
-          description: Unauthorized
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 100
+                  title: Invalid Argument
+                  detail: Invalid ID value
+      x-codeSamples:
+      - lang: json
+        label: Add content
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               -d '{"target_url":"http://www.mcngmarketing.com/17-funny-advertisements-to-tickle-your-funny-bone","image":"http://www.mcngmarketing.com/wp-content/uploads/2013/04/Funny-Advertisement-3.jpg","headline":"Childsurance {BOOST_ID} – At 18 Your Angry Daughter…","brand_name":"Childsunrance {CITY}"}, "description": "You will never believe the reaction your family will have when you read these hilarious advertisements."' \
+               'https://api.revcontent.io/stats/api/v1.0/boosts/308/content/add'
 components:
-  schemas:
-    ContentListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContentItem'
-        total:
-          type: integer
-    WidgetStatsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              widget_id:
-                type: integer
-              publisher_id:
-                type: integer
-                description: Publisher ID (included per changelog update)
-              impressions:
-                type: integer
-              clicks:
-                type: integer
-              ctr:
-                type: number
-                format: float
-              spend:
-                type: number
-                format: float
-    ContentItem:
-      type: object
-      properties:
-        content_id:
-          type: integer
-        boost_id:
-          type: integer
-        headline:
-          type: string
-        image_url:
-          type: string
-          format: uri
-        impressions:
-          type: integer
-        clicks:
-          type: integer
-        ctr:
-          type: number
-          format: float
-        spend:
-          type: number
-          format: float
-        conversions:
-          type: integer
-        cost_per_conversion:
-          type: number
-          format: float
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: JWT
-      description: OAuth 2.0 Bearer token obtained from /oauth/token
+      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for
+        24 hours.
+  schemas:
+    Error:
+      type: object
+      description: RevContent error envelope.
+      properties:
+        success:
+          type: boolean
+          const: false
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: integer
+                description: HTTP-aligned error code.
+              title:
+                type: string
+                description: Short error title.
+              detail:
+                type: string
+                description: Human readable error detail.
+x-source: https://api.revcontent.io/docs/stats/api_data.json
+x-source-format: apiDoc 0.17.7
+x-generated: '2026-08-13'
+x-method: derived

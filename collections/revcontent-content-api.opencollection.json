@@ -1,0 +1,217 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RevContent Content API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Content",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Campaigns Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/boosts/content",
+            "params": [
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+              },
+              {
+                "name": "date_from",
+                "value": "",
+                "type": "query",
+                "description": "Start date for the statistics in Y-m-d format."
+              },
+              {
+                "name": "date_to",
+                "value": "",
+                "type": "query",
+                "description": "End date for the statistics in Y-m-d format."
+              }
+            ]
+          },
+          "docs": "Get all the content for current account and the statistics for the given time period."
+        },
+        {
+          "info": {
+            "name": "Get Campaign Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/boosts/:boost_id/content",
+            "params": [
+              {
+                "name": "boost_id",
+                "value": "",
+                "type": "path",
+                "description": "Campaign ID."
+              },
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+              },
+              {
+                "name": "admin_status",
+                "value": "",
+                "type": "query",
+                "description": "Admin status of the content. Values: \"approved\", \"denied\", \"pending\"."
+              },
+              {
+                "name": "enabled",
+                "value": "",
+                "type": "query",
+                "description": "User status of the content. Values: \"active\", \"inactive\"."
+              },
+              {
+                "name": "date_from",
+                "value": "",
+                "type": "query",
+                "description": "Start date for the statistics in Y-m-d format."
+              },
+              {
+                "name": "date_to",
+                "value": "",
+                "type": "query",
+                "description": "End date for the statistics in Y-m-d format."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return. Max 1000. Default 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for the records to return."
+              }
+            ]
+          },
+          "docs": "Get all the campaign's current content and the statistics for the given time period."
+        },
+        {
+          "info": {
+            "name": "Update Campaign Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revcontent.io/stats/api/v1.0/boosts/:boost_id/content",
+            "params": [
+              {
+                "name": "boost_id",
+                "value": "",
+                "type": "path",
+                "description": "Campaign ID."
+              },
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Content."
+        },
+        {
+          "info": {
+            "name": "Get Content Widget Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/contents/:content_id/widgets/stats",
+            "params": [
+              {
+                "name": "content_id",
+                "value": "",
+                "type": "path",
+                "description": "Content ID to look for."
+              },
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Date for the statistics in Y-m-d format. Defaults to today."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to return. Max 1000. Default 100."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for the records to return."
+              }
+            ]
+          },
+          "docs": "Get list content by widget"
+        },
+        {
+          "info": {
+            "name": "Add Campaign Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revcontent.io/stats/api/v1.0/boosts/:boost_id/content/add",
+            "params": [
+              {
+                "name": "boost_id",
+                "value": "",
+                "type": "path",
+                "description": "Campaign ID."
+              },
+              {
+                "name": "sub_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add Content."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

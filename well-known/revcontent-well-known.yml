@@ -1,0 +1,74 @@
+generated: '2026-08-13'
+method: probed
+source: live GET probes of every apis.yml host on 2026-08-13
+description: >-
+  RevContent serves NO /.well-known/ discovery documents. Every path below was probed on every
+  host in apis.yml (the API host, the marketing site and the help centre) and every one returned
+  404. Recorded as an absence — no WellKnown or SecurityTxt pointer is wired in apis.yml, because
+  there is no document to point at.
+hosts:
+  - host: https://api.revcontent.io
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://www.revcontent.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://help.revcontent.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+summary:
+  paths_probed: 24
+  documents_found: 0
+  security_txt: false
+  oauth_metadata: false
+  agent_card: false
+notes:
+  - 'api.revcontent.io answers 404 with the AngularJS marketing SPA shell (<html ng-app="app">),
+    not a JSON 404 — the 404 status is genuine, but the body is HTML in every case.'
+  - No pointer is emitted in apis.yml. A WellKnown pointer over an all-404 probe would assert a
+    discovery surface RevContent does not serve.

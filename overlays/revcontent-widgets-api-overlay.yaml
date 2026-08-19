@@ -1,0 +1,29 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for RevContent Widget
+  version: 1.0.0
+extends: openapi/revcontent-widgets-api-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: Records what API Evangelist added on top of RevContent's published apiDoc contract at https://api.revcontent.io/docs/stats/api_data.json.
+  RevContent publishes no OpenAPI; the spec this overlay extends is itself a faithful transform of that
+  contract.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: revcontent
+    x-apievangelist-operations: 3
+    x-apievangelist-contract-source: https://api.revcontent.io/docs/stats/api_data.json
+    x-apievangelist-contract-format: apiDoc 0.17.7, generated 2026-07-31
+- target: $.info
+  description: RevContent's contract declares no error envelope schema; API Evangelist added components.schemas.Error
+    from the provider's own published error examples.
+  update:
+    x-apievangelist-error-envelope: components/schemas/Error
+- target: $.components.securitySchemes.BearerAuth
+  description: Token lifetime and issuance path documented in prose by RevContent, attached here as machine-readable
+    extensions.
+  update:
+    x-token-endpoint: https://api.revcontent.io/oauth/token
+    x-grant-type: client_credentials
+    x-token-ttl-seconds: 86400

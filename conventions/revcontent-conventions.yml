@@ -1,0 +1,162 @@
+generated: '2026-08-13'
+method: searched
+source: https://api.revcontent.io/docs/stats/index.html
+docs: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
+description: >-
+  Cross-cutting request/response semantics for the RevContent Stats & Management API, read from
+  the provider's own published contract (apiDoc at https://api.revcontent.io/docs/stats/api_data.json)
+  and the help-centre auth guide, then cross-checked against the 43 operations in openapi/.
+
+authentication:
+  style: OAuth 2.0 client credentials -> bearer token
+  token_endpoint: https://api.revcontent.io/oauth/token
+  grant_type: client_credentials
+  request_encoding: application/x-www-form-urlencoded
+  token_ttl_seconds: 86400
+  header: 'Authorization: Bearer {access_token}'
+  credentials_location: Account Settings -> "Stats API Credentials" (client_id + client_secret)
+  gating: API access must be enabled by a RevContent account representative before credentials appear.
+  refresh: No refresh token. Re-POST the client credentials after 24 hours.
+  detail: authentication/revcontent-authentication.yml
+
+content_negotiation:
+  request_content_type: application/json
+  exceptions:
+    - 'POST /oauth/token uses application/x-www-form-urlencoded'
+    - 'POST /stats/api/v1.0/data_requests/submit and /data_requests/data use application/x-www-form-urlencoded'
+  response_content_type: application/json
+  required_headers:
+    - name: Authorization
+      value: 'Bearer {access token}'
+    - name: Content-type
+      value: application/json
+
+response_envelope:
+  shape: '{"success": true, "data": [...]}'
+  fields:
+    - field: success
+      type: boolean
+      description: true on success, false on error. Present on every documented response.
+    - field: data
+      type: array|object
+      description: The payload. List operations return an array; some return an aggregate sibling.
+    - field: aggregate
+      type: object
+      description: >-
+        Present on three list operations when aggregate=yes is supplied — statistics rolled up by
+        date alongside the row-level data.
+  note: >-
+    The envelope is uniform: an agent can branch on `success` before touching `data` on every one
+    of the 43 documented operations.
+
+pagination:
+  style: limit/offset
+  parameters:
+    - name: limit
+      in: query
+      default: 100
+      maximum: 1000
+      note: >-
+        Max 1000 on most list operations, but GET /stats/api/v1.0/widgets_geo documents Max 100.
+        The ceiling is per-operation, not global.
+    - name: offset
+      in: query
+      default: 0
+  response_fields: []
+  gaps:
+    - No total count, no next/prev cursor, and no Link header — a client cannot tell whether more
+      rows exist except by requesting another page and getting fewer than `limit` back.
+    - No stable sort order is documented, so offset paging over a mutating campaign list can skip
+      or repeat rows.
+
+filtering:
+  date_range:
+    parameters: [date_from, date_to]
+    format: Y-m-d
+    defaults: date_from defaults to the first of the current month; date_to defaults to today.
+  incremental:
+    parameters: [created_at, updated_at]
+    description: >-
+      GET /stats/api/v1.0/boosts accepts created_at and updated_at as "on or after" watermarks,
+      which is the only incremental-sync affordance in the API.
+  status:
+    parameters: [status, enabled]
+    description: >-
+      `status` is the system status (active, balance_issue, budget_exhausted, inactive, disabled,
+      archived, non_archived); `enabled` is the user-set status (active, inactive). They are
+      distinct and both are returned.
+  aggregation:
+    parameter: aggregate
+    values: ['yes', 'no']
+
+multi_tenancy:
+  parameter: sub_account_id
+  applies_to: 18 of 43 documented operations
+  description: >-
+    Omit sub_account_id to act on the authenticating account; supply it to act on a child account.
+    This is the tenancy dimension of the whole API and it is a plain query/body parameter, not a
+    header or a separate token — an agent holding one token can act across every sub account.
+
+idempotency:
+  supported: false
+  evidence: >-
+    Zero occurrences of "idempot" in the provider's full published contract
+    (https://api.revcontent.io/docs/stats/api_data.json, 287KB, checked 2026-08-13). No
+    Idempotency-Key header, no client-supplied request identifier, no documented replay window.
+  consequence: >-
+    Every write is unsafe to retry blind. POST /stats/api/v1.0/boosts/add creates a new campaign on
+    each call; POST /stats/api/v1.0/conversions/add creates a new conversion pixel. A timeout on a
+    write leaves the caller unable to determine whether it applied without a follow-up read.
+  no_pointer_reason: >-
+    No `Idempotency` pointer is wired in apis.yml. Emitting one would credit RevContent with a
+    retry contract it does not publish.
+
+request_tracing:
+  supported: false
+  evidence: No request-id, correlation-id or trace header is documented on any operation.
+
+versioning:
+  scheme: uri-path
+  current: v1.0
+  form: /stats/api/v1.0/...
+  note: >-
+    The path has carried v1.0 since the API was first documented. The apiDoc project metadata
+    reports version 0.1.0 for every one of the 43 operations, so per-operation versioning is not
+    in use. See lifecycle/revcontent-lifecycle.yml.
+
+errors:
+  format: vendor envelope (NOT RFC 9457)
+  shape: '{"success": false, "errors": [{"code": 400, "title": "...", "detail": "..."}]}'
+  detail: errors/revcontent-problem-types.yml
+
+rate_limiting:
+  published: false
+  headers: []
+  evidence: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header is documented on any operation, and no
+    request quota appears in the contract or the help centre. See rate-limits/revcontent-rate-limits.yml.
+
+validation_rules:
+  - rule: Minimum CPC bid
+    value: 0.01
+    scope: campaign create/update and widget targeting bids
+    source: https://help.revcontent.com/knowledge/api-changelog (09/13/2021)
+  - rule: Bulk-update safety parameter
+    value: Explicit opt-in required before a bulk campaign update applies to all campaigns
+    source: https://help.revcontent.com/knowledge/api-changelog (03/08/2021)
+  - rule: Targeting codes must come from the Helpers reference endpoints
+    value: 'country_codes, region_codes, device_targeting, os_targeting, language_targeting, browser_targeting, dma_codes'
+    source: https://api.revcontent.io/docs/stats/index.html
+  - rule: os_targeting IDs must match device_targeting IDs
+    value: Targeting OS IDs 4/5 or 6/7/8 resets targeting to All
+    source: https://api.revcontent.io/docs/stats/index.html
+  - rule: Unlimited budget campaigns
+    value: Required for hour-level campaign scheduling; CSR accounts cannot have unlimited budgets
+    source: https://api.revcontent.io/docs/stats/index.html
+
+cross_links:
+  authentication: authentication/revcontent-authentication.yml
+  errors: errors/revcontent-problem-types.yml
+  lifecycle: lifecycle/revcontent-lifecycle.yml
+  rate_limits: rate-limits/revcontent-rate-limits.yml
+  data_model: data-model/revcontent-data-model.yml

@@ -1,0 +1,648 @@
+openapi: 3.1.0
+info:
+  title: RevContent Widget API
+  description: Publisher widget inventory, geo statistics and Sub ID reporting.
+  version: '1.0'
+  contact:
+    name: RevContent Support
+    url: https://www.revcontent.com/resources/contact-us
+    email: developer@revcontent.com
+servers:
+- url: https://api.revcontent.io
+  description: RevContent Production API
+security:
+- BearerAuth: []
+tags:
+- name: Widget
+  description: Publisher widget inventory, geo statistics and Sub ID reporting.
+paths:
+  /stats/api/v1.0/widgets:
+    get:
+      operationId: getAllWidgets
+      summary: Get All Widgets
+      description: Get list of widgets
+      tags:
+      - Widget
+      x-permission:
+      - Publisher
+      parameters:
+      - name: widget
+        in: query
+        required: false
+        description: Filter stats by a specific widget. For example "1234". Defaults to all widgets.
+        schema:
+          type: number
+      - name: domain
+        in: query
+        required: false
+        description: Filter widgets by a specific domain. For example "revcontent.com". Defaults to all
+          domains.
+        schema:
+          type: string
+      - name: device
+        in: query
+        required: false
+        description: 'Filter stats by a specific device. Values: "all", "desktop", "tablet", "mobile",
+          "unknown". Defaults to all.'
+        schema:
+          type: string
+      - name: date_from
+        in: query
+        required: false
+        description: Start date for the statistics in Y-m-d format. Defaults to first of the current month.
+        schema:
+          type: string
+          default: first of the month
+      - name: date_to
+        in: query
+        required: false
+        description: End date for the statistics in Y-m-d format. Defaults to today.
+        schema:
+          type: string
+          default: today's date
+      - name: limit
+        in: query
+        required: false
+        description: Number of records to return. Max 100.
+        schema:
+          type: number
+          default: 100
+      - name: offset
+        in: query
+        required: false
+        description: Offset for the records to return.
+        schema:
+          type: number
+          default: 0
+      - name: aggregate
+        in: query
+        required: false
+        description: If 'yes', statistics aggregated by date are retrieved.
+        schema:
+          type: string
+          default: 'no'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: 'true'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Widget id (if 'aggregate' is 'no')
+                        widget_imps:
+                          type: string
+                          description: Number of widget impressions
+                        page_views:
+                          type: string
+                          description: Number of page views
+                        ad_ctr:
+                          type: string
+                          description: Sponsored ad click through rate
+                        ad_clicks:
+                          type: string
+                          description: Sponsored ad clicks
+                        ad_cpc:
+                          type: string
+                          description: Sponsored ad average cost per click
+                        ad_rpm:
+                          type: string
+                          description: Sponsored ad revenue per milli
+                        ad_revenue:
+                          type: string
+                          description: Sponsored ad total revenue
+                      required:
+                      - id
+                      - widget_imps
+                      - page_views
+                      - ad_ctr
+                      - ad_clicks
+                      - ad_cpc
+                      - ad_rpm
+                      - ad_revenue
+                    description: List of widgets and their statistics
+                  aggregate:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                        description: 'true'
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            date:
+                              type: string
+                              description: Stats date (if 'aggregate' is 'yes')
+                            widget_imps:
+                              type: string
+                              description: Number of widget impressions
+                            page_views:
+                              type: string
+                              description: Number of page views
+                            ad_ctr:
+                              type: string
+                              description: Sponsored ad click through rate
+                            ad_clicks:
+                              type: string
+                              description: Sponsored ad clicks
+                            ad_cpc:
+                              type: string
+                              description: Sponsored ad average cost per click
+                            ad_rpm:
+                              type: string
+                              description: Sponsored ad revenue per milli
+                            ad_revenue:
+                              type: string
+                              description: Sponsored ad total revenue
+                          required:
+                          - date
+                          - widget_imps
+                          - page_views
+                          - ad_ctr
+                          - ad_clicks
+                          - ad_cpc
+                          - ad_rpm
+                          - ad_revenue
+                        description: List of widgets and their statistics
+                    description: Statistics aggregated by date (returned when aggregate=yes).
+                required:
+                - success
+                - data
+              example:
+                success: true
+                data:
+                - id: '218'
+                  name: Test Widget 1
+                  widget_imps: '149756'
+                  page_views: '149756'
+                  ad_ctr: '7.1189'
+                  ad_clicks: '10661'
+                  ad_cpc: '0.05792852'
+                  ad_rpm: '4.123881513929325035390902'
+                  ad_revenue: '617.57600000000000000000'
+                - id: '219'
+                  name: Test Widget 2
+                  widget_imps: '107'
+                  page_views: '107'
+                  ad_ctr: '8.4112'
+                  ad_clicks: '9'
+                  ad_cpc: '0.27294444'
+                  ad_rpm: '22.957943925233644859813084'
+                  ad_revenue: '2.45650000000000000000'
+                - id: '220'
+                  name: Test Widget 3
+                  widget_imps: '25977'
+                  page_views: '25977'
+                  ad_ctr: '0.0154'
+                  ad_clicks: '4'
+                  ad_cpc: '0.06375000'
+                  ad_rpm: '0.009816376024945143781037'
+                  ad_revenue: '0.25500000000000000000'
+                - id: '221'
+                  name: Test Widget 4
+                  widget_imps: '121904'
+                  page_views: '121904'
+                  ad_ctr: '2.1845'
+                  ad_clicks: '2663'
+                  ad_cpc: '0.06075122'
+                  ad_rpm: '1.327113958524740779629872'
+                  ad_revenue: '161.78050000000000000000'
+                - id: '222'
+                  name: Test Widget 5
+                  widget_imps: '99914'
+                  page_views: '99914'
+                  ad_ctr: '0.0230'
+                  ad_clicks: '23'
+                  ad_cpc: '0.54991304'
+                  ad_rpm: '0.126588866425125608022899'
+                  ad_revenue: '12.64800000000000000000'
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 400
+                  title: Invalid Parameters
+                  detail: Invalid Parameters sent
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Get Widgets
+        source: |-
+          curl -X GET \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/widgets'
+      - lang: json
+        label: Get Widgets (Aggregate)
+        source: |-
+          curl -X GET \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/widgets?date_from=2016-11-06&date_to=2016-11-07&aggregate=yes'
+  /stats/api/v1.0/widgets_geo:
+    get:
+      operationId: getAllWidgetsGeo
+      summary: Get All Widgets Geo Stats
+      description: Get list of widgets and their stats broken down by country
+      tags:
+      - Widget
+      x-permission:
+      - Publisher
+      parameters:
+      - name: country
+        in: query
+        required: false
+        description: 'Filter stats by a specific country. Values: ISO 3166-1 alpha-2 country codes, for
+          example "US", or "unknown". Defaults to all countries.'
+        schema:
+          type: string
+      - name: widget
+        in: query
+        required: false
+        description: Filter stats by a specific widget. For example "1234". Defaults to all widgets.
+        schema:
+          type: number
+      - name: domain
+        in: query
+        required: false
+        description: Filter widgets by a specific domain. For example "revcontent.com". Defaults to all
+          domains.
+        schema:
+          type: string
+      - name: device
+        in: query
+        required: false
+        description: 'Filter stats by a specific device. Values: "all", "desktop", "tablet", "mobile",
+          "unknown". Defaults to all.'
+        schema:
+          type: string
+      - name: date_from
+        in: query
+        required: false
+        description: Start date for the statistics in Y-m-d format. Defaults to today.
+        schema:
+          type: string
+          default: today's date
+      - name: date_to
+        in: query
+        required: false
+        description: End date for the statistics in Y-m-d format. Defaults to today. Maximum of 60 days
+          after the Start Date.
+        schema:
+          type: string
+          default: today's date
+      - name: limit
+        in: query
+        required: false
+        description: Number of records to return. Max 100.
+        schema:
+          type: number
+          default: 100
+      - name: offset
+        in: query
+        required: false
+        description: Offset for the records to return.
+        schema:
+          type: number
+          default: 0
+      - name: aggregate
+        in: query
+        required: false
+        description: If 'yes', statistics aggregated by date are retrieved.
+        schema:
+          type: string
+          default: 'no'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: 'true'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Widget id (if 'aggregate' is 'no')
+                        name:
+                          type: string
+                          description: Widget name
+                        country:
+                          type: string
+                          description: ISO 3166-1 alpha-2 country code or null (for unknown country)
+                        widget_imps:
+                          type: string
+                          description: Number of widget impressions
+                        page_views:
+                          type: string
+                          description: Number of page views
+                        ad_ctr:
+                          type: string
+                          description: Sponsored ad click through rate
+                        ad_clicks:
+                          type: string
+                          description: Sponsored ad clicks
+                        ad_cpc:
+                          type: string
+                          description: Sponsored ad average cost per click
+                        ad_rpm:
+                          type: string
+                          description: Sponsored ad revenue per milli
+                        ad_revenue:
+                          type: string
+                          description: Sponsored ad total revenue
+                      required:
+                      - id
+                      - name
+                      - country
+                      - widget_imps
+                      - page_views
+                      - ad_ctr
+                      - ad_clicks
+                      - ad_cpc
+                      - ad_rpm
+                      - ad_revenue
+                    description: List of widgets and their statistics
+                  aggregate:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                        description: 'true'
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            date:
+                              type: string
+                              description: Stats date (if 'aggregate' is 'yes')
+                            country:
+                              type: string
+                              description: ISO 3166-1 alpha-2 country code
+                            widget_imps:
+                              type: string
+                              description: Number of widget impressions
+                            page_views:
+                              type: string
+                              description: Number of page views
+                            ad_ctr:
+                              type: string
+                              description: Sponsored ad click through rate
+                            ad_clicks:
+                              type: string
+                              description: Sponsored ad clicks
+                            ad_cpc:
+                              type: string
+                              description: Sponsored ad average cost per click
+                            ad_rpm:
+                              type: string
+                              description: Sponsored ad revenue per milli
+                            ad_revenue:
+                              type: string
+                              description: Sponsored ad total revenue
+                          required:
+                          - date
+                          - country
+                          - widget_imps
+                          - page_views
+                          - ad_ctr
+                          - ad_clicks
+                          - ad_cpc
+                          - ad_rpm
+                          - ad_revenue
+                        description: List of widgets and their statistics
+                    description: Statistics aggregated by date (returned when aggregate=yes).
+                required:
+                - success
+                - data
+              example:
+                success: true
+                data:
+                - id: '218'
+                  name: Test Widget 1
+                  country: AU
+                  widget_imps: '149756'
+                  ad_ctr: '7.1189'
+                  ad_clicks: '10661'
+                  ad_cpc: '0.05792852'
+                  ad_rpm: '4.123881513929325035390902'
+                  ad_revenue: '617.57600000000000000000'
+                - id: '218'
+                  name: Test Widget 1
+                  country: BR
+                  widget_imps: '107'
+                  ad_ctr: '8.4112'
+                  ad_clicks: '9'
+                  ad_cpc: '0.27294444'
+                  ad_rpm: '22.957943925233644859813084'
+                  ad_revenue: '2.45650000000000000000'
+                - id: '218'
+                  name: Test Widget 1
+                  country: CA
+                  widget_imps: '25977'
+                  ad_ctr: '0.0154'
+                  ad_clicks: '4'
+                  ad_cpc: '0.06375000'
+                  ad_rpm: '0.009816376024945143781037'
+                  ad_revenue: '0.25500000000000000000'
+                - id: '218'
+                  name: Test Widget 1
+                  country: GB
+                  widget_imps: '121904'
+                  ad_ctr: '2.1845'
+                  ad_clicks: '2663'
+                  ad_cpc: '0.06075122'
+                  ad_rpm: '1.327113958524740779629872'
+                  ad_revenue: '161.78050000000000000000'
+                - id: '218'
+                  name: Test Widget 1
+                  country: US
+                  widget_imps: '99914'
+                  ad_ctr: '0.0230'
+                  ad_clicks: '23'
+                  ad_cpc: '0.54991304'
+                  ad_rpm: '0.126588866425125608022899'
+                  ad_revenue: '12.64800000000000000000'
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 400
+                  title: Invalid Parameters
+                  detail: Invalid Parameters sent
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Get Widgets
+        source: |-
+          curl -X GET \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/widgets'
+      - lang: json
+        label: Get Widgets (Aggregate)
+        source: |-
+          curl -X GET \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/widgets?date_from=2016-11-06&date_to=2016-11-07&aggregate=yes'
+  /stats/api/v1.0/widgets/{widget_id}/revsub:
+    get:
+      operationId: getSubIDStats
+      summary: Get Sub ID Stats
+      description: Get list of sub id statistic csv's for a specific widget. The stats are not realtime
+        and are behind by an hour.
+      tags:
+      - Widget
+      x-permission:
+      - Publisher
+      parameters:
+      - name: widget_id
+        in: path
+        required: true
+        description: Widget ID.
+        schema:
+          type: number
+      - name: date
+        in: query
+        required: true
+        description: Date of statistics in Y-m-d format (EST timezone).
+        schema:
+          type: string
+      - name: hour
+        in: query
+        required: false
+        description: 'Get stats for a specific hour. Should be in 24-hour format and between 00-23 (EST
+          timezone). For ex: "hour=01"'
+        schema:
+          type: string
+          default: Returns stats for all available hours of the date
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: 'true'
+                  data:
+                    type: array
+                    items:
+                      type: string
+                    description: List of records that contain statistics
+                required:
+                - success
+                - data
+              example:
+                success: true
+                data:
+                - https://revcontent.s3.amazonaws.com/sub_id_stats/20160315/30/20160315_10985_sub_id_stats_0.csv.gz?AWSAccessKeyId=REDACTED_AWS_ACCESS_KEY_ID&Expires=1460495122&Signature=4%2BcSnsC1rVWCCbasazNVrv8blFQ%3D
+                - https://revcontent.s3.amazonaws.com/sub_id_stats/20160315/30/20160315_10985_sub_id_stats_1.csv.gz?AWSAccessKeyId=REDACTED_AWS_ACCESS_KEY_ID&Expires=1460495122&Signature=Jyd5F77HIho1xcYlhT2kuo0bzMw%3D
+                - https://revcontent.s3.amazonaws.com/sub_id_stats/20160315/30/20160315_10985_sub_id_stats_2.csv.gz?AWSAccessKeyId=REDACTED_AWS_ACCESS_KEY_ID&Expires=1460495122&Signature=Y6%2F86vJEGZq8NqY5aaOPpCzjAdE%3D
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 400
+                  title: Invalid Parameters
+                  detail: Invalid Parameters sent
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Get Sub ID Record List
+        source: |-
+          curl -X GET \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/widgets/10985/revsub?date=2016-03-15'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for
+        24 hours.
+  schemas:
+    Error:
+      type: object
+      description: RevContent error envelope.
+      properties:
+        success:
+          type: boolean
+          const: false
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: integer
+                description: HTTP-aligned error code.
+              title:
+                type: string
+                description: Short error title.
+              detail:
+                type: string
+                description: Human readable error detail.
+x-source: https://api.revcontent.io/docs/stats/api_data.json
+x-source-format: apiDoc 0.17.7
+x-generated: '2026-08-13'
+x-method: derived

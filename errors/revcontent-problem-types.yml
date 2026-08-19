@@ -1,0 +1,147 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/ + https://api.revcontent.io/docs/stats/api_data.json
+format: vendor
+description: RevContent does NOT use RFC 9457 application/problem+json. Every error is returned as a vendor
+  envelope with an application/json content type. The envelope is stable across every documented operation
+  and is the same shape whether one or several validation errors occurred.
+envelope:
+  content_type: application/json
+  shape: '{"success": false, "errors": [{"code": 400, "title": "Invalid Parameters", "detail": "Invalid
+    Parameters sent"}]}'
+  fields:
+  - field: success
+    type: boolean
+    description: false on any error.
+  - field: errors
+    type: array
+    description: One entry per problem found; validation failures fan out into multiple entries.
+  - field: errors[].code
+    type: integer
+    description: Mirrors the HTTP status code. RevContent publishes no application-level error-code registry
+      distinct from the HTTP status.
+  - field: errors[].title
+    type: string
+    description: Short error title, e.g. 'Invalid Parameters'.
+  - field: errors[].detail
+    type: string
+    description: Human readable detail. This is the only field that names the offending parameter, and
+      it is prose, not machine readable.
+problems:
+- status: 400
+  title: Invalid Parameters
+  description: One or more request parameters failed validation.
+  remediation: 'Compare the request against the parameter list for the operation. Common causes: a bid_amount
+    below the 0.01 CPC floor, a DMA or zip code that is not in the Helpers reference lists, a country/region/device/OS
+    code that does not exist, or a region/country code sent while the matching *_targeting field is still
+    ''all''.'
+  operations:
+  - openapi/revcontent-access-api-openapi.yml#getOauthAccess
+  - openapi/revcontent-access-api-openapi.yml#getReactivateAccount
+  - openapi/revcontent-boosts-api-openapi.yml#getAllBoosts
+  - openapi/revcontent-boosts-api-openapi.yml#getBoostPerformance
+  - openapi/revcontent-boosts-api-openapi.yml#getWidgetStats
+  - openapi/revcontent-boosts-api-openapi.yml#postBoostAdd
+  - openapi/revcontent-boosts-api-openapi.yml#postBoostArchive
+  - openapi/revcontent-boosts-api-openapi.yml#postBoostSettings
+  - openapi/revcontent-content-api-openapi.yml#getAllBoostContent
+  - openapi/revcontent-content-api-openapi.yml#getBoostContent
+  - openapi/revcontent-content-api-openapi.yml#getContentWidgetStats
+  - openapi/revcontent-conversions-api-openapi.yml#postConversionAdd
+  - openapi/revcontent-conversions-api-openapi.yml#postConversionDelete
+  - openapi/revcontent-conversions-api-openapi.yml#postConversionEdit
+  - openapi/revcontent-sub-accounts-api-openapi.yml#addAccount
+  - openapi/revcontent-sub-accounts-api-openapi.yml#editAccount
+  - openapi/revcontent-sub-accounts-api-openapi.yml#updateAccountStatus
+  - openapi/revcontent-targeting-api-openapi.yml#getBoostWidgets
+  - openapi/revcontent-widget-internal-content-api-openapi.yml#getWidgetInternalContent
+  - openapi/revcontent-widgets-api-openapi.yml#getAllWidgets
+  - openapi/revcontent-widgets-api-openapi.yml#getAllWidgetsGeo
+  - openapi/revcontent-widgets-api-openapi.yml#getSubIDStats
+- status: 401
+  title: Unauthorized
+  description: Missing, malformed or expired access token.
+  remediation: 'Re-request a token from POST /oauth/token with grant_type=client_credentials and send
+    it as ''Authorization: Bearer {token}''. Tokens expire after 24 hours.'
+  operations:
+  - openapi/revcontent-access-api-openapi.yml#getOauthAccess
+  - openapi/revcontent-access-api-openapi.yml#getReactivateAccount
+  - openapi/revcontent-boosts-api-openapi.yml#getAllBoosts
+  - openapi/revcontent-boosts-api-openapi.yml#getBoostPerformance
+  - openapi/revcontent-boosts-api-openapi.yml#getWidgetStats
+  - openapi/revcontent-boosts-api-openapi.yml#postBoostAdd
+  - openapi/revcontent-boosts-api-openapi.yml#postBoostArchive
+  - openapi/revcontent-boosts-api-openapi.yml#postBoostSettings
+  - openapi/revcontent-boosts-api-openapi.yml#postBoostsStatus
+  - openapi/revcontent-ccpa-api-openapi.yml#postSubmitCCPARequest
+  - openapi/revcontent-ccpa-api-openapi.yml#postUserData
+  - openapi/revcontent-ccpa-api-openapi.yml#postUsersData
+  - openapi/revcontent-content-api-openapi.yml#getAllBoostContent
+  - openapi/revcontent-content-api-openapi.yml#getBoostContent
+  - openapi/revcontent-content-api-openapi.yml#getContentWidgetStats
+  - openapi/revcontent-content-api-openapi.yml#postBoostContentAdd
+  - openapi/revcontent-content-api-openapi.yml#postBoostContentUpdate
+  - openapi/revcontent-conversions-api-openapi.yml#getConversions
+  - openapi/revcontent-conversions-api-openapi.yml#postConversionAdd
+  - openapi/revcontent-conversions-api-openapi.yml#postConversionDelete
+  - openapi/revcontent-conversions-api-openapi.yml#postConversionEdit
+  - openapi/revcontent-helpers-api-openapi.yml#getBrowsers
+  - openapi/revcontent-helpers-api-openapi.yml#getCountries
+  - openapi/revcontent-helpers-api-openapi.yml#getDevices
+  - openapi/revcontent-helpers-api-openapi.yml#getDmas
+  - openapi/revcontent-helpers-api-openapi.yml#getLanguages
+  - openapi/revcontent-helpers-api-openapi.yml#getOperatingSystems
+  - openapi/revcontent-helpers-api-openapi.yml#getRegions
+  - openapi/revcontent-sub-accounts-api-openapi.yml#addAccount
+  - openapi/revcontent-sub-accounts-api-openapi.yml#editAccount
+  - openapi/revcontent-sub-accounts-api-openapi.yml#listAccounts
+  - openapi/revcontent-sub-accounts-api-openapi.yml#updateAccountStatus
+  - openapi/revcontent-targeting-api-openapi.yml#getBoostWidgets
+  - openapi/revcontent-targeting-api-openapi.yml#postBoostWidgets
+  - openapi/revcontent-widget-internal-content-api-openapi.yml#getWidgetInternalContent
+  - openapi/revcontent-widget-internal-content-api-openapi.yml#postWidgetInternalContentAdd
+  - openapi/revcontent-widget-internal-content-api-openapi.yml#postWidgetInternalContentUpdate
+  - openapi/revcontent-widget-optimizer-api-openapi.yml#getTargetsOptimizerWidgets
+  - openapi/revcontent-widget-optimizer-api-openapi.yml#postTargetsWidgetsOptimizerAdd
+  - openapi/revcontent-widget-optimizer-api-openapi.yml#postTargetsWidgetsOptimizerRemove
+  - openapi/revcontent-widgets-api-openapi.yml#getAllWidgets
+  - openapi/revcontent-widgets-api-openapi.yml#getAllWidgetsGeo
+  - openapi/revcontent-widgets-api-openapi.yml#getSubIDStats
+- status: 409
+  title: HTTP 409
+  description: Error response.
+  remediation: null
+  operations:
+  - openapi/revcontent-boosts-api-openapi.yml#postBoostsStatus
+  - openapi/revcontent-content-api-openapi.yml#postBoostContentAdd
+  - openapi/revcontent-content-api-openapi.yml#postBoostContentUpdate
+  - openapi/revcontent-targeting-api-openapi.yml#postBoostWidgets
+  - openapi/revcontent-widget-internal-content-api-openapi.yml#postWidgetInternalContentAdd
+  - openapi/revcontent-widget-internal-content-api-openapi.yml#postWidgetInternalContentUpdate
+  - openapi/revcontent-widget-optimizer-api-openapi.yml#postTargetsWidgetsOptimizerAdd
+  - openapi/revcontent-widget-optimizer-api-openapi.yml#postTargetsWidgetsOptimizerRemove
+- status: 500
+  title: Internal Server Error
+  description: The API failed to process an otherwise well-formed request.
+  remediation: Retry with backoff. GET operations are safe to retry; POST operations are NOT idempotent
+    — see conventions/revcontent-conventions.yml before retrying a write.
+  operations:
+  - openapi/revcontent-ccpa-api-openapi.yml#postUserData
+  - openapi/revcontent-ccpa-api-openapi.yml#postUsersData
+  - openapi/revcontent-helpers-api-openapi.yml#getBrowsers
+  - openapi/revcontent-helpers-api-openapi.yml#getCountries
+  - openapi/revcontent-helpers-api-openapi.yml#getDevices
+  - openapi/revcontent-helpers-api-openapi.yml#getDmas
+  - openapi/revcontent-helpers-api-openapi.yml#getLanguages
+  - openapi/revcontent-helpers-api-openapi.yml#getOperatingSystems
+  - openapi/revcontent-helpers-api-openapi.yml#getRegions
+  - openapi/revcontent-sub-accounts-api-openapi.yml#listAccounts
+  - openapi/revcontent-widget-optimizer-api-openapi.yml#getTargetsOptimizerWidgets
+gaps:
+- 'No stable machine-readable error identifiers: errors[].code duplicates the HTTP status, so an agent
+  cannot distinguish ''bid below floor'' from ''unknown DMA code'' without parsing the English detail
+  string.'
+- No RFC 9457 'type' URI and no documented error-code reference page.
+- Only 12 of the 43 documented operations declare an error response at all in the provider's contract
+  (11 declare 500, 1 declares 400); the 401 entries below are asserted from the documented bearer-token
+  requirement, not from a declared response.

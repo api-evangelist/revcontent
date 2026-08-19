@@ -1,0 +1,1475 @@
+{
+  "item": [
+    {
+      "id": "98720863-c258-4eb8-a31b-6afc163ccd20",
+      "name": "Content",
+      "description": {
+        "content": "Ad content (creatives) attached to campaigns, plus per-widget content performance.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0e0a6119-3422-4baf-8263-80b44650d021",
+          "name": "Get All Campaigns Content",
+          "request": {
+            "name": "Get All Campaigns Content",
+            "description": {
+              "content": "Get all the content for current account and the statistics for the given time period.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "api",
+                "v1.0",
+                "boosts",
+                "content"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sub_account_id",
+                  "value": "<number>",
+                  "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+                },
+                {
+                  "disabled": false,
+                  "key": "date_from",
+                  "value": "today's date",
+                  "description": "Start date for the statistics in Y-m-d format."
+                },
+                {
+                  "disabled": false,
+                  "key": "date_to",
+                  "value": "today's date",
+                  "description": "End date for the statistics in Y-m-d format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6991ec20-1468-493c-a534-97357fb77a93",
+              "name": "Successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "boosts",
+                    "content"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "today's date"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"boost_id\": \"1\",\n      \"content_id\": \"94441\",\n      \"headline\": \"Fox News\",\n      \"target_url\": \"http://fox.com/easy-tricks-to-drive-traffic-from-content-recommendations/\",\n      \"image_url\": \"https://revcontent.s3.amazonaws.com/assets/content_images/emb/4cabeafbe52602b30d505aaa73eb5a28-0.png\",\n      \"brand_name\": \"fox\",\n      \"status\": \"approved\",\n      \"enabled\": \"active\",\n      \"utm_codes\": \"utm_content_id={content_id}&utm_boost_id={boost_id}&utm_targeting={adv_targets}&utm_widget_id={widget_id}\",\n      \"avg_position\": \"4.191992\",\n      \"impressions\": \"875349\",\n      \"clicks\": \"1287\",\n      \"conversions\": \"1\",\n      \"ctr\": \"0.1470\",\n      \"avg_cpc\": \"0.15343434\",\n      \"cost\": \"197.4700\",\n      \"cost_per_conv\": \"197.4700\",\n      \"return\": \"54.0000\",\n      \"profit \": \"-143.4700\"\n    },\n    {\n      \"boost_id\": \"1\",\n      \"content_id\": \"94863\",\n      \"headline\": \"BBC\",\n      \"target_url\": \"http://bbc.com/easy-tricks-to-drive-traffic-from-content-recommendations/\",\n      \"image_url\": \"https://revcontent.s3.amazonaws.com/assets/content_images/emb/4casdfsdfsfbe52602b30d505aaa73eb5a28-0.png\",\n      \"brand_name\": \"bbc\",\n      \"status\": \"approved\",\n      \"enabled\": \"inactive\",\n      \"utm_codes\": \"utm_content_id={content_id}&utm_boost_id={boost_id}&utm_targeting={adv_targets}&utm_widget_id={widget_id}\",\n      \"avg_position\": \"3.036587\",\n      \"impressions\": \"1577539\",\n      \"clicks\": \"9646\",\n      \"conversions\": \"7\",\n      \"ctr\": \"0.6115\",\n      \"avg_cpc\": \"0.08108646\",\n      \"cost\": \"782.1600\",\n      \"cost_per_conv\": \"111.7371\",\n      \"return\": \"378.0000\",\n      \"profit \": \"-404.1600\"\n    },\n    {\n      \"boost_id\": \"2\",\n      \"content_id\": \"96865\",\n      \"headline\": \"CNN\",\n      \"target_url\": \"http://cnn.com/easy-tricks-to-drive-traffic-from-content-recommendations/\",\n      \"image_url\": \"https://revcontent.s3.amazonaws.com/assets/content_images/emb/4casdfsdfsfbe52602b30d505234j3hgf28-0.png\",\n      \"brand_name\": \"cnn\",\n      \"status\": \"approved\",\n      \"enabled\": \"active\",\n      \"utm_codes\": \"utm_content_id={content_id}&utm_boost_id={boost_id}&utm_targeting={adv_targets}&utm_widget_id={widget_id}\",\n      \"avg_position\": \"4.429076\",\n      \"impressions\": \"1106711\",\n      \"clicks\": \"1178\",\n      \"conversions\": \"0\",\n      \"ctr\": \"0.1064\",\n      \"avg_cpc\": \"0.10245331\",\n      \"cost\": \"120.6900\",\n      \"cost_per_conv\": \"0.000\",\n      \"return\": \"0.0000\",\n      \"profit \": \"-120.6900\"\n    },\n    {\n      \"boost_id\": \"2\",\n      \"content_id\": \"96866\",\n      \"headline\": \"ABC\",\n      \"target_url\": \"http://bbc.com/easy-tricks-to-drive-traffic-from-content-recommendations/\",\n      \"image_url\": \"https://revcontent.s3.amazonaws.com/assets/content_images/emb/4544sdfsfbe52602b30d505234j3hgf28-0.png\",\n      \"brand_name\": \"abc\",\n      \"status\": \"approved\",\n      \"enabled\": \"active\",\n      \"utm_codes\": \"utm_content_id={content_id}&utm_boost_id={boost_id}&utm_targeting={adv_targets}&utm_widget_id={widget_id}\",\n      \"avg_position\": \"4.803899400000001\",\n      \"impressions\": \"3555458\",\n      \"clicks\": \"3042\",\n      \"conversions\": \"4\",\n      \"ctr\": \"0.0856\",\n      \"avg_cpc\": \"0.14745891\",\n      \"cost\": \"448.5700\",\n      \"cost_per_conv\": \"112.1425\",\n      \"return\": \"216.0000\",\n      \"profit \": \"-232.5700\"\n    },\n    {\n      \"boost_id\": \"3\",\n      \"content_id\": \"96869\",\n      \"headline\": \"NBC\",\n      \"target_url\": \"http://nbc.com/easy-tricks-to-drive-traffic-from-content-recommendations/\",\n      \"image_url\": \"https://revcontent.s3.amazonaws.com/assets/content_images/emb/123be52602b30d505234j3hgf28-0.png\",\n      \"brand_name\": \"nbc\",\n      \"status\": \"approved\",\n      \"enabled\": \"inactive\",\n      \"utm_codes\": \"utm_content_id={content_id}&utm_boost_id={boost_id}&utm_targeting={adv_targets}&utm_widget_id={widget_id}\",\n      \"avg_position\": \"4.500694666666667\",\n      \"impressions\": \"948708\",\n      \"clicks\": \"787\",\n      \"conversions\": \"0\",\n      \"ctr\": \"0.0830\",\n      \"avg_cpc\": \"0.13548920\",\n      \"cost\": \"106.6300\",\n      \"cost_per_conv\": \"0.000\",\n      \"return\": \"0.0000\",\n      \"profit \": \"-106.6300\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cfc5ad01-b750-4a2b-a62d-e9be274c47c1",
+              "name": "Error-Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "boosts",
+                    "content"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "today's date"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"errors\": [\n    {\n      \"code\": 400,\n      \"title\": \"Invalid Parameters\",\n      \"detail\": \"Invalid Parameters sent\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "775106a0-0ec5-4335-b635-78bc2f87bbd8",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "boosts",
+                    "content"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "today's date"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"errors\": [\n    {\n      \"code\": 7349,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"code\": 2335,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f22f9971-d148-4580-9df4-e4890340764a",
+          "name": "Get Campaign Content",
+          "request": {
+            "name": "Get Campaign Content",
+            "description": {
+              "content": "Get all the campaign's current content and the statistics for the given time period.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "api",
+                "v1.0",
+                "boosts",
+                ":boost_id",
+                "content"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sub_account_id",
+                  "value": "<number>",
+                  "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+                },
+                {
+                  "disabled": false,
+                  "key": "admin_status",
+                  "value": "<string>",
+                  "description": "Admin status of the content. Values: \"approved\", \"denied\", \"pending\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "enabled",
+                  "value": "<string>",
+                  "description": "User status of the content. Values: \"active\", \"inactive\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "date_from",
+                  "value": "today's date",
+                  "description": "Start date for the statistics in Y-m-d format."
+                },
+                {
+                  "disabled": false,
+                  "key": "date_to",
+                  "value": "today's date",
+                  "description": "End date for the statistics in Y-m-d format."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of records to return. Max 1000. Default 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Offset for the records to return."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "boost_id",
+                  "description": "(Required) Campaign ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2f939ef6-c138-4063-867a-f65c9e2104db",
+              "name": "Successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "boosts",
+                    ":boost_id",
+                    "content"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "admin_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enabled",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "boost_id",
+                      "description": "(Required) Campaign ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"content_id\": \"string\",\n      \"headline\": \"string\",\n      \"target_url\": \"string\",\n      \"image_url\": \"string\",\n      \"brand_name\": \"string\",\n      \"admin_status\": \"string\",\n      \"creative_denial_reason\": \"string\",\n      \"enabled\": \"string\",\n      \"avg_position\": \"string\",\n      \"impressions\": \"string\",\n      \"viewable_impressions\": \"string\",\n      \"clicks\": \"string\",\n      \"conversions\": \"string\",\n      \"ctr\": \"string\",\n      \"avg_cpc\": \"string\",\n      \"cost\": \"string\",\n      \"cost_per_conv\": \"string\",\n      \"return\": \"string\",\n      \"profit\": \"string\"\n    },\n    {\n      \"content_id\": \"string\",\n      \"headline\": \"string\",\n      \"target_url\": \"string\",\n      \"image_url\": \"string\",\n      \"brand_name\": \"string\",\n      \"admin_status\": \"string\",\n      \"creative_denial_reason\": \"string\",\n      \"enabled\": \"string\",\n      \"avg_position\": \"string\",\n      \"impressions\": \"string\",\n      \"viewable_impressions\": \"string\",\n      \"clicks\": \"string\",\n      \"conversions\": \"string\",\n      \"ctr\": \"string\",\n      \"avg_cpc\": \"string\",\n      \"cost\": \"string\",\n      \"cost_per_conv\": \"string\",\n      \"return\": \"string\",\n      \"profit\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "add3aedc-abf5-4111-a0f8-e55ca7044dcd",
+              "name": "Error-Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "boosts",
+                    ":boost_id",
+                    "content"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "admin_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enabled",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "boost_id",
+                      "description": "(Required) Campaign ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"errors\": [\n    {\n      \"code\": 400,\n      \"title\": \"Invalid Parameters\",\n      \"detail\": \"Invalid Parameters sent\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d562f27-44a8-4b5b-80ae-1cd2bf682827",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "boosts",
+                    ":boost_id",
+                    "content"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "admin_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enabled",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "boost_id",
+                      "description": "(Required) Campaign ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"errors\": [\n    {\n      \"code\": 7349,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"code\": 2335,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "11499e44-c512-4759-a077-3a3f60264e9a",
+          "name": "Update Campaign Content",
+          "request": {
+            "name": "Update Campaign Content",
+            "description": {
+              "content": "Update Content.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "api",
+                "v1.0",
+                "boosts",
+                ":boost_id",
+                "content"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sub_account_id",
+                  "value": "<number>",
+                  "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "boost_id",
+                  "description": "(Required) Campaign ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<number>\",\n  \"target_url\": \"<string>\",\n  \"headline\": \"<string>\",\n  \"description\": \"<string>\",\n  \"brand_name\": \"<string>\",\n  \"enabled\": \"on\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d11dac2b-9d38-438a-b922-c0ec056f9eca",
+              "name": "Successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "boosts",
+                    ":boost_id",
+                    "content"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "boost_id",
+                      "description": "(Required) Campaign ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<number>\",\n  \"target_url\": \"<string>\",\n  \"headline\": \"<string>\",\n  \"description\": \"<string>\",\n  \"brand_name\": \"<string>\",\n  \"enabled\": \"on\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f38ca69-18fa-4d9f-b129-d7f1b9c82f37",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "boosts",
+                    ":boost_id",
+                    "content"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "boost_id",
+                      "description": "(Required) Campaign ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<number>\",\n  \"target_url\": \"<string>\",\n  \"headline\": \"<string>\",\n  \"description\": \"<string>\",\n  \"brand_name\": \"<string>\",\n  \"enabled\": \"on\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"errors\": [\n    {\n      \"code\": 7349,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"code\": 2335,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22242e2f-c8be-4831-b31d-4244ecd1064d",
+              "name": "Error-Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "boosts",
+                    ":boost_id",
+                    "content"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "boost_id",
+                      "description": "(Required) Campaign ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<number>\",\n  \"target_url\": \"<string>\",\n  \"headline\": \"<string>\",\n  \"description\": \"<string>\",\n  \"brand_name\": \"<string>\",\n  \"enabled\": \"on\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"errors\": [\n    {\n      \"code\": 100,\n      \"title\": \"Invalid Argument\",\n      \"detail\": \"Invalid ID value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b07e317f-0a6d-4b58-b317-ed2b39f9aec1",
+          "name": "Get Content Widget Stats",
+          "request": {
+            "name": "Get Content Widget Stats",
+            "description": {
+              "content": "Get list content by widget",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "api",
+                "v1.0",
+                "contents",
+                ":content_id",
+                "widgets",
+                "stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sub_account_id",
+                  "value": "<number>",
+                  "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "today's date",
+                  "description": "Date for the statistics in Y-m-d format. Defaults to today."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of records to return. Max 1000. Default 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Offset for the records to return."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "content_id",
+                  "description": "(Required) Content ID to look for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cc357001-ffda-410c-97ce-b8d86760e0e2",
+              "name": "Successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "contents",
+                    ":content_id",
+                    "widgets",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "content_id",
+                      "description": "(Required) Content ID to look for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": [\n    {\n      \"pub_id\": \"string\",\n      \"widget_id\": \"string\",\n      \"impressions\": \"string\",\n      \"viewable_impressions\": \"string\",\n      \"clicks\": \"string\",\n      \"ctr\": \"string\",\n      \"vctr\": \"string\",\n      \"avg_cpc\": \"string\",\n      \"spend\": \"string\",\n      \"conversion\": \"string\",\n      \"cost_per_conv\": \"string\",\n      \"profit\": \"string\"\n    },\n    {\n      \"pub_id\": \"string\",\n      \"widget_id\": \"string\",\n      \"impressions\": \"string\",\n      \"viewable_impressions\": \"string\",\n      \"clicks\": \"string\",\n      \"ctr\": \"string\",\n      \"vctr\": \"string\",\n      \"avg_cpc\": \"string\",\n      \"spend\": \"string\",\n      \"conversion\": \"string\",\n      \"cost_per_conv\": \"string\",\n      \"profit\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44a4947a-0175-424c-bbf8-6b2bf0f71bbd",
+              "name": "Error-Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "contents",
+                    ":content_id",
+                    "widgets",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "content_id",
+                      "description": "(Required) Content ID to look for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"errors\": [\n    {\n      \"code\": 400,\n      \"title\": \"Invalid Parameters\",\n      \"detail\": \"Invalid Parameters sent\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83278c08-70d2-4b33-9633-6f3c016068bf",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "contents",
+                    ":content_id",
+                    "widgets",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "today's date"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "content_id",
+                      "description": "(Required) Content ID to look for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"errors\": [\n    {\n      \"code\": 7349,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"code\": 2335,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae544a47-a873-4d14-8a43-13da5037d5cb",
+          "name": "Add Campaign Content",
+          "request": {
+            "name": "Add Campaign Content",
+            "description": {
+              "content": "Add Content.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "api",
+                "v1.0",
+                "boosts",
+                ":boost_id",
+                "content",
+                "add"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sub_account_id",
+                  "value": "<number>",
+                  "description": "Sub Account ID. By default all actions are for your user account if sub account ID is not specified."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<number>",
+                  "key": "boost_id",
+                  "description": "(Required) Campaign ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"target_url\": \"<string>\",\n  \"image\": \"<string>\",\n  \"video\": \"<string>\",\n  \"headline\": \"<string>\",\n  \"description\": \"<string>\",\n  \"brand_name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "73789569-8afa-4722-bdd8-ac7a4cb3eb7c",
+              "name": "Successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "boosts",
+                    ":boost_id",
+                    "content",
+                    "add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "boost_id",
+                      "description": "(Required) Campaign ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"target_url\": \"<string>\",\n  \"image\": \"<string>\",\n  \"video\": \"<string>\",\n  \"headline\": \"<string>\",\n  \"description\": \"<string>\",\n  \"brand_name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"creative\": {\n    \"id\": 900,\n    \"status\": \"pending\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f407505-6274-49fb-b4b3-ee1f206cd6a0",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "boosts",
+                    ":boost_id",
+                    "content",
+                    "add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "boost_id",
+                      "description": "(Required) Campaign ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"target_url\": \"<string>\",\n  \"image\": \"<string>\",\n  \"video\": \"<string>\",\n  \"headline\": \"<string>\",\n  \"description\": \"<string>\",\n  \"brand_name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"errors\": [\n    {\n      \"code\": 7349,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"code\": 2335,\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27f83376-392e-485d-b813-7f3d7ced7b26",
+              "name": "Error-Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "api",
+                    "v1.0",
+                    "boosts",
+                    ":boost_id",
+                    "content",
+                    "add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sub_account_id",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<number>",
+                      "key": "boost_id",
+                      "description": "(Required) Campaign ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"target_url\": \"<string>\",\n  \"image\": \"<string>\",\n  \"video\": \"<string>\",\n  \"headline\": \"<string>\",\n  \"description\": \"<string>\",\n  \"brand_name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"errors\": [\n    {\n      \"code\": 100,\n      \"title\": \"Invalid Argument\",\n      \"detail\": \"Invalid ID value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.revcontent.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "625cff2c-2116-4693-9469-d8cbb1560d1f",
+    "name": "RevContent Content API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Ad content (creatives) attached to campaigns, plus per-widget content performance.\n\nContact Support:\n Name: RevContent Support\n Email: developer@revcontent.com",
+      "type": "text/plain"
+    }
+  }
+}

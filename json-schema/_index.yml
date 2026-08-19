@@ -1,0 +1,50 @@
+generated: '2026-08-13'
+method: derived
+source: https://api.revcontent.io/docs/stats/api_data.json
+description: >-
+  JSON Schema 2020-12 documents for the RevContent Stats & Management API entities, derived from the
+  field definitions in RevContent's own published apiDoc contract. These REPLACE an earlier
+  hand-written set (boost.json, content-item.json, ccpa-data-request.json) that was built from a
+  superseded prose-authored spec and carried field names and a status enum the API does not use.
+schemas:
+  - file: campaign.json
+    title: Campaign
+    source_operation: getAllBoosts
+    note: The campaign row as returned in data[]. 40 properties.
+  - file: campaign-create-request.json
+    title: CampaignCreateRequest
+    source_operation: postBoostAdd
+  - file: campaign-settings-request.json
+    title: CampaignSettingsRequest
+    source_operation: postBoostSettings
+    note: Partial update — send only the fields being changed.
+  - file: content-item.json
+    title: ContentItem
+    source_operation: getAllBoostContent
+  - file: widget.json
+    title: Widget
+    source_operation: getAllWidgets
+  - file: widget-target.json
+    title: WidgetTarget
+    source_operation: getBoostWidgets
+  - file: conversion.json
+    title: Conversion
+    source_operation: getConversions
+  - file: sub-account.json
+    title: SubAccount
+    source_operation: listAccounts
+  - file: access-token.json
+    title: AccessToken
+    source_operation: getOauthAccess
+  - file: ccpa-data-request.json
+    title: CCPADataRequest
+    source_operation: postSubmitCCPARequest
+  - file: error.json
+    title: Error
+    note: The vendor error envelope. Not RFC 9457.
+notes:
+  - Every schema is 2020-12 and snake_case throughout (168/168 properties), which is what
+    rules/revcontent-jsonschema-spectral-rules.yml now asserts.
+  - RevContent's own contract is apiDoc, which documents flat per-operation field lists rather than
+    reusable component schemas, so these entities are reconstructed from field lists rather than
+    lifted from a $ref graph.

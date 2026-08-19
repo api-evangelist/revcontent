@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/revcontent/refs/heads/main/json-schema/widget.json",
+  "title": "Widget",
+  "description": "A publisher widget placement and its performance for a reporting window.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Widget id (if 'aggregate' is 'no')"
+    },
+    "widget_imps": {
+      "type": "string",
+      "description": "Number of widget impressions"
+    },
+    "page_views": {
+      "type": "string",
+      "description": "Number of page views"
+    },
+    "ad_ctr": {
+      "type": "string",
+      "description": "Sponsored ad click through rate"
+    },
+    "ad_clicks": {
+      "type": "string",
+      "description": "Sponsored ad clicks"
+    },
+    "ad_cpc": {
+      "type": "string",
+      "description": "Sponsored ad average cost per click"
+    },
+    "ad_rpm": {
+      "type": "string",
+      "description": "Sponsored ad revenue per milli"
+    },
+    "ad_revenue": {
+      "type": "string",
+      "description": "Sponsored ad total revenue"
+    }
+  },
+  "required": [
+    "id",
+    "widget_imps",
+    "page_views",
+    "ad_ctr",
+    "ad_clicks",
+    "ad_cpc",
+    "ad_rpm",
+    "ad_revenue"
+  ],
+  "x-source": "https://api.revcontent.io/docs/stats/api_data.json#GetAllWidgets"
+}

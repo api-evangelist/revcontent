@@ -1,15 +1,12 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
-  title: RevContent Stats & Management Access Targeting API
-  description: 'REST API providing programmatic access to RevContent''s native advertising platform for managing boosts (campaigns), widgets, content, targeting, bidding, and statistical reporting. Authenticated via OAuth 2.0 client credentials flow. Access tokens are valid for 24 hours.
-
-    '
+  title: RevContent Targeting API
+  description: Per-campaign widget targeting and widget-level bid overrides.
   version: '1.0'
   contact:
     name: RevContent Support
     url: https://www.revcontent.com/resources/contact-us
     email: developer@revcontent.com
-  x-api-changelog: https://help.revcontent.com/knowledge/api-changelog
 servers:
 - url: https://api.revcontent.io
   description: RevContent Production API
@@ -17,103 +14,344 @@ security:
 - BearerAuth: []
 tags:
 - name: Targeting
-  description: Widget and audience targeting
+  description: Per-campaign widget targeting and widget-level bid overrides.
 paths:
-  /stats/api/v1.0/boosts/{boost_id}/targets/widgets:
+  /stats/api/v1.0/boosts/{boost_id}/widgets:
     get:
-      operationId: getBoostWidgetTargets
-      summary: Get Boost Widget Targets
-      description: Retrieves targeting configurations for a specific boost's widgets.
+      operationId: getBoostWidgets
+      summary: Get Campaign Widget Targets
+      description: Get all the campaign's current widget targets and the statistics for the given time
+        period.
       tags:
       - Targeting
+      x-permission:
+      - Advertiser
       parameters:
       - name: boost_id
         in: path
         required: true
+        description: Campaign ID.
         schema:
-          type: integer
-        description: Unique identifier of the boost
+          type: number
+      - name: sub_account_id
+        in: query
+        required: false
+        description: Sub Account ID. By default all actions are for your user account if sub account ID
+          is not specified.
+        schema:
+          type: number
+      - name: enabled
+        in: query
+        required: false
+        description: 'Status of the targets. Values: "enabled", "disabled".'
+        schema:
+          type: string
+      - name: date_from
+        in: query
+        required: false
+        description: Start date for the statistics in Y-m-d format.
+        schema:
+          type: string
+          default: today's date
+      - name: date_to
+        in: query
+        required: false
+        description: End date for the statistics in Y-m-d format.
+        schema:
+          type: string
+          default: today's date
+      - name: limit
+        in: query
+        required: false
+        description: Number of records to return. Max 1000. Default 100.
+        schema:
+          type: number
+          default: 100
+      - name: offset
+        in: query
+        required: false
+        description: Offset for the records to return.
+        schema:
+          type: number
+          default: 0
       responses:
         '200':
-          description: Widget targeting configurations
+          description: Successful response.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WidgetTargetsResponse'
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: 'true'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        widget_id:
+                          type: string
+                          description: Widget id
+                        domain:
+                          type: string
+                          description: Widget Domain
+                        enabled:
+                          type: string
+                          description: Content status ('disabled','enabled')
+                        bid_type:
+                          type: string
+                          description: Campaign bid type
+                        bid:
+                          type: string
+                          description: Target bid amount
+                        avg_cpc:
+                          type: string
+                          description: Average CPC for selected target (Returned for CPC bids)
+                        impressions:
+                          type: string
+                          description: Total number of impressions for selected target (Returned for CPC
+                            bids)
+                        viewable_impressions:
+                          type: string
+                          description: Total number of viewable impressions for selected target
+                        clicks:
+                          type: string
+                          description: Total number of clicks for selected target
+                        conversions:
+                          type: string
+                          description: Total number of conversion for selected target
+                        ctr:
+                          type: string
+                          description: CTR for selected target
+                        cost:
+                          type: string
+                          description: Cost for selected target
+                        cost_per_conv:
+                          type: string
+                          description: Cost per conversion for selected target
+                        return:
+                          type: string
+                          description: Return for selected target
+                        profit:
+                          type: string
+                          description: Profit for selected target
+                      required:
+                      - widget_id
+                      - domain
+                      - enabled
+                      - bid_type
+                      - bid
+                      - avg_cpc
+                      - impressions
+                      - viewable_impressions
+                      - clicks
+                      - conversions
+                      - ctr
+                      - cost
+                      - cost_per_conv
+                      - return
+                      - profit
+                    description: List of campaign's widget targets and their statistics
+                required:
+                - success
+                - data
+              example:
+                success: true
+                data:
+                - widget_id: '88'
+                  domain: revcontent.com
+                  enabled: enabled
+                  bid_type: cpc
+                  bid: '0.22'
+                  viewable_impressions: '456'
+                  clicks: '0'
+                  conversions: '0'
+                  ctr: '0.0000'
+                  cost: '0.0000'
+                  cost_per_conv: '0.0000'
+                  return: '0.0000'
+                  profit: '0.0000'
+                - widget_id: '1761961'
+                  domain: revcontent.com
+                  enabled: enabled
+                  bid_type: cpc
+                  bid: '0.24'
+                  viewable_impressions: '476'
+                  clicks: '0'
+                  conversions: '0'
+                  ctr: '0.0000'
+                  cost: '0.0000'
+                  cost_per_conv: '0.0000'
+                  return: '0.0000'
+                  profit: '0.0000'
+                - widget_id: '86'
+                  domain: revcontent.com
+                  enabled: disabled
+                  bid_type: cpc
+                  bid: '0.29'
+                  viewable_impressions: '522'
+                  impressions: '0'
+                  clicks: '0'
+                  conversions: '0'
+                  ctr: '0.0000'
+                  cost: '0.0000'
+                  cost_per_conv: '0.0000'
+                  return: '0.0000'
+                  profit: '0.0000'
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 400
+                  title: Invalid Parameters
+                  detail: Invalid Parameters sent
         '401':
-          description: Unauthorized
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Get Campaign's Current Widget Targets
+        source: |-
+          curl -X GET \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               'https://api.revcontent.io/stats/api/v1.0/boosts/308/widgets'
     post:
-      operationId: updateBoostWidgetTargets
-      summary: Update Boost Widget Targets
-      description: 'Applies targeting rules to a boost''s widgets. Validates widget IDs and enforces a $0.01 minimum bid.
-
-        '
+      operationId: postBoostWidgets
+      summary: Update Campaign Widget Targeting
+      description: Update widget targets
       tags:
       - Targeting
+      x-permission:
+      - Advertiser
       parameters:
       - name: boost_id
         in: path
         required: true
+        description: Campaign Id.
         schema:
-          type: integer
-        description: Unique identifier of the boost
+          type: number
+      - name: sub_account_id
+        in: query
+        required: false
+        description: Sub Account ID. By default all actions are for your user account if sub account ID
+          is not specified.
+        schema:
+          type: number
       requestBody:
-        required: true
+        required: false
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateWidgetTargetsRequest'
+              type: object
+              properties:
+                id:
+                  type: number
+                  description: Target ID.
+                bid:
+                  type: string
+                  description: 'Target bid. Min: 0.001 Max: 3.000. Limit 3 decimals. If is a new target
+                    and value is not provided, will use default.'
+                  default: Campaign CPC
+                enabled:
+                  type: string
+                  description: 'Target status. Values: "on", "off".'
+                  default: 'on'
+                reset:
+                  type: boolean
+                  description: Reset to default bid if true value is passed.
       responses:
         '200':
-          description: Targeting updated successfully
-        '400':
-          description: Invalid widget IDs or bid below minimum
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Determines if target was updated.
+                required:
+                - success
+              example:
+                success: true
         '401':
-          description: Unauthorized
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 100
+                  title: Invalid Argument
+                  detail: Invalid ID value
+      x-codeSamples:
+      - lang: json
+        label: Update target
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               -d '{"id": 32, "enabled" : "on", "bid" : 0.001}' \
+               'https://api.revcontent.io/stats/api/v1.0/boosts/308/widgets'
+      - lang: json
+        label: Update multiple targets
+        source: |-
+          curl -X POST \
+               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
+               -H "Content-Type: application/json" \
+               -H "Cache-Control: no-cache" \
+               -d '[{"id": 28, "enabled" : "on", "bid" : 0.400},{"id": 32, "enabled" : "off", "bid" : 0.270}]' \
+               'https://api.revcontent.io/stats/api/v1.0/boosts/308/widgets'
 components:
-  schemas:
-    UpdateWidgetTargetsRequest:
-      type: object
-      required:
-      - targets
-      properties:
-        targets:
-          type: array
-          items:
-            type: object
-            required:
-            - widget_id
-            properties:
-              widget_id:
-                type: integer
-                description: Validated widget identifier
-              bid:
-                type: number
-                format: float
-                minimum: 0.01
-                description: Per-widget bid (minimum $0.01)
-              enabled:
-                type: boolean
-                description: Enable or disable this widget target
-    WidgetTargetsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              widget_id:
-                type: integer
-              enabled:
-                type: boolean
-                description: Whether targeting for this widget is enabled
-              bid:
-                type: number
-                format: float
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: JWT
-      description: OAuth 2.0 Bearer token obtained from /oauth/token
+      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for
+        24 hours.
+  schemas:
+    Error:
+      type: object
+      description: RevContent error envelope.
+      properties:
+        success:
+          type: boolean
+          const: false
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: integer
+                description: HTTP-aligned error code.
+              title:
+                type: string
+                description: Short error title.
+              detail:
+                type: string
+                description: Human readable error detail.
+x-source: https://api.revcontent.io/docs/stats/api_data.json
+x-source-format: apiDoc 0.17.7
+x-generated: '2026-08-13'
+x-method: derived

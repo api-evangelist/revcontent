@@ -1,0 +1,99 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/RevContent
+description: >-
+  RevContent publishes three first-party client SDKs, all distributed from the RevContent GitHub
+  organization. There is no server-side REST client library for the Stats & Management API in any
+  public registry (npm, PyPI, RubyGems, Packagist, crates.io, Maven Central all return no
+  first-party RevContent package) — the REST API is consumed directly over HTTP. The published
+  SDKs are ad-delivery/widget SDKs for mobile and React Native, not wrappers of the REST API.
+packages:
+  - language: javascript
+    platform: react-native
+    registry: npm
+    name: '@revcontent/react-native-sdk'
+    url: https://www.npmjs.com/package/@revcontent/react-native-sdk
+    install: npm install @revcontent/react-native-sdk
+    official: true
+    version: 1.1.1
+    published: '2025-10-23'
+    repository: https://github.com/RevContent/react-native-sdk-examples
+    source: https://registry.npmjs.org/@revcontent/react-native-sdk
+    note: >-
+      Revcontent React Native SDK. Renders Revcontent widgets inside React Native apps. Latest
+      release 1.1.1 (2025-10-23) is roughly ten months older than the iOS and Android SDK releases,
+      so the React Native surface lags the native ones.
+
+  - language: swift
+    platform: ios
+    registry: swift-package-manager
+    name: RevcontentSDK
+    url: https://github.com/RevContent/revcontent-ios-sdk
+    install: '.package(url: "https://github.com/RevContent/revcontent-ios-sdk", from: "0.2.0")'
+    official: true
+    version: 0.2.0
+    published: '2026-08-11'
+    repository: https://github.com/RevContent/revcontent-ios-sdk
+    source: https://api.github.com/repos/RevContent/revcontent-ios-sdk/releases
+    note: >-
+      Distributed as a binary xcframework via a Swift Package Manager manifest pinning
+      RevcontentSDK.xcframework.zip from the GitHub release. Requires iOS 16+, swift-tools 5.10.
+      Not published to CocoaPods trunk; there is no registry metadata endpoint, so the version is
+      read from the GitHub release tag. Release history: 0.1.0 (2026-06-25), 0.1.1 (2026-07-06),
+      0.1.2 and 0.1.3 (2026-07-14), 0.2.0 (2026-08-11).
+
+  - language: kotlin
+    platform: android
+    registry: maven
+    name: com.revcontent:revcontent-sdk
+    url: https://github.com/RevContent/revcontent-android-sdk
+    install: implementation("com.revcontent:revcontent-sdk:0.2.1")
+    official: true
+    version: 0.2.1
+    published: '2026-07-06'
+    repository: https://github.com/RevContent/revcontent-android-sdk
+    source: https://revcontent.github.io/revcontent-android-sdk/com/revcontent/revcontent-sdk/maven-metadata.xml
+    note: >-
+      NOT on Maven Central. Published to a self-hosted static Maven repository served from GitHub
+      Pages at https://revcontent.github.io/revcontent-android-sdk, which consumers must add to
+      dependencyResolutionManagement. Version and date read from that repo's maven-metadata.xml
+      (latest 0.2.1, lastUpdated 20260706181939); versions available: 0.2.0, 0.2.1.
+
+  - language: javascript
+    platform: web
+    registry: cdn
+    name: delivery.js (Revcontent ad code loader)
+    url: https://assets.revcontent.com/master/delivery.js
+    install: '<script src="https://assets.revcontent.com/master/delivery.js" defer></script>'
+    official: true
+    version: null
+    published: null
+    repository: https://github.com/RevContent/adcode-devkit
+    source: https://github.com/RevContent/adcode-devkit
+    note: >-
+      Checked, nothing to record. The publisher widget loader is CDN-distributed from an UNPINNED
+      URL (/master/delivery.js) with no registry metadata endpoint and no version in the path, so
+      neither we nor a consumer can determine which build they are served — the script floats to
+      whatever is current. That unpinnability is itself the finding.
+
+registries_checked:
+  - registry: npm
+    result: '@revcontent/react-native-sdk only'
+  - registry: pypi
+    result: none (https://pypi.org/pypi/revcontent/json -> 404)
+  - registry: rubygems
+    result: none (search returned [])
+  - registry: packagist
+    result: none first-party
+  - registry: maven-central
+    result: none — Android SDK ships from a self-hosted GitHub Pages Maven repo instead
+  - registry: crates.io
+    result: none
+  - registry: pkg.go.dev
+    result: none
+
+notes:
+  - No first-party SDK wraps the Stats & Management REST API; every published package is an
+    ad-rendering/widget SDK.
+  - Two of the four distributions (iOS, Android) bypass the canonical registry for their ecosystem,
+    which means neither appears in dependency scanners or SBOM tooling by default.

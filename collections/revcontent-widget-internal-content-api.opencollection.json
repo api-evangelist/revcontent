@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RevContent Widget Internal Content API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Widget Internal Content",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Widget Internal Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revcontent.io/stats/api/v1.0/widgets/:widget_id/internal_content",
+            "params": [
+              {
+                "name": "widget_id",
+                "value": "",
+                "type": "path",
+                "description": "Widget ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get all the widgets's internal content and the statistics for the given time period."
+        },
+        {
+          "info": {
+            "name": "Add Widget Internal Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revcontent.io/stats/api/v1.0/widgets/:widget_id/internal_content/add",
+            "params": [
+              {
+                "name": "widget_id",
+                "value": "",
+                "type": "path",
+                "description": "Widget ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add Widget Internal Content."
+        },
+        {
+          "info": {
+            "name": "Update Widget Internal Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revcontent.io/stats/api/v1.0/widgets/:widget_id/internal_content/update",
+            "params": [
+              {
+                "name": "widget_id",
+                "value": "",
+                "type": "path",
+                "description": "Widget ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Widget Internal Content."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

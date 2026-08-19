@@ -1,0 +1,150 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/ (11 specs, 43 operations) derived from https://api.revcontent.io/docs/stats/api_data.json
+description: Entity graph for the RevContent Stats & Management API, derived from path structure and the
+  id-reference fields in request bodies and response schemas. RevContent's OpenAPI carries no reusable
+  components.schemas $ref graph (the provider's contract is apiDoc, which documents flat field lists per
+  operation), so relationships are derived from id fields and path nesting.
+entities:
+- name: account
+  label: Account
+  primary_key: —
+  description: The authenticating advertiser or publisher account. Every operation is implicitly scoped
+    to it.
+- name: sub_account
+  label: Sub Account
+  primary_key: sub_account_id
+  description: A child account under a parent account. Passed as sub_account_id on nearly every operation
+    to act on behalf of a child.
+- name: campaign
+  label: Campaign (Boost)
+  primary_key: boost_id
+  description: An advertiser campaign. Carries bidding, budget, pacing, scheduling and all targeting.
+    The provider's contract calls these Campaigns; the URL space still says /boosts.
+- name: content
+  label: Content
+  primary_key: content_id
+  description: A creative (headline + image + target URL) attached to a campaign.
+- name: widget
+  label: Widget
+  primary_key: widget_id
+  description: A publisher placement that renders RevContent recommendations.
+- name: conversion
+  label: Conversion
+  primary_key: conversion_id
+  description: A conversion pixel definition, referenced by a campaign when optimize=cpa.
+- name: internal_content
+  label: Widget Internal Content
+  primary_key: —
+  description: Publisher-owned content injected into that publisher's own widget.
+- name: widget_target
+  label: Widget Target
+  primary_key: widget_id + boost_id
+  description: A per-campaign, per-widget targeting row carrying an enabled flag and a bid override.
+- name: widget_blacklist
+  label: Widget Blacklist Entry
+  primary_key: widget_id + boost_id
+  description: A widget explicitly excluded from a campaign by the widget optimizer.
+- name: access_token
+  label: Access Token
+  primary_key: —
+  description: A 24-hour OAuth 2.0 client-credentials bearer token.
+relationships:
+- from: account
+  type: has_many
+  to: sub_account
+  via: sub_account_id
+  evidence: GET /stats/api/v1.0/sub_accounts/list_accounts
+- from: account
+  type: has_many
+  to: campaign
+  via: boost_id
+  evidence: GET /stats/api/v1.0/boosts
+- from: account
+  type: has_many
+  to: widget
+  via: widget_id
+  evidence: GET /stats/api/v1.0/widgets
+- from: account
+  type: has_many
+  to: conversion
+  via: conversion_id
+  evidence: GET /stats/api/v1.0/conversions
+- from: campaign
+  type: belongs_to
+  to: account
+  via: sub_account_id
+  evidence: sub_account_id scopes every campaign operation
+- from: campaign
+  type: has_many
+  to: content
+  via: content_id
+  evidence: GET /stats/api/v1.0/boosts/{boost_id}/content
+- from: campaign
+  type: has_one
+  to: conversion
+  via: conversion.id
+  evidence: POST /stats/api/v1.0/boosts/add body field conversion.id, mandatory when optimize=cpa
+- from: campaign
+  type: has_many
+  to: widget_target
+  via: widget_id
+  evidence: GET /stats/api/v1.0/boosts/{boost_id}/widgets
+- from: campaign
+  type: has_many
+  to: widget_blacklist
+  via: widget_id
+  evidence: GET /stats/api/v1.0/boosts/{boost_id}/targets/blacklist/widgets
+- from: content
+  type: belongs_to
+  to: campaign
+  via: boost_id
+  evidence: content is addressed only under /boosts/{boost_id}/content
+- from: content
+  type: has_many
+  to: widget
+  via: widget_id
+  evidence: GET /stats/api/v1.0/contents/{content_id}/widgets/stats reports a content item across widgets
+- from: widget_target
+  type: belongs_to
+  to: widget
+  via: widget_id
+  evidence: widget target rows key on widget_id
+- from: widget
+  type: has_many
+  to: internal_content
+  via: widget_id
+  evidence: GET /stats/api/v1.0/widgets/{widget_id}/internal_content
+- from: widget
+  type: has_many
+  to: widget
+  via: revsub
+  evidence: GET /stats/api/v1.0/widgets/{widget_id}/revsub — Sub ID rows subdivide one widget
+reference_data:
+- entity: browser
+  operation: GET /stats/api/v1.0/browsers
+  consumed_by: browser_targeting
+- entity: country
+  operation: GET /stats/api/v1.0/countries
+  consumed_by: country_codes
+- entity: device
+  operation: GET /stats/api/v1.0/devices
+  consumed_by: device_targeting
+- entity: dma
+  operation: GET /stats/api/v1.0/dmas
+  consumed_by: dma_codes
+- entity: language
+  operation: GET /stats/api/v1.0/languages
+  consumed_by: language_targeting
+- entity: operating_system
+  operation: GET /stats/api/v1.0/os
+  consumed_by: os_targeting
+- entity: region
+  operation: GET /stats/api/v1.0/regions
+  consumed_by: region_codes
+identifier_conventions:
+- IDs are opaque numeric strings; there are no typed/prefixed identifiers.
+- 'sub_account_id is the tenancy dimension: omit it to act on your own account, supply it to act on a
+  child account. It appears on 30+ of the 43 operations.'
+- There is no single canonical GET-by-id for a campaign; GET /stats/api/v1.0/boosts accepts an optional
+  boost_id filter instead.

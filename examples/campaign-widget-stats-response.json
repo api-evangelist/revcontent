@@ -1,0 +1,21 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": "143",
+      "domain": "revcontent.com",
+      "placement_type": "Below Article",
+      "impressions": "64",
+      "viewable_impressions": "0",
+      "clicks": "1",
+      "ctr": "1.5625",
+      "vctr": "0",
+      "avg_cpc": "0.02000000",
+      "avg_vcpm": "0.00",
+      "spend": "0.0200",
+      "conversions": "0",
+      "cost_per_conv": "0.0000",
+      "profit": "-0.0200"
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "success": true,
+  "data": [
+    {
+      "date": "2016-03-01",
+      "impressions": "146299926",
+      "viewable_impressions": "4856645",
+      "clicks": "558695",
+      "conversions": "0",
+      "ctr": "0.3819",
+      "vctr": "1.3819",
+      "avg_cpc": "0.04110327",
+      "cost": "22964.1900",
+      "cost_per_conv": "0.000",
+      "return": "0.0000",
+      "profit": "-22964.1900"
+    },
+    {
+      "date": "2016-03-02",
+      "impressions": "141200030",
+      "viewable_impressions": "456687998",
+      "clicks": "492804",
+      "conversions": "0",
+      "ctr": "0.3490",
+      "vctr": "1.3819",
+      "avg_cpc": "0.03913846",
+      "cost": "19287.5900",
+      "cost_per_conv": "0.000",
+      "return": "0.0000",
+      "profit": "-19287.5900"
+    },
+    {
+      "date": "2016-03-03",
+      "impressions": "116063762",
+      "viewable_impressions": "456878855",
+      "clicks": "373168",
+      "conversions": "0",
+      "ctr": "0.3215",
+      "vctr": "1.3819",
+      "avg_cpc": "0.03963073",
+      "cost": "14788.9200",
+      "cost_per_conv": "0.000",
+      "return": "0.0000",
+      "profit": "-14788.9200"
+    },
+    {
+      "date": "2016-03-04",
+      "impressions": "101758856",
+      "viewable_impressions": "788954666",
+      "clicks": "321858",
+      "conversions": "0",
+      "ctr": "0.3163",
+      "vctr": "1.3819",
+      "avg_cpc": "0.04228427",
+      "cost": "13609.5300",
+      "cost_per_conv": "0.000",
+      "return": "0.0000",
+      "profit": "-13609.5300"
+    },
+    {
+      "date": "2016-03-05",
+      "impressions": "129758130",
+      "viewable_impressions": "15566488",
+      "clicks": "400733",
+      "conversions": "0",
+      "ctr": "0.3088",
+      "vctr": "1.3819",
+      "avg_cpc": "0.04149481",
+      "cost": "16628.3400",
+      "cost_per_conv": "0.000",
+      "return": "0.0000",
+      "profit": "-16628.3400"
+    },
+    {
+      "date": "2016-03-06",
+      "impressions": "152533186",
+      "viewable_impressions": "63254125",
+      "clicks": "411781",
+      "conversions": "0",
+      "ctr": "0.2700",
+      "vctr": "1.3819",
+      "avg_cpc": "0.04136820",
+      "cost": "17034.6400",
+      "cost_per_conv": "0.000",
+      "return": "0.0000",
+      "profit": "-17034.6400"
+    },
+    {
+      "date": "2016-03-07",
+      "impressions": "124309196",
+      "viewable_impressions": "744788946",
+      "clicks": "350109",
+      "conversions": "0",
+      "ctr": "0.2816",
+      "vctr": "1.3819",
+      "avg_cpc": "0.04531540",
+      "cost": "15865.3300",
+      "cost_per_conv": "0.000",
+      "return": "0.0000",
+      "profit": "-15865.3300"
+    }
+  ]
+}
