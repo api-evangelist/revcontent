@@ -59,6 +59,18 @@ apis:
   - Statistics
   - Content
   - Conversions
+  - Subaccounts
+  - CCPA
+  tags_raw:
+  - Campaigns
+  - Boosts
+  - Widgets
+  - Targeting
+  - Bidding
+  - Reporting
+  - Statistics
+  - Content
+  - Conversions
   - Sub Accounts
   - CCPA
   properties:
@@ -156,6 +168,8 @@ apis:
   humanURL: https://api.revcontent.io/docs/stats/index.html#api-Sub_Accounts
   baseURL: https://api.revcontent.io
   tags:
+  - Subaccounts
+  tags_raw:
   - Sub Accounts
   properties:
   - type: OpenAPI
