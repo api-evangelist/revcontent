@@ -3,10 +3,13 @@
   "feeds": [
     {
       "source": "https://www.linkedin.com/company/revcontent",
-      "error": "HTTPError"
+      "feed_url": "https://www.linkedin.com/company/revcontent",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "fetched": "2026-08-06T14:08:46Z",
+  "fetched": "2026-08-22T20:20:02Z",
   "post_count": 0,
   "agent_pulled": "2026-07-04"
 }
