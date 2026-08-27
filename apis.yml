@@ -42,10 +42,10 @@ tags:
 apis:
 - name: RevContent Stats & Management API
   description: >-
-    REST API providing programmatic access to RevContent's advertising platform for managing
-    campaigns (boosts), widgets, content, targeting, widget blacklisting, conversion pixels, sub
-    accounts, and statistical reporting. 43 operations, authenticated via an OAuth 2.0
-    client-credentials bearer token valid for 24 hours.
+    REST API providing programmatic access to RevContent's advertising platform for managing campaigns
+    (boosts), widgets, content, targeting, widget blacklisting, conversion pixels, sub accounts, and statistical
+    reporting. 43 operations, authenticated via an OAuth 2.0 client-credentials bearer token valid for
+    24 hours.
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
   baseURL: https://api.revcontent.io
@@ -100,19 +100,6 @@ apis:
     url: openapi/revcontent-access-api-openapi.yml
   - type: Overlay
     url: overlays/revcontent-access-api-overlay.yaml
-- aid: revcontent:revcontent-boosts-api
-  name: RevContent Campaigns (Boosts) API
-  description: Create, update, list, archive and report on advertising campaigns.
-  humanURL: https://api.revcontent.io/docs/stats/index.html#api-Campaigns
-  baseURL: https://api.revcontent.io
-  tags:
-  - Boosts
-  - Campaigns
-  properties:
-  - type: OpenAPI
-    url: openapi/revcontent-boosts-api-openapi.yml
-  - type: Overlay
-    url: overlays/revcontent-boosts-api-overlay.yaml
 - aid: revcontent:revcontent-ccpa-api
   name: RevContent CCPA API
   description: CCPA consumer data access and deletion requests for publishers.
@@ -151,8 +138,9 @@ apis:
     url: overlays/revcontent-conversions-api-overlay.yaml
 - aid: revcontent:revcontent-helpers-api
   name: RevContent Helpers API
-  description: Reference lookups for browsers, countries, devices, DMAs, languages, operating
-    systems and regions — the source of every valid targeting code.
+  description: >-
+    Reference lookups for browsers, countries, devices, DMAs, languages, operating systems and regions
+    — the source of every valid targeting code.
   humanURL: https://api.revcontent.io/docs/stats/index.html#api-Helpers
   baseURL: https://api.revcontent.io
   tags:
@@ -188,19 +176,6 @@ apis:
     url: openapi/revcontent-targeting-api-openapi.yml
   - type: Overlay
     url: overlays/revcontent-targeting-api-overlay.yaml
-- aid: revcontent:revcontent-widgets-api
-  name: RevContent Widgets API
-  description: Publisher widget inventory, geo statistics and Sub ID reporting.
-  humanURL: https://api.revcontent.io/docs/stats/index.html#api-Widget
-  baseURL: https://api.revcontent.io
-  tags:
-  - Widgets
-  - Publishers
-  properties:
-  - type: OpenAPI
-    url: openapi/revcontent-widgets-api-openapi.yml
-  - type: Overlay
-    url: overlays/revcontent-widgets-api-overlay.yaml
 - aid: revcontent:revcontent-widget-internal-content-api
   name: RevContent Widget Internal Content API
   description: Publisher-owned content injected into that publisher's own widget.
@@ -227,7 +202,31 @@ apis:
     url: openapi/revcontent-widget-optimizer-api-openapi.yml
   - type: Overlay
     url: overlays/revcontent-widget-optimizer-api-overlay.yaml
+- aid: revcontent:revcontent-campaigns-api
+  name: RevContent Campaigns API
+  description: Create, update, list, archive and report on advertising campaigns (boosts).
+  humanURL: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
+  baseURL: https://api.revcontent.io
+  tags:
+  - Campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/revcontent-campaigns-api-openapi.yml
+- aid: revcontent:revcontent-widget-api
+  name: RevContent Widget API
+  description: Publisher widget inventory, geo statistics and Sub ID reporting.
+  humanURL: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
+  baseURL: https://api.revcontent.io
+  tags:
+  - Widget
+  properties:
+  - type: OpenAPI
+    url: openapi/revcontent-widget-api-openapi.yml
 common:
+  - type: Overlay
+    url: overlays/revcontent-boosts-api-overlay.yaml
+  - type: Overlay
+    url: overlays/revcontent-widgets-api-overlay.yaml
   - type: AgenticAccess
     url: agentic-access/revcontent-agentic-access.yml
   - type: DomainSecurity
