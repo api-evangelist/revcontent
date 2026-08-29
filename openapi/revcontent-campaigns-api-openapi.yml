@@ -1,0 +1,1484 @@
+openapi: 3.2.0
+info:
+  title: RevContent Campaigns API
+  description: Create, update, list, archive and report on advertising campaigns (boosts).
+  version: '1.0'
+  contact:
+    name: RevContent Support
+    url: https://www.revcontent.com/resources/contact-us
+    email: developer@revcontent.com
+servers:
+- url: https://api.revcontent.io
+  description: RevContent Production API
+security:
+- BearerAuth: []
+tags:
+- name: Campaigns
+  description: Create, update, list, archive and report on advertising campaigns (boosts).
+paths:
+  /stats/api/v1.0/boosts:
+    get:
+      operationId: getAllBoosts
+      summary: Get All Campaigns
+      description: Get list of Campaigns
+      tags:
+      - Campaigns
+      x-permission:
+      - Advertiser
+      parameters:
+      - name: boost_id
+        in: query
+        required: false
+        description: Campaign ID
+        schema:
+          type: number
+      - name: sub_account_id
+        in: query
+        required: false
+        description: Sub Account ID. By default all actions are for your user account if sub account ID is not specified.
+        schema:
+          type: number
+      - name: status
+        in: query
+        required: false
+        description: 'System status of the campaign. Values: "active", "balance_issue", "budget_exhausted", "inactive", "disabled", "archived".'
+        schema:
+          type: string
+      - name: enabled
+        in: query
+        required: false
+        description: 'User status of the campaign. Values: "active", "inactive".'
+        schema:
+          type: string
+      - name: date_from
+        in: query
+        required: false
+        description: Start date for the statistics in Y-m-d format. Defaults to first of the current month.
+        schema:
+          type: string
+          default: first of the month
+      - name: date_to
+        in: query
+        required: false
+        description: End date for the statistics in Y-m-d format. Defaults to today.
+        schema:
+          type: string
+          default: today's date
+      - name: limit
+        in: query
+        required: false
+        description: Number of records to return. Max 1000. Default 100.
+        schema:
+          type: number
+          default: 100
+      - name: offset
+        in: query
+        required: false
+        description: Offset for the records to return.
+        schema:
+          type: number
+          default: 0
+      - name: aggregate
+        in: query
+        required: false
+        description: If 'yes', statistics aggregated by date are retrieved.
+        schema:
+          type: string
+          default: 'no'
+      - name: created_at
+        in: query
+        required: false
+        description: If set, will bring back campaigns created on or after specified date.
+        schema:
+          type: string
+          default: 'null'
+      - name: updated_at
+        in: query
+        required: false
+        description: If set, will bring back campaigns updated on or after specified date.
+        schema:
+          type: string
+          default: 'null'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: 'true'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Campaign id
+                        name:
+                          type: string
+                          description: Campaign name
+                        start_date:
+                          type: string
+                          description: Campaign Start date (YY-mm-dd HH:mm:ss)
+                        end_date:
+                          type: string
+                          description: Campaign End date (YY-mm-dd HH:mm:ss)
+                        enabled:
+                          type: string
+                          description: Campaign enabled or disabled ('active', 'inactive')
+                        status:
+                          type: string
+                          description: Campaign status ('active','balance_issue','budget_exhausted','inactive','disabled','archived', 'non_archived')
+                        bid_type:
+                          type: string
+                          description: Campaign Bid Type
+                        default_bid:
+                          type: string
+                          description: Default bid for the campaign.
+                        min_bid:
+                          type: string
+                          description: Campaign Minimum CPC Bid
+                        max_bid:
+                          type: string
+                          description: Campaign Maximum CPC Bid
+                        budget:
+                          type: string
+                          description: Campaign Budget amount
+                        pacing:
+                          type: string
+                          description: Campaign Pacing is available for all campaigns with a limited budget. Enabling pacing forces your budget to spend evenly throughout the day rather than spending as quickly as possible. If budget is set to 'unlimited', pacing will default to 'off'. Otherwise, default is 'on'.
+                        schedule:
+                          type: string
+                          description: 'Campaign Scheduling. Allows for setting hours where campaign is on. All other hours campaign is off. Ex. schedule: [15,16,17] Campaign will be on for 3pm - 5pm in your audiences time zone. Note: NULL value implies no schedule is set.'
+                        impressions:
+                          type: string
+                          description: Total number of Impression for selected date
+                        viewable_impressions:
+                          type: string
+                          description: Total number of Viewable Impressions for selected date
+                        clicks:
+                          type: string
+                          description: Total number of clicks for selected date
+                        conversions:
+                          type: string
+                          description: Total number of conversion for selected date
+                        ctr:
+                          type: string
+                          description: CTR for selected date
+                        vctr:
+                          type: string
+                          description: vCTR for selected date
+                        avg_cpc:
+                          type: string
+                          description: Average CPC for selected date
+                        cost:
+                          type: string
+                          description: Cost for selected date
+                        return:
+                          type: string
+                          description: Return for selected date
+                        profit:
+                          type: string
+                          description: Profit for selected date
+                        utm_codes:
+                          type: string
+                          description: Campaign UTM codes
+                        pixel_url:
+                          type: string
+                          description: Pixel URL
+                        optimize:
+                          type: string
+                          description: Optimize for strategy ('cpc' or 'cpa')
+                        created_at:
+                          type: string
+                          description: When the campaign was created at.
+                        updated_at:
+                          type: string
+                          description: When the campaign was last updated.
+                        country_codes:
+                          type: array
+                          items:
+                            type: string
+                          description: 'List of ISO country abbreviations. Ex. country_codes": ["US"]'
+                        device_targeting:
+                          type: array
+                          items:
+                            type: string
+                          description: 'List of device targeting for the campaign. Ex. device_targeting: ["1","2"] See section Helpers :: Get Devices for values.'
+                        os_targeting:
+                          type: array
+                          items:
+                            type: string
+                          description: 'List of operating systems for the campaign. Ex. device_targeting: ["1","2"] See section Helpers :: Get Operating Systems for values. IDs must match device_targeting.'
+                        region_codes:
+                          type: array
+                          items:
+                            type: string
+                          description: 'List of regions codes Ex. region_codes": ["FL","CA"]'
+                        region_targeting:
+                          type: array
+                          items:
+                            type: string
+                          description: Targeting type
+                        language_targeting:
+                          type: array
+                          items:
+                            type: string
+                          description: 'List of languages targeting for the campaign. Ex. language_targeting: ["1","2"] See section Helpers :: Get Languages for values.'
+                        browser_targeting:
+                          type: array
+                          items:
+                            type: string
+                          description: 'List of browser targeting for the campaign. Only available when targeting Desktop device. Ex. browser_targeting: ["1","2"] See section Helpers :: Get Browsers for values.'
+                        dma_targeting:
+                          type: string
+                          description: 'DMA Targeting. Values: ''all'', ''include'', ''exclude''.'
+                        dma_codes:
+                          type: array
+                          items:
+                            type: string
+                          description: 'List of DMA codes for the campaign. See section Helpers :: Get DMA Codes'
+                        zipcode_targeting:
+                          type: string
+                          description: 'Zipcode Targeting. Values: ''all'', ''include'', ''exclude''.'
+                        zipcode_codes:
+                          type: array
+                          items:
+                            type: string
+                          description: 'List of valid US zip codes for the campaign. Ex: ["11220", "34243", "48212"]'
+                        pixels:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                description: Conversion pixel id.
+                              name:
+                                type: string
+                                description: Conversion pixel name.
+                              amount:
+                                type: string
+                                description: Conversion pixel amount.
+                              pixel:
+                                type: string
+                                description: Conversion pixel code.
+                            required:
+                            - id
+                            - name
+                            - amount
+                            - pixel
+                          description: Conversion pixels information. Only included when conversion(s) exist.
+                      required:
+                      - id
+                      - name
+                      - start_date
+                      - end_date
+                      - enabled
+                      - status
+                      - bid_type
+                      - default_bid
+                      - min_bid
+                      - max_bid
+                      - budget
+                      - pacing
+                      - schedule
+                      - impressions
+                      - viewable_impressions
+                      - clicks
+                      - conversions
+                      - ctr
+                      - vctr
+                      - avg_cpc
+                      - cost
+                      - return
+                      - profit
+                      - utm_codes
+                      - pixel_url
+                      - optimize
+                      - created_at
+                      - updated_at
+                      - country_codes
+                      - device_targeting
+                      - os_targeting
+                      - region_codes
+                      - region_targeting
+                      - language_targeting
+                      - browser_targeting
+                      - dma_targeting
+                      - dma_codes
+                      - zipcode_targeting
+                      - zipcode_codes
+                      - pixels
+                    description: List of campaigns and their statistics
+                  aggregate:
+                    type: object
+                    properties:
+                      success:
+                        type: boolean
+                        description: 'true'
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            date:
+                              type: string
+                              description: Stats date (YY-mm-dd)
+                            impressions:
+                              type: string
+                              description: Total number of Impression for selected date
+                            viewable_impressions:
+                              type: string
+                              description: Total number of Viewable Impressions for selected date
+                            clicks:
+                              type: string
+                              description: Total number of clicks for selected date
+                            conversions:
+                              type: string
+                              description: Total number of conversion for selected date
+                            ctr:
+                              type: string
+                              description: CTR for selected date
+                            vctr:
+                              type: string
+                              description: vCTR for selected date
+                            avg_cpc:
+                              type: string
+                              description: Average CPC for selected date
+                            cost:
+                              type: string
+                              description: Cost for selected date
+                            return:
+                              type: string
+                              description: Return for selected date
+                            profit:
+                              type: string
+                              description: Profit for selected date
+                          required:
+                          - date
+                          - impressions
+                          - viewable_impressions
+                          - clicks
+                          - conversions
+                          - ctr
+                          - vctr
+                          - avg_cpc
+                          - cost
+                          - return
+                          - profit
+                        description: List of aggregated campaigns and their statistics
+                    description: Statistics aggregated by date (returned when aggregate=yes).
+                required:
+                - success
+                - data
+              example:
+                success: true
+                data:
+                - date: '2016-11-07'
+                  impressions: '185766183'
+                  viewable_impressions: '45665587'
+                  clicks: '519170'
+                  conversions: '0'
+                  ctr: '0.2795'
+                  vctr: '1.6795'
+                  average_cpc: '0.06643828'
+                  cost: '34492.7600'
+                  return: '0.0000'
+                  profit: '-34492.7600'
+                - date: '2016-11-06'
+                  impressions: '212554031'
+                  viewable_impressions: '0'
+                  clicks: '690782'
+                  conversions: '0'
+                  ctr: '0.3250'
+                  vctr: '1.6795'
+                  vtr: '0.000'
+                  average_cpc: '0.05746427'
+                  cost: '39695.2800'
+                  return: '0.0000'
+                  profit: '-39695.2800'
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 400
+                  title: Invalid Parameters
+                  detail: Invalid Parameters sent
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Get Campaigns
+        source: "curl -X GET \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts'"
+      - lang: json
+        label: Get Campaigns (Aggregate)
+        source: "curl -X GET \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts?date_from=2016-11-06&date_to=2016-11-07&aggregate=yes'"
+    post:
+      operationId: postBoostsStatus
+      summary: Update Campaign Status
+      description: Update Campaign Status.
+      tags:
+      - Campaigns
+      x-permission:
+      - Advertiser
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: number
+                  description: Campaign ID.
+                sub_account_id:
+                  type: number
+                  description: Sub Account ID. By default all actions are for your user account if sub account ID is not specified. Apply changes to a specific campaign id.
+                do_all:
+                  type: boolean
+                  description: Apply status update to all campaigns. This parameter is set to false when boost_id is included.
+                  default: false
+                enabled:
+                  type: string
+                  description: 'Content status. Values: "on", "off".'
+                  default: 'on'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    description: campaign updated.
+                  enabled:
+                    type: string
+                    description: New user status of the campaign.
+                  status:
+                    type: string
+                    description: New system status of the campaign.
+                required:
+                - id
+                - enabled
+                - status
+              example:
+                id: '100'
+                enabled: active
+                status: active
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 100
+                  title: Invalid Argument
+                  detail: Invalid ID value
+      x-codeSamples:
+      - lang: json
+        label: Update boost
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '{\"id\": 217, \"enabled\" : \"on\"}' \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts'"
+      - lang: json
+        label: Update multiple boosts
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '[{\"id\": 217, \"enabled\" : \"on\"},{\"id\": 218, \"enabled\" : \"off\"}]' \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts'"
+      - lang: json
+        label: Update all campaigns
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '{\"enabled\" : \"off\", \"do_all\": true}' \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts'"
+  /stats/api/v1.0/boosts/performance:
+    get:
+      operationId: getBoostPerformance
+      summary: Get Campaign Performance
+      description: Get Performance Statistics for All Campaigns / Specific Campaign
+      tags:
+      - Campaigns
+      x-permission:
+      - Advertiser
+      parameters:
+      - name: boost_id
+        in: query
+        required: false
+        description: Campaign ID (If empty, all campaigns aggregated statistics are retrieved).
+        schema:
+          type: string
+      - name: sub_account_id
+        in: query
+        required: false
+        description: Sub Account ID. By default all actions are for your user account if sub account ID is not specified.
+        schema:
+          type: number
+      - name: date_from
+        in: query
+        required: false
+        description: Start date for the statistics in Y-m-d format. Defaults to first of the current month.
+        schema:
+          type: string
+          default: first of the month
+      - name: date_to
+        in: query
+        required: false
+        description: End date for the statistics in Y-m-d format. Defaults to today.
+        schema:
+          type: string
+          default: today's date
+      - name: limit
+        in: query
+        required: false
+        description: Number of records to return. Max 1000. Default 100.
+        schema:
+          type: number
+          default: 100
+      - name: offset
+        in: query
+        required: false
+        description: Offset for the records to return.
+        schema:
+          type: number
+          default: 0
+      - name: all_boosts
+        in: query
+        required: false
+        description: If 'yes', and boost_id is not provided, statistics aggregated by Id are retrieved.
+        schema:
+          type: string
+          default: 'no'
+      - name: created_at
+        in: query
+        required: false
+        description: If set, will bring back campaigns created on or after specified date.
+        schema:
+          type: string
+          default: 'null'
+      - name: updated_at
+        in: query
+        required: false
+        description: If set, will bring back campaigns updated on or after specified date.
+        schema:
+          type: string
+          default: 'null'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: 'true'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Campaign id. Only when filter all_boost=yes
+                        date:
+                          type: string
+                          description: Stats date (YY-mm-dd)
+                        impressions:
+                          type: string
+                          description: Total number of Impression for selected date
+                        viewable_impressions:
+                          type: string
+                          description: Total number of Viewable Impressions for selected date
+                        clicks:
+                          type: string
+                          description: Total number of clicks for selected date
+                        conversions:
+                          type: string
+                          description: Total number of conversion for selected date
+                        ctr:
+                          type: string
+                          description: CTR for selected date
+                        vctr:
+                          type: string
+                          description: Viewable CTR for selected date
+                        avg_cpc:
+                          type: string
+                          description: Average CPC for selected date
+                        cost:
+                          type: string
+                          description: Cost for selected date
+                        cost_per_conv:
+                          type: string
+                          description: Cost per conversion for selected date
+                        return:
+                          type: string
+                          description: Return for selected date
+                        profit:
+                          type: string
+                          description: Profit for selected date
+                        created_at:
+                          type: string
+                          description: When the campaign was created at.
+                        updated_at:
+                          type: string
+                          description: When the campaign was last updated.
+                      required:
+                      - date
+                      - impressions
+                      - viewable_impressions
+                      - clicks
+                      - conversions
+                      - ctr
+                      - vctr
+                      - avg_cpc
+                      - cost
+                      - cost_per_conv
+                      - return
+                      - profit
+                      - created_at
+                      - updated_at
+                    description: List of campaigns and their statistics
+                required:
+                - success
+                - data
+              example:
+                success: true
+                data:
+                - date: '2016-03-01'
+                  impressions: '146299926'
+                  viewable_impressions: '4856645'
+                  clicks: '558695'
+                  conversions: '0'
+                  ctr: '0.3819'
+                  vctr: '1.3819'
+                  avg_cpc: '0.04110327'
+                  cost: '22964.1900'
+                  cost_per_conv: '0.000'
+                  return: '0.0000'
+                  profit: '-22964.1900'
+                - date: '2016-03-02'
+                  impressions: '141200030'
+                  viewable_impressions: '456687998'
+                  clicks: '492804'
+                  conversions: '0'
+                  ctr: '0.3490'
+                  vctr: '1.3819'
+                  avg_cpc: '0.03913846'
+                  cost: '19287.5900'
+                  cost_per_conv: '0.000'
+                  return: '0.0000'
+                  profit: '-19287.5900'
+                - date: '2016-03-03'
+                  impressions: '116063762'
+                  viewable_impressions: '456878855'
+                  clicks: '373168'
+                  conversions: '0'
+                  ctr: '0.3215'
+                  vctr: '1.3819'
+                  avg_cpc: '0.03963073'
+                  cost: '14788.9200'
+                  cost_per_conv: '0.000'
+                  return: '0.0000'
+                  profit: '-14788.9200'
+                - date: '2016-03-04'
+                  impressions: '101758856'
+                  viewable_impressions: '788954666'
+                  clicks: '321858'
+                  conversions: '0'
+                  ctr: '0.3163'
+                  vctr: '1.3819'
+                  avg_cpc: '0.04228427'
+                  cost: '13609.5300'
+                  cost_per_conv: '0.000'
+                  return: '0.0000'
+                  profit: '-13609.5300'
+                - date: '2016-03-05'
+                  impressions: '129758130'
+                  viewable_impressions: '15566488'
+                  clicks: '400733'
+                  conversions: '0'
+                  ctr: '0.3088'
+                  vctr: '1.3819'
+                  avg_cpc: '0.04149481'
+                  cost: '16628.3400'
+                  cost_per_conv: '0.000'
+                  return: '0.0000'
+                  profit: '-16628.3400'
+                - date: '2016-03-06'
+                  impressions: '152533186'
+                  viewable_impressions: '63254125'
+                  clicks: '411781'
+                  conversions: '0'
+                  ctr: '0.2700'
+                  vctr: '1.3819'
+                  avg_cpc: '0.04136820'
+                  cost: '17034.6400'
+                  cost_per_conv: '0.000'
+                  return: '0.0000'
+                  profit: '-17034.6400'
+                - date: '2016-03-07'
+                  impressions: '124309196'
+                  viewable_impressions: '744788946'
+                  clicks: '350109'
+                  conversions: '0'
+                  ctr: '0.2816'
+                  vctr: '1.3819'
+                  avg_cpc: '0.04531540'
+                  cost: '15865.3300'
+                  cost_per_conv: '0.000'
+                  return: '0.0000'
+                  profit: '-15865.3300'
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 400
+                  title: Invalid Parameters
+                  detail: Invalid Parameters sent
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Get Performance (default values)
+        source: "curl -X GET \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts/performance'"
+      - lang: json
+        label: Get Performance (with filters)
+        source: "curl -X GET \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts/performance?boost_id=100&date_from=2016-03-01&date_to=2016-03-07'"
+      - lang: json
+        label: Get Performance (with filters no boost_id)
+        source: "curl -X GET \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts/performance?date_from=2016-03-01&date_to=2016-03-07'"
+      - lang: json
+        label: Get Performance (aggregated by boost_id)
+        source: "curl -X GET \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts/performance?date_from=2016-05-27&date_to=2016-05-28&all_boosts=yes'"
+  /stats/api/v1.0/boosts/{boost_id}/widgets/stats:
+    get:
+      operationId: getWidgetStats
+      summary: Get Widget Stats
+      description: Get list of widget stats
+      tags:
+      - Campaigns
+      x-permission:
+      - Advertiser
+      parameters:
+      - name: boost_id
+        in: path
+        required: true
+        description: Campaign ID.
+        schema:
+          type: number
+      - name: sub_account_id
+        in: query
+        required: false
+        description: Sub Account ID. By default all actions are for your user account if sub account ID is not specified.
+        schema:
+          type: number
+      - name: widget_id
+        in: query
+        required: false
+        description: Widget ID to look for.
+        schema:
+          type: number
+      - name: domain
+        in: query
+        required: false
+        description: Domain to look for.
+        schema:
+          type: string
+      - name: min_spend
+        in: query
+        required: false
+        description: Min. spend to look for.
+        schema:
+          type: number
+      - name: date_from
+        in: query
+        required: false
+        description: Start date for the statistics in Y-m-d format. Defaults to first of the current month.
+        schema:
+          type: string
+          default: first of the month
+      - name: date_to
+        in: query
+        required: false
+        description: End date for the statistics in Y-m-d format. Defaults to today. Limit 60 days after "date_from".
+        schema:
+          type: string
+          default: today's date
+      - name: limit
+        in: query
+        required: false
+        description: Number of records to return. Max 1000. Default 100.
+        schema:
+          type: number
+          default: 100
+      - name: offset
+        in: query
+        required: false
+        description: Offset for the records to return.
+        schema:
+          type: number
+          default: 0
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: 'true'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Widget ID
+                        domain:
+                          type: string
+                          description: Widget Domain
+                        placement_type:
+                          type: string
+                          description: Placement type label as shown in the interface (e.g. "Below Article", "Right Rail / Sidebar", "Email", "Apple News"). "No Placement Type" when no placement is set; null if the placement is hidden/unknown.
+                        impressions:
+                          type: string
+                          description: Total number of impressions for widget
+                        viewable_impressions:
+                          type: string
+                          description: Total number of viewable impressions for widget
+                        clicks:
+                          type: string
+                          description: Total number of clicks for widget
+                        ctr:
+                          type: string
+                          description: CTR for widget
+                        vctr:
+                          type: string
+                          description: Viewable CTR for widget
+                        avg_cpc:
+                          type: string
+                          description: Average CPC for widget
+                        avg_vcpm:
+                          type: string
+                          description: Average VCPM for widget
+                        spend:
+                          type: string
+                          description: Spend for widget
+                        conversion:
+                          type: string
+                          description: Total number of conversions for widget
+                        cost_per_conv:
+                          type: string
+                          description: Cost per conversion
+                        profit:
+                          type: string
+                          description: Profit for widget
+                      required:
+                      - id
+                      - domain
+                      - placement_type
+                      - impressions
+                      - viewable_impressions
+                      - clicks
+                      - ctr
+                      - vctr
+                      - avg_cpc
+                      - avg_vcpm
+                      - spend
+                      - conversion
+                      - cost_per_conv
+                      - profit
+                    description: List of widgets and their statistics
+                required:
+                - success
+                - data
+              example:
+                success: true
+                data:
+                - id: '143'
+                  domain: revcontent.com
+                  placement_type: Below Article
+                  impressions: '64'
+                  viewable_impressions: '0'
+                  clicks: '1'
+                  ctr: '1.5625'
+                  vctr: '0'
+                  avg_cpc: '0.02000000'
+                  avg_vcpm: '0.00'
+                  spend: '0.0200'
+                  conversions: '0'
+                  cost_per_conv: '0.0000'
+                  profit: '-0.0200'
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 400
+                  title: Invalid Parameters
+                  detail: Invalid Parameters sent
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Get Widget Stats
+        source: "curl -X GET \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\"\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     \"https://api.revcontent.io/stats/api/v1.0/boosts/42304/widgets/stats?date_from=2016-02-01&date_to=2016-02-29&limit=2&offset=0\""
+      - lang: json
+        label: Get Widget Stats (widget_id = 143)
+        source: "curl -X GET \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\"\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     \"https://api.revcontent.io/stats/api/v1.0/boosts/42304/widgets/stats?date_from=2016-02-01&date_to=2016-02-29&widget_id=143\""
+  /stats/api/v1.0/boosts/add:
+    post:
+      operationId: postBoostAdd
+      summary: Add Campaign
+      description: Add a campaign
+      tags:
+      - Campaigns
+      x-permission:
+      - Advertiser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Campaign name.
+                sub_account_id:
+                  type: string
+                  description: Sub Account ID. By default all actions are for your user account if sub account ID is not specified.
+                bid_type:
+                  type: string
+                  description: Bid type CPC/VCPM
+                  default: cpc
+                bid_amount:
+                  type: number
+                  description: Bid amount. This is a deprecated parameter for backward compatibility, use 'default_bids' section instead
+                  default: 0.5
+                budget:
+                  description: 'Budget type for the campaign. Supports: ''unlimited'' or an amount (0.00). CSR accounts can not have unlimited budgets.'
+                  default: unlimited
+                pacing:
+                  type: string
+                  description: Pacing is available for all campaigns with a limited budget. Enabling pacing forces your budget to spend evenly throughout the day rather than spending as quickly as possible. If budget is set to 'unlimited', pacing will default to 'off'. Otherwise, default is 'on'.
+                schedule:
+                  type: array
+                  items:
+                    type: integer
+                  description: 'Campaign Scheduling. Allows for setting hours where campaign is on. All other hours campaign is off. Ex. schedule: [15,16,17] Campaign will be on for 3pm - 5pm in your audiences time zone. Note: Only available for campaigns with unlimited budgets.'
+                optimize:
+                  type: string
+                  description: 'Optimize for strategy: Supports ''cpc'' or ''cpa''.'
+                  default: cpc
+                conversion:
+                  type: object
+                  description: Conversion pixels information. Only mandatory when optimize is 'cpa'
+                  properties:
+                    id:
+                      type: object
+                      description: Conversion id
+                start_date:
+                  type: string
+                  description: 'Start date and time for the campaign. Supports: ''immediately'' (now) or datetime in in y-m-d h:m:s format.'
+                  default: immediately
+                end_date:
+                  type: string
+                  description: 'End date and time for the campaign. Supports: ''never'' (never ends) or datetime in in y-m-d h:m:s format.'
+                  default: never
+                country_targeting:
+                  type: string
+                  description: 'The type of geographic targeting set for the campaign. Supports: ''all'', ''include'', ''exclude''.'
+                  default: all
+                country_codes:
+                  type: array
+                  items:
+                    type: string
+                  description: 'List of ISO country abbreviations. Ex. country_codes": ["PE"] . See section Helpers :: Get Countries. Is mandatory if country_targeting is not ''all''.'
+                region_targeting:
+                  type: string
+                  description: 'The type of region geographic targeting set for the campaign. Supports: ''all'', ''include'', ''exclude''.'
+                  default: all
+                region_codes:
+                  type: array
+                  items:
+                    type: string
+                  description: 'List of ISO country region abbreviations. Ex. region_codes": ["FL"] . See section Helpers :: Get Regions. Is mandatory if region_targeting is not ''all''.'
+                device_targeting:
+                  type: array
+                  items:
+                    type: string
+                  description: 'List of device targeting for the campaign. Ex. device_targeting: ["1","2"] See section Helpers :: Get Devices for values.'
+                  default: all
+                os_targeting:
+                  type: array
+                  items:
+                    type: string
+                  description: 'List of operating systems for the campaign. Ex. device_targeting: ["1","2"] See section Helpers :: Get Operating Systems for values. IDs must match device_targeting. Note: When targeting OS IDs 4/5, or IDs 6/7/8 it will reset to targeting All.'
+                  default: all
+                language_targeting:
+                  type: array
+                  items:
+                    type: string
+                  description: 'List of languages targeting for the campaign. Ex. language_targeting: ["1","2"] See section Helpers :: Get Languages for values.'
+                  default: all
+                browser_targeting:
+                  type: array
+                  items:
+                    type: string
+                  description: 'List of browser targeting for the campaign. Only available when targeting Desktop device. Ex. browser_targeting: ["1","2"] See section Helpers :: Get Browsers for values.'
+                  default: all
+                dma_targeting:
+                  type: string
+                  description: 'DMA Targeting. Supports: ''all'', ''include'', ''exclude''.'
+                  default: all
+                dma_codes:
+                  type: array
+                  items:
+                    type: string
+                  description: 'List of DMA codes for the campaign. See section Helpers :: Get DMA Codes'
+                zipcode_targeting:
+                  type: string
+                  description: 'Zipcode Targeting. Supports: ''all'', ''include'', ''exclude''. If set to ''include'', country_codes must contain US in the list.'
+                  default: all
+                zipcode_codes:
+                  type: array
+                  items:
+                    type: string
+                  description: 'List of valid US zip codes for the campaign. Ex: ["11220", "34243", "48212"]'
+                tracking_code:
+                  type: string
+                  description: 'UTM code string (Max: 255 characters). Ex. utm_source=revcontent'
+                pixel_url:
+                  type: string
+                  description: Campaign Pixel Tracking URL (only open to select users).
+                default_bids:
+                  type: object
+                  description: Default bid amounts for different traffic types
+                  properties:
+                    email:
+                      type: number
+                      description: Default bid for email widgets
+                    apple_news:
+                      type: number
+                      description: Default bid for Apple News widgets
+                    web:
+                      type: number
+                      description: Default bid for all non-email, non-Apple News widgets
+                  required:
+                  - email
+                  - apple_news
+                  - web
+              required:
+              - name
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: 'true'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Campaign id
+                      required:
+                      - id
+                    description: List of added campaigns
+                required:
+                - success
+                - data
+              example:
+                success: true
+                data:
+                - id: '313'
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 100
+                  title: Invalid Parameters
+                  detail: Invalid dates range. end_date has to be greater than or equal to start_date
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Add CPC Campaign
+        source: "\ncurl -X POST \\\n     -H \"Authorization: Bearer 633066d5c604cdb3b311d8a9b821f76c9a961c65\" \\\n     -H \"Content-Type: application/json\"\n     -H \"Cache-Control: no-cache\"\n     -d '{\"name\":\"cpa campaign\",\"bid_amount\":\"0.35\",\"budget\":\"unlimited\",\"optimize\":\"cpc\", \\\n         \"start_date\":\"immediately\",\"end_date\":\"never\", \\\n         \"target_codes\":\"\", \"country_targeting\" : \"all\", \\\n         \"device_targeting\":\"all\",\"tracking_code\":\"utm_source=revcontent\"}' \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts/add'"
+      - lang: json
+        label: Add CPA Campaign
+        source: "curl -X POST -H \"Authorization: Bearer a0a234a0c3cccccb32e12acc450eab519787f9be\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Cache-Control: no-cache\" \\\n-d '{\"name\":\"cpa campaign\",\"bid_amount\":\"0.35\",\"budget\":\"unlimited\",\"optimize\":\"cpa\", \\\n     \"conversion\":[{\"id\": 308},{\"id\": 309}], \\\n     \"start_date\" : \"immediately\",\"end_date\" : \"never\", \\\n     \"target_codes\" : \"\",\"country_targeting\" : \"exclude\",\"country_codes\": [\"US\", \"PE\"], \\\n     \"device_targeting\":[\"3\",\"4\"], \"dma_targeting\": [\"501\", \"803\"], \"zipcode_targeting\": [\"34243\"], \\\n     \"language_targeting\":[\"1\",\"2\",\"3\"], \"tracking_code\":\"utm_source=revcontent\"}' \\\n'https://api.revcontent.io/stats/api/v1.0/boosts/add'"
+  /stats/api/v1.0/boosts/{boost_id}/archive:
+    post:
+      operationId: postBoostArchive
+      summary: Archive Campaign
+      description: Archive campaign
+      tags:
+      - Campaigns
+      x-permission:
+      - Advertiser
+      parameters:
+      - name: boost_id
+        in: path
+        required: true
+        description: Campaign ID.
+        schema:
+          type: number
+      - name: sub_account_id
+        in: query
+        required: false
+        description: Sub Account ID. By default all actions are for your user account if sub account ID is not specified.
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: 'true'
+                required:
+                - success
+              example:
+                success: true
+                data:
+                  id: '313939'
+                  status: archived
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 400
+                  title: Invalid Parameters
+                  detail: Invalid Parameters sent
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Archive Boost
+        source: "curl -X POST \\\n     https://api.revcontent.io/stats/api/v1.0/boosts/:boost_id/archive \\\n     -H 'authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d' \\\n     -H 'cache-control: no-cache' \\\n     -H 'content-type: application/json'"
+  /stats/api/v1.0/boosts/{boost_id}/settings:
+    post:
+      operationId: postBoostSettings
+      summary: Update Campaign Settings
+      description: Update Campaign Settings
+      tags:
+      - Campaigns
+      x-permission:
+      - Advertiser
+      parameters:
+      - name: boost_id
+        in: path
+        required: true
+        description: Campaign ID.
+        schema:
+          type: number
+      - name: sub_account_id
+        in: query
+        required: false
+        description: Sub Account ID. By default all actions are for your user account if sub account ID is not specified.
+        schema:
+          type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Campaign name.
+                default_bid:
+                  type: number
+                  description: Default bid amount for the campaign (CPC). This is a deprecated parameter for backward compatibility, use 'default_bids' section instead
+                budget_type:
+                  type: string
+                  description: 'Budget type for the campaign. Values: daily, unlimited. CSR accounts can not have unlimited budgets.'
+                budget_amount:
+                  type: number
+                  description: 'Budget for the campaign in USD (applies only if budget_type is set to ''daily''). Min: 50.'
+                pacing:
+                  type: string
+                  description: 'Pacing enable. Values: on, off (applies only if budget_type is set to ''daily''). Will default to ''on'' when budget_type is set to ''daily'', or will default to ''off'' when ''unlimited''.'
+                schedule:
+                  type: array
+                  items:
+                    type: integer
+                  description: 'Campaign Scheduling. Allows for setting hours where campaign is on. All other hours campaign is off. Ex. schedule: [15,16,17] Campaign will be on for 3pm - 5pm in your audiences time zone. To clear a schedule and serve ads normally, send an empty list: Ex. schedule: [] Note: Only available for campaigns with unlimited budgets.'
+                optimize:
+                  type: string
+                  description: 'Optimize for strategy: Supports ''cpc'' or ''cpa''.'
+                  default: cpc
+                conversion:
+                  type: object
+                  description: Conversion pixels information. Only mandatory when optimize is 'cpa'
+                  properties:
+                    id:
+                      type: object
+                      description: Conversion ID to add to campaign (or remove from campaign if delete flag is set).
+                    delete:
+                      type: object
+                      description: Set to true to remove from conversion from campaign. Optional.
+                  required:
+                  - id
+                  - delete
+                start_date_time:
+                  type: string
+                  description: Start date and time for the campaign in y-m-d h:m:s format.
+                has_end_date:
+                  type: string
+                  description: 'Determines whether an end date for the campaign is set. Setting to false means the campaign will run continously. Values: true, false.'
+                end_date_time:
+                  type: string
+                  description: 'End date and time for the campaign in y-m-d h:m:s format. NOTE: has_end_date must be set to true to use this parameter.'
+                country_targeting:
+                  type: string
+                  description: 'The type of geographic targeting set for the campaign. Values: "all", "include", "exclude".'
+                country_codes:
+                  type: array
+                  items:
+                    type: string
+                  description: 'List of ISO country abbreviations. Ex. "country_codes": ["PE"]. See section Helpers :: Get Countries for values. Is mandatory if country_targeting is not ''all''.'
+                region_targeting:
+                  type: string
+                  description: 'The type of region geographic targeting set for the campaign. Supports: ''all'', ''include'', ''exclude''.'
+                  default: all
+                region_codes:
+                  type: array
+                  items:
+                    type: string
+                  description: 'List of ISO country region abbreviations. Ex. region_codes": ["FL"] . See section Helpers :: Get Regions. Is mandatory if region_targeting is not ''all''. * country_codes values is required to update region_codes.'
+                device_targeting:
+                  type: array
+                  items:
+                    type: string
+                  description: 'List of device targeting for the campaign. Ex. device_targeting: ["1","2"] See section Helpers :: Get Devices for values.'
+                  default: all
+                os_targeting:
+                  type: array
+                  items:
+                    type: string
+                  description: 'List of operating systems for the campaign. Ex. device_targeting: ["1","2"] See section Helpers :: Get Operating Systems for values. IDs must match device_targeting. Note: When targeting OS IDs 4/5, or IDs 6/7/8 it will reset to targeting All.'
+                  default: all
+                language_traffic:
+                  type: array
+                  items:
+                    type: string
+                  description: 'List of languages targeting for the campaign. Ex. "language_traffic: ["1","2"]" See section Helpers :: Get Languages for values. If you want to target all languages, use ''all''. Ex. language_traffic:"all".'
+                browser_targeting:
+                  type: string
+                  description: 'List of browser targeting for the campaign. Only available when targeting Desktop device. Ex. browser_targeting: ["1","2"] See section Helpers :: Get Browsers for values.'
+                  default: all
+                dma_targeting:
+                  type: string
+                  description: 'DMA Targeting. Supports: ''all'', ''include'', ''exclude''.'
+                  default: all
+                dma_codes:
+                  type: array
+                  items:
+                    type: string
+                  description: 'List of DMA codes for the campaign. See section Helpers :: Get DMA Codes'
+                zipcode_targeting:
+                  type: string
+                  description: 'Zipcode Targeting. Supports: ''all'', ''include'', ''exclude''. If set to ''include'', country_codes must contain US in the list.'
+                  default: all
+                zipcode_codes:
+                  type: array
+                  items:
+                    type: string
+                  description: 'List of valid US zip codes for the campaign. Ex: ["11220", "34243", "48212"]'
+                utm_codes:
+                  type: string
+                  description: 'UTM code string (Max: 2048 characters).'
+                pixel_url:
+                  type: string
+                  description: Campaign Pixel Tracking URL (only open to select users).
+                default_bids:
+                  type: object
+                  description: Default bid amounts for different traffic types
+                  properties:
+                    email:
+                      type: number
+                      description: Default bid for email widgets
+                    apple_news:
+                      type: number
+                      description: Default bid for Apple News widgets
+                    web:
+                      type: number
+                      description: Default bid for all non-email, non-Apple News widgets
+                  required:
+                  - email
+                  - apple_news
+                  - web
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Determines if the campaign was updated.
+                required:
+                - success
+              example:
+                id: '17'
+                name: Fun Test
+                start_date: '2016-10-20 00:00:00'
+                end_date: null
+                enabled: active
+                status: active
+                bid_type: cpc
+                default_bid: '0.24'
+                min_bid: '0.18'
+                max_bid: '0.32'
+                budget: unlimited
+                pacing: 'off'
+                schedule: 15,16,17,18,19,20
+                cost: '0.00'
+                ctr: '0.00'
+                utm_codes: null
+                country_codes: []
+                country_targeting: all
+                optimize: cpc
+                language_targeting: []
+                device_targeting: []
+                os_targeting: []
+                pixels:
+                - id: '3'
+                  name: My conversion
+                  amount: '1.55'
+                  pixel: <img src="http://revcontent.com/foo?z=IWIOOAua" />
+                success: true
+        '400':
+          description: Error-Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                success: false
+                errors:
+                - code: 400
+                  title: Invalid Parameters
+                  detail: Invalid Parameters sent
+        '401':
+          description: Missing or invalid access token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-codeSamples:
+      - lang: json
+        label: Update Single Campaign Attribute
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '{\"name\": \"My Renamed Campaign\"}' \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts/308/settings'"
+      - lang: json
+        label: Update Multiple Campaign Attributes
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '{ \"name\":\"My Renamed Campaign\",\"default_bid\":\"0.05\",\"budget_type\":\"daily\",\"budget_amount\":\"1000\", \\\n          \"start_date_time\":\"2016-11-30 00:00:00\",\"has_end_date\":\"true\",\"end_date_time\":\"2016-11-30 23:59:59\", \\\n          \"country_targeting\":\"include\",\"country_codes\":[\"PE\",\"US\", \"GB\"],\n          \"device_targeting\":[\"1\",\"3\"],\"language_traffic\":[\"1\",\"2\"]} \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts/308/settings'"
+      - lang: json
+        label: Update Multiple Campaign Targeting Attributes (using 'all')
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '{\"country_targeting\":\"all\", \"device_targeting\":\"all\", \"language_traffic\":\"all\" \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts/308/settings'"
+components:
+  schemas:
+    Error:
+      type: object
+      description: RevContent error envelope.
+      properties:
+        success:
+          type: boolean
+          const: false
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: integer
+                description: HTTP-aligned error code.
+              title:
+                type: string
+                description: Short error title.
+              detail:
+                type: string
+                description: Human readable error detail.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for 24 hours.
+x-source: https://api.revcontent.io/docs/stats/api_data.json
+x-source-format: apiDoc 0.17.7
+x-generated: '2026-08-13'
+x-method: derived

@@ -5,20 +5,46 @@
     "revcontent-boosts-api-openapi.yml",
     "revcontent-ccpa-api-openapi.yml",
     "revcontent-content-api-openapi.yml",
+    "revcontent-conversions-api-openapi.yml",
     "revcontent-helpers-api-openapi.yml",
-    "revcontent-targeting-api-openapi.yml"
+    "revcontent-sub-accounts-api-openapi.yml",
+    "revcontent-targeting-api-openapi.yml",
+    "revcontent-widget-internal-content-api-openapi.yml",
+    "revcontent-widget-optimizer-api-openapi.yml",
+    "revcontent-widgets-api-openapi.yml"
   ],
   "outputs": [
     "revcontent-access-api-openapi.yml",
-    "revcontent-boosts-api-openapi.yml",
+    "revcontent-campaigns-api-openapi.yml",
     "revcontent-ccpa-api-openapi.yml",
     "revcontent-content-api-openapi.yml",
+    "revcontent-conversions-api-openapi.yml",
     "revcontent-helpers-api-openapi.yml",
-    "revcontent-targeting-api-openapi.yml"
+    "revcontent-sub-accounts-api-openapi.yml",
+    "revcontent-targeting-api-openapi.yml",
+    "revcontent-widget-internal-content-api-openapi.yml",
+    "revcontent-widget-optimizer-api-openapi.yml",
+    "revcontent-widget-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "archived openapi/revcontent-boosts-api-openapi.yml",
+    "archived openapi/revcontent-widgets-api-openapi.yml"
+  ],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "revcontent-access-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "revcontent-boosts-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "revcontent-ccpa-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "revcontent-content-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "revcontent-conversions-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "revcontent-helpers-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "revcontent-sub-accounts-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "revcontent-targeting-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "revcontent-widget-internal-content-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "revcontent-widget-optimizer-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "revcontent-widgets-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: written (+2 apis, 12 total)"
+  ],
   "skipped": []
 }

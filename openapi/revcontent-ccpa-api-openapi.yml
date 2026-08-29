@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: RevContent CCPA API
   description: CCPA consumer data request, retrieval and deletion endpoints for publishers.
@@ -20,8 +20,7 @@ paths:
     post:
       operationId: postSubmitCCPARequest
       summary: Submit CCPA Data Request
-      description: Submit CCPA request on behalf of user using client side request. The request should
-        include credentials https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials
+      description: Submit CCPA request on behalf of user using client side request. The request should include credentials https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials
       tags:
       - CCPA
       requestBody:
@@ -77,21 +76,12 @@ paths:
       x-codeSamples:
       - lang: json
         label: Submit CCPA Data Request
-        source: |-
-          curl --location --request POST 'https://www.revcontent.com/stats/api/v1.0/data_requests/submit' \
-               --header 'Content-Type: application/x-www-form-urlencoded' \
-               --header 'Cookie: __ID=identifier_cookie_value' \
-               --data-urlencode 'domain=https://domain.com' \
-               --data-urlencode 'pub_id=1000' \
-               --data-urlencode 'request_id=abc123' \
-               --data-urlencode 'email=abc1234@gmail.com' \
-               --data-urlencode 'delete_data=1'
+        source: "curl --location --request POST 'https://www.revcontent.com/stats/api/v1.0/data_requests/submit' \\\n     --header 'Content-Type: application/x-www-form-urlencoded' \\\n     --header 'Cookie: __ID=identifier_cookie_value' \\\n     --data-urlencode 'domain=https://domain.com' \\\n     --data-urlencode 'pub_id=1000' \\\n     --data-urlencode 'request_id=abc123' \\\n     --data-urlencode 'email=abc1234@gmail.com' \\\n     --data-urlencode 'delete_data=1'"
   /stats/api/v1.0/data_requests/data:
     post:
       operationId: postUserData
       summary: CCPA Data Request
-      description: Get user's data on behalf of user for submitted ccpa data requests. If request_id is
-        wrong or already resolved success=false will be returned.
+      description: Get user's data on behalf of user for submitted ccpa data requests. If request_id is wrong or already resolved success=false will be returned.
       tags:
       - CCPA
       requestBody:
@@ -145,25 +135,16 @@ paths:
               example:
                 errors:
                 - code: 500
-                  title: There was a problem serving the requested information. Try again, the problem
-                    may be temporary. Please contact support if the problem persists.
+                  title: There was a problem serving the requested information. Try again, the problem may be temporary. Please contact support if the problem persists.
       x-codeSamples:
       - lang: json
         label: Get Request Data
-        source: |-
-          curl -X POST \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/x-www-form-urlencoded" \
-               -H "Cache-Control: no-cache" \
-               -d '{"request_id": "XXXXXXXX"}' \
-               'https://api.revcontent.io/stats/api/v1.0/data_requests/data'
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/x-www-form-urlencoded\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '{\"request_id\": \"XXXXXXXX\"}' \\\n     'https://api.revcontent.io/stats/api/v1.0/data_requests/data'"
   /stats/api/v1.0/data_requests/multiple_data:
     post:
       operationId: postUsersData
       summary: CCPA Multiple Data Request
-      description: Get multiple user's data on behalf of users for submitted ccpa data requests. Requests
-        object in response will have request_id and their respective data. If request_id missing in requests
-        key then consider it failed either because request not registered or already resolved.
+      description: Get multiple user's data on behalf of users for submitted ccpa data requests. Requests object in response will have request_id and their respective data. If request_id missing in requests key then consider it failed either because request not registered or already resolved.
       tags:
       - CCPA
       requestBody:
@@ -239,25 +220,12 @@ paths:
               example:
                 errors:
                 - code: 500
-                  title: There was a problem serving the requested information. Try again, the problem
-                    may be temporary. Please contact support if the problem persists.
+                  title: There was a problem serving the requested information. Try again, the problem may be temporary. Please contact support if the problem persists.
       x-codeSamples:
       - lang: json
         label: Get Multiple Requests Data
-        source: |-
-          curl -X POST \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/x-www-form-urlencoded" \
-               -H "Cache-Control: no-cache" \
-               -d '{"request_ids": "XXXXXXXX,YYYYYYYY"}' \
-               'https://www.revcontent.com/stats/api/v1.0/data_requests/multiple_data'
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/x-www-form-urlencoded\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '{\"request_ids\": \"XXXXXXXX,YYYYYYYY\"}' \\\n     'https://www.revcontent.com/stats/api/v1.0/data_requests/multiple_data'"
 components:
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for
-        24 hours.
   schemas:
     Error:
       type: object
@@ -280,6 +248,11 @@ components:
               detail:
                 type: string
                 description: Human readable error detail.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for 24 hours.
 x-source: https://api.revcontent.io/docs/stats/api_data.json
 x-source-format: apiDoc 0.17.7
 x-generated: '2026-08-13'

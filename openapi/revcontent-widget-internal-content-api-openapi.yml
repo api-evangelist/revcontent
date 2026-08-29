@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: RevContent Widget Internal Content API
   description: Publisher-owned internal content served inside a widget.
@@ -41,12 +41,10 @@ paths:
               properties:
                 status:
                   type: string
-                  description: 'User status of the content. Values: "enabled", "disabled". If is not passed,
-                    all status are included.'
+                  description: 'User status of the content. Values: "enabled", "disabled". If is not passed, all status are included.'
                 devices:
                   type: string
-                  description: 'List of devices. Values: "desktop, tablet, phone, unknown". If is not
-                    passed, all devices are included.'
+                  description: 'List of devices. Values: "desktop, tablet, phone, unknown". If is not passed, all devices are included.'
                 date_from:
                   type: string
                   description: Start date for the statistics in Y-m-d format.
@@ -194,12 +192,7 @@ paths:
       x-codeSamples:
       - lang: json
         label: Get Widget's Current Content
-        source: |-
-          curl -X GET \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               'https://api.revcontent.io/stats/api/v1.0/widgets/6512/internal_content?limit=5,devices=tablet,phone'
+        source: "curl -X GET \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     'https://api.revcontent.io/stats/api/v1.0/widgets/6512/internal_content?limit=5,devices=tablet,phone'"
   /stats/api/v1.0/widgets/{widget_id}/internal_content/add:
     post:
       operationId: postWidgetInternalContentAdd
@@ -226,8 +219,7 @@ paths:
                 target_url:
                   type: string
                   maxLength: 255
-                  description: 'Destination image URL. Supports: {CITY}, {STATE}, {COUNTRY}, {BOOST_ID},
-                    {CONTENT_ID}, {ACC_ID}, {WIDGET_ID}'
+                  description: 'Destination image URL. Supports: {CITY}, {STATE}, {COUNTRY}, {BOOST_ID}, {CONTENT_ID}, {ACC_ID}, {WIDGET_ID}'
                 image:
                   type: string
                   description: 'URL for an image (up to 2MB). Allowed file types: jpg, jpeg, gif, png'
@@ -295,13 +287,7 @@ paths:
       x-codeSamples:
       - lang: json
         label: Add widget internal content
-        source: |-
-          curl -X POST \
-               -H "Content-Type: application/json" \
-               -H "Authorization: Bearer 552a2cb6cb120a001ea369be9ae21884735a6bd2" \
-               -H "Cache-Control: no-cache" \
-               -d '{"target_url" : "https://www.revcontent.com","image" : "https://www.revcontent.com/assets/img/v2/widgets/cookie-cutter.png","headline" : "Cookie cutter rules"}' \
-               'https://api.revcontent.io/stats/api/v1.0/widgets/6512/internal_content/add'
+        source: "curl -X POST \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Authorization: Bearer 552a2cb6cb120a001ea369be9ae21884735a6bd2\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '{\"target_url\" : \"https://www.revcontent.com\",\"image\" : \"https://www.revcontent.com/assets/img/v2/widgets/cookie-cutter.png\",\"headline\" : \"Cookie cutter rules\"}' \\\n     'https://api.revcontent.io/stats/api/v1.0/widgets/6512/internal_content/add'"
   /stats/api/v1.0/widgets/{widget_id}/internal_content/update:
     post:
       operationId: postWidgetInternalContentUpdate
@@ -334,8 +320,7 @@ paths:
                 target_url:
                   type: string
                   maxLength: 255
-                  description: 'Destination image URL. Supports: {CITY}, {STATE}, {COUNTRY}, {BOOST_ID},
-                    {CONTENT_ID}, {ACC_ID}, {WIDGET_ID}'
+                  description: 'Destination image URL. Supports: {CITY}, {STATE}, {COUNTRY}, {BOOST_ID}, {CONTENT_ID}, {ACC_ID}, {WIDGET_ID}'
       responses:
         '200':
           description: Successful response.
@@ -372,38 +357,14 @@ paths:
       x-codeSamples:
       - lang: json
         label: Update content
-        source: |-
-          curl -X POST \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               -d '{"id": 690, "enabled" : "on", "target_url":"http://www.mcngmarketing.com/foo"}' \
-               'https://api.revcontent.io/stats/api/v1.0/widgets/6512/internal_content/update'
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '{\"id\": 690, \"enabled\" : \"on\", \"target_url\":\"http://www.mcngmarketing.com/foo\"}' \\\n     'https://api.revcontent.io/stats/api/v1.0/widgets/6512/internal_content/update'"
       - lang: json
         label: Update multiple content
-        source: |-
-          curl -X POST \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               -d '[{"id": 690, "enabled": "on", "target_url":"http://www.mcngmarketing.com/foo"},{"id": 790, "enabled" : "off"}]' \
-               'https://api.revcontent.io/stats/api/v1.0/widgets/6512/internal_content/update'
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '[{\"id\": 690, \"enabled\": \"on\", \"target_url\":\"http://www.mcngmarketing.com/foo\"},{\"id\": 790, \"enabled\" : \"off\"}]' \\\n     'https://api.revcontent.io/stats/api/v1.0/widgets/6512/internal_content/update'"
       - lang: json
         label: Update all content
-        source: |-
-          curl -X POST \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               -d '{"enabled" : "off", "target_url":"http://www.mcngmarketing.com/foo"}' \
-               'https://api.revcontent.io/stats/api/v1.0/widgets/6512/internal_content/update'
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '{\"enabled\" : \"off\", \"target_url\":\"http://www.mcngmarketing.com/foo\"}' \\\n     'https://api.revcontent.io/stats/api/v1.0/widgets/6512/internal_content/update'"
 components:
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for
-        24 hours.
   schemas:
     Error:
       type: object
@@ -426,6 +387,11 @@ components:
               detail:
                 type: string
                 description: Human readable error detail.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for 24 hours.
 x-source: https://api.revcontent.io/docs/stats/api_data.json
 x-source-format: apiDoc 0.17.7
 x-generated: '2026-08-13'

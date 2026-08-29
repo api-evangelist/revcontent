@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: RevContent Content API
   description: Ad content (creatives) attached to campaigns, plus per-widget content performance.
@@ -29,8 +29,7 @@ paths:
       - name: sub_account_id
         in: query
         required: false
-        description: Sub Account ID. By default all actions are for your user account if sub account ID
-          is not specified.
+        description: Sub Account ID. By default all actions are for your user account if sub account ID is not specified.
         schema:
           type: number
       - name: date_from
@@ -263,12 +262,7 @@ paths:
       x-codeSamples:
       - lang: json
         label: Get All Campaign Content
-        source: |-
-          curl -X GET \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               'https://api.revcontent.io/stats/api/v1.0/boosts/content'
+        source: "curl -X GET \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts/content'"
   /stats/api/v1.0/boosts/{boost_id}/content:
     get:
       operationId: getBoostContent
@@ -288,8 +282,7 @@ paths:
       - name: sub_account_id
         in: query
         required: false
-        description: Sub Account ID. By default all actions are for your user account if sub account ID
-          is not specified.
+        description: Sub Account ID. By default all actions are for your user account if sub account ID is not specified.
         schema:
           type: number
       - name: admin_status
@@ -368,8 +361,7 @@ paths:
                           description: Content status ('approved','deleted','denied','pending')
                         creative_denial_reason:
                           type: string
-                          description: Denial Reasons given by administration for denied creatives (separated
-                            by comma). 'N/A' otherwise.
+                          description: Denial Reasons given by administration for denied creatives (separated by comma). 'N/A' otherwise.
                         enabled:
                           type: string
                           description: Content User Status ('active', 'inactive')
@@ -451,12 +443,7 @@ paths:
       x-codeSamples:
       - lang: json
         label: Get Campaign's Current Content
-        source: |-
-          curl -X GET \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               'https://api.revcontent.io/stats/api/v1.0/boosts/308/content'
+        source: "curl -X GET \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts/308/content'"
     post:
       operationId: postBoostContentUpdate
       summary: Update Campaign Content
@@ -475,8 +462,7 @@ paths:
       - name: sub_account_id
         in: query
         required: false
-        description: Sub Account ID. By default all actions are for your user account if sub account ID
-          is not specified.
+        description: Sub Account ID. By default all actions are for your user account if sub account ID is not specified.
         schema:
           type: number
       requestBody:
@@ -492,8 +478,7 @@ paths:
                 target_url:
                   type: string
                   maxLength: 255
-                  description: 'Destination image URL. Supports: {CITY}, {STATE}, {COUNTRY}, {BOOST_ID},
-                    {CONTENT_ID}, {ACC_ID}, {WIDGET_ID}'
+                  description: 'Destination image URL. Supports: {CITY}, {STATE}, {COUNTRY}, {BOOST_ID}, {CONTENT_ID}, {ACC_ID}, {WIDGET_ID}'
                 headline:
                   type: string
                   maxLength: 80
@@ -546,31 +531,13 @@ paths:
       x-codeSamples:
       - lang: json
         label: Update content
-        source: |-
-          curl -X POST \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               -d '{"id": 690, "enabled" : "on", "target_url":"http://www.mcngmarketing.com/foo"}' \
-               'https://api.revcontent.io/stats/api/v1.0/boosts/308/content'
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '{\"id\": 690, \"enabled\" : \"on\", \"target_url\":\"http://www.mcngmarketing.com/foo\"}' \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts/308/content'"
       - lang: json
         label: Update multiple content
-        source: |-
-          curl -X POST \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               -d '[{"id": 690, "enabled": "on", "target_url":"http://www.mcngmarketing.com/foo"},{"id": 790, "enabled" : "off"}]' \
-               'https://api.revcontent.io/stats/api/v1.0/boosts/308/content'
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '[{\"id\": 690, \"enabled\": \"on\", \"target_url\":\"http://www.mcngmarketing.com/foo\"},{\"id\": 790, \"enabled\" : \"off\"}]' \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts/308/content'"
       - lang: json
         label: Update all content
-        source: |-
-          curl -X POST \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               -d '{"enabled" : "off", "target_url":"http://www.mcngmarketing.com/foo"}' \
-               'https://api.revcontent.io/stats/api/v1.0/boosts/308/content'
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '{\"enabled\" : \"off\", \"target_url\":\"http://www.mcngmarketing.com/foo\"}' \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts/308/content'"
   /stats/api/v1.0/contents/{content_id}/widgets/stats:
     get:
       operationId: getContentWidgetStats
@@ -590,8 +557,7 @@ paths:
       - name: sub_account_id
         in: query
         required: false
-        description: Sub Account ID. By default all actions are for your user account if sub account ID
-          is not specified.
+        description: Sub Account ID. By default all actions are for your user account if sub account ID is not specified.
         schema:
           type: number
       - name: date
@@ -705,12 +671,7 @@ paths:
       x-codeSamples:
       - lang: json
         label: Get Content Stats (content_id = 756776)
-        source: |-
-          curl -X GET \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d"
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               "https://api.revcontent.io/stats/api/v1.0/contents/756776/widgets/stats?date=2017-03-21"
+        source: "curl -X GET \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\"\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     \"https://api.revcontent.io/stats/api/v1.0/contents/756776/widgets/stats?date=2017-03-21\""
   /stats/api/v1.0/boosts/{boost_id}/content/add:
     post:
       operationId: postBoostContentAdd
@@ -730,8 +691,7 @@ paths:
       - name: sub_account_id
         in: query
         required: false
-        description: Sub Account ID. By default all actions are for your user account if sub account ID
-          is not specified.
+        description: Sub Account ID. By default all actions are for your user account if sub account ID is not specified.
         schema:
           type: number
       requestBody:
@@ -744,17 +704,13 @@ paths:
                 target_url:
                   type: string
                   maxLength: 255
-                  description: 'Destination image URL. Supports: {CITY}, {STATE}, {COUNTRY}, {BOOST_ID},
-                    {CONTENT_ID}, {ACC_ID}, {WIDGET_ID}'
+                  description: 'Destination image URL. Supports: {CITY}, {STATE}, {COUNTRY}, {BOOST_ID}, {CONTENT_ID}, {ACC_ID}, {WIDGET_ID}'
                 image:
                   type: string
-                  description: 'URL for an image (up to 2MB). Allowed file types: jpg, jpeg, gif, png,
-                    webp. Optional if video is provided. Accepts animated gif/webp images. When using
-                    an animated image, the first frame is used for non participating sites.'
+                  description: 'URL for an image (up to 2MB). Allowed file types: jpg, jpeg, gif, png, webp. Optional if video is provided. Accepts animated gif/webp images. When using an animated image, the first frame is used for non participating sites.'
                 video:
                   type: string
-                  description: 'URL for a video (up to 5GB). Allowed file types: mp4, mov. Optional if
-                    image is provided.'
+                  description: 'URL for a video (up to 5GB). Allowed file types: mp4, mov. Optional if image is provided.'
                 headline:
                   type: string
                   maxLength: 80
@@ -825,20 +781,8 @@ paths:
       x-codeSamples:
       - lang: json
         label: Add content
-        source: |-
-          curl -X POST \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               -d '{"target_url":"http://www.mcngmarketing.com/17-funny-advertisements-to-tickle-your-funny-bone","image":"http://www.mcngmarketing.com/wp-content/uploads/2013/04/Funny-Advertisement-3.jpg","headline":"Childsurance {BOOST_ID} – At 18 Your Angry Daughter…","brand_name":"Childsunrance {CITY}"}, "description": "You will never believe the reaction your family will have when you read these hilarious advertisements."' \
-               'https://api.revcontent.io/stats/api/v1.0/boosts/308/content/add'
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '{\"target_url\":\"http://www.mcngmarketing.com/17-funny-advertisements-to-tickle-your-funny-bone\",\"image\":\"http://www.mcngmarketing.com/wp-content/uploads/2013/04/Funny-Advertisement-3.jpg\",\"headline\":\"Childsurance {BOOST_ID} – At 18 Your Angry Daughter…\",\"brand_name\":\"Childsunrance {CITY}\"}, \"description\": \"You will never believe the reaction your family will have when you read these hilarious advertisements.\"' \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts/308/content/add'"
 components:
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for
-        24 hours.
   schemas:
     Error:
       type: object
@@ -861,6 +805,11 @@ components:
               detail:
                 type: string
                 description: Human readable error detail.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for 24 hours.
 x-source: https://api.revcontent.io/docs/stats/api_data.json
 x-source-format: apiDoc 0.17.7
 x-generated: '2026-08-13'

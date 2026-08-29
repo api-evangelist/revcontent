@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: RevContent Targeting API
   description: Per-campaign widget targeting and widget-level bid overrides.
@@ -20,8 +20,7 @@ paths:
     get:
       operationId: getBoostWidgets
       summary: Get Campaign Widget Targets
-      description: Get all the campaign's current widget targets and the statistics for the given time
-        period.
+      description: Get all the campaign's current widget targets and the statistics for the given time period.
       tags:
       - Targeting
       x-permission:
@@ -36,8 +35,7 @@ paths:
       - name: sub_account_id
         in: query
         required: false
-        description: Sub Account ID. By default all actions are for your user account if sub account ID
-          is not specified.
+        description: Sub Account ID. By default all actions are for your user account if sub account ID is not specified.
         schema:
           type: number
       - name: enabled
@@ -110,8 +108,7 @@ paths:
                           description: Average CPC for selected target (Returned for CPC bids)
                         impressions:
                           type: string
-                          description: Total number of impressions for selected target (Returned for CPC
-                            bids)
+                          description: Total number of impressions for selected target (Returned for CPC bids)
                         viewable_impressions:
                           type: string
                           description: Total number of viewable impressions for selected target
@@ -220,12 +217,7 @@ paths:
       x-codeSamples:
       - lang: json
         label: Get Campaign's Current Widget Targets
-        source: |-
-          curl -X GET \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               'https://api.revcontent.io/stats/api/v1.0/boosts/308/widgets'
+        source: "curl -X GET \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts/308/widgets'"
     post:
       operationId: postBoostWidgets
       summary: Update Campaign Widget Targeting
@@ -244,8 +236,7 @@ paths:
       - name: sub_account_id
         in: query
         required: false
-        description: Sub Account ID. By default all actions are for your user account if sub account ID
-          is not specified.
+        description: Sub Account ID. By default all actions are for your user account if sub account ID is not specified.
         schema:
           type: number
       requestBody:
@@ -260,8 +251,7 @@ paths:
                   description: Target ID.
                 bid:
                   type: string
-                  description: 'Target bid. Min: 0.001 Max: 3.000. Limit 3 decimals. If is a new target
-                    and value is not provided, will use default.'
+                  description: 'Target bid. Min: 0.001 Max: 3.000. Limit 3 decimals. If is a new target and value is not provided, will use default.'
                   default: Campaign CPC
                 enabled:
                   type: string
@@ -306,29 +296,11 @@ paths:
       x-codeSamples:
       - lang: json
         label: Update target
-        source: |-
-          curl -X POST \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               -d '{"id": 32, "enabled" : "on", "bid" : 0.001}' \
-               'https://api.revcontent.io/stats/api/v1.0/boosts/308/widgets'
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '{\"id\": 32, \"enabled\" : \"on\", \"bid\" : 0.001}' \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts/308/widgets'"
       - lang: json
         label: Update multiple targets
-        source: |-
-          curl -X POST \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               -d '[{"id": 28, "enabled" : "on", "bid" : 0.400},{"id": 32, "enabled" : "off", "bid" : 0.270}]' \
-               'https://api.revcontent.io/stats/api/v1.0/boosts/308/widgets'
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '[{\"id\": 28, \"enabled\" : \"on\", \"bid\" : 0.400},{\"id\": 32, \"enabled\" : \"off\", \"bid\" : 0.270}]' \\\n     'https://api.revcontent.io/stats/api/v1.0/boosts/308/widgets'"
 components:
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for
-        24 hours.
   schemas:
     Error:
       type: object
@@ -351,6 +323,11 @@ components:
               detail:
                 type: string
                 description: Human readable error detail.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for 24 hours.
 x-source: https://api.revcontent.io/docs/stats/api_data.json
 x-source-format: apiDoc 0.17.7
 x-generated: '2026-08-13'

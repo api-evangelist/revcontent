@@ -1,8 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: RevContent Helpers API
-  description: Reference lookups for browsers, countries, devices, DMAs, languages, operating systems
-    and regions.
+  description: Reference lookups for browsers, countries, devices, DMAs, languages, operating systems and regions.
   version: '1.0'
   contact:
     name: RevContent Support
@@ -15,8 +14,7 @@ security:
 - BearerAuth: []
 tags:
 - name: Helpers
-  description: Reference lookups for browsers, countries, devices, DMAs, languages, operating systems
-    and regions.
+  description: Reference lookups for browsers, countries, devices, DMAs, languages, operating systems and regions.
 paths:
   /stats/api/v1.0/browsers:
     get:
@@ -76,17 +74,11 @@ paths:
               example:
                 errors:
                 - code: 500
-                  title: There was a problem serving the requested information. Try again, the problem
-                    may be temporary. Please contact support if the problem persists.
+                  title: There was a problem serving the requested information. Try again, the problem may be temporary. Please contact support if the problem persists.
       x-codeSamples:
       - lang: json
         label: Get Languages
-        source: |-
-          curl -X GET \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               'https://api.revcontent.io/stats/api/v1.0/languages'
+        source: "curl -X GET \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     'https://api.revcontent.io/stats/api/v1.0/languages'"
   /stats/api/v1.0/countries:
     get:
       operationId: getCountries
@@ -143,17 +135,11 @@ paths:
               example:
                 errors:
                 - code: 500
-                  title: There was a problem serving the requested information. Try again, the problem
-                    may be temporary. Please contact support if the problem persists.
+                  title: There was a problem serving the requested information. Try again, the problem may be temporary. Please contact support if the problem persists.
       x-codeSamples:
       - lang: json
         label: Get countries
-        source: |-
-          curl -X GET \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               'https://api.revcontent.io/stats/api/v1.0/countries'
+        source: "curl -X GET \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     'https://api.revcontent.io/stats/api/v1.0/countries'"
   /stats/api/v1.0/devices:
     get:
       operationId: getDevices
@@ -212,17 +198,11 @@ paths:
               example:
                 errors:
                 - code: 500
-                  title: There was a problem serving the requested information. Try again, the problem
-                    may be temporary. Please contact support if the problem persists.
+                  title: There was a problem serving the requested information. Try again, the problem may be temporary. Please contact support if the problem persists.
       x-codeSamples:
       - lang: json
         label: Get Devices
-        source: |-
-          curl -X GET \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               'https://api.revcontent.io/stats/api/v1.0/devices'
+        source: "curl -X GET \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     'https://api.revcontent.io/stats/api/v1.0/devices'"
   /stats/api/v1.0/dmas:
     get:
       operationId: getDmas
@@ -279,17 +259,11 @@ paths:
               example:
                 errors:
                 - code: 500
-                  title: There was a problem serving the requested information. Try again, the problem
-                    may be temporary. Please contact support if the problem persists.
+                  title: There was a problem serving the requested information. Try again, the problem may be temporary. Please contact support if the problem persists.
       x-codeSamples:
       - lang: json
         label: Get dmas
-        source: |-
-          curl -X POST \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               'https://api.revcontent.io/stats/api/v1.0/dmas'
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     'https://api.revcontent.io/stats/api/v1.0/dmas'"
   /stats/api/v1.0/languages:
     get:
       operationId: getLanguages
@@ -348,17 +322,11 @@ paths:
               example:
                 errors:
                 - code: 500
-                  title: There was a problem serving the requested information. Try again, the problem
-                    may be temporary. Please contact support if the problem persists.
+                  title: There was a problem serving the requested information. Try again, the problem may be temporary. Please contact support if the problem persists.
       x-codeSamples:
       - lang: json
         label: Get Languages
-        source: |-
-          curl -X GET \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               'https://api.revcontent.io/stats/api/v1.0/languages'
+        source: "curl -X GET \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     'https://api.revcontent.io/stats/api/v1.0/languages'"
   /stats/api/v1.0/os:
     get:
       operationId: getOperatingSystems
@@ -432,17 +400,11 @@ paths:
               example:
                 errors:
                 - code: 500
-                  title: There was a problem serving the requested information. Try again, the problem
-                    may be temporary. Please contact support if the problem persists.
+                  title: There was a problem serving the requested information. Try again, the problem may be temporary. Please contact support if the problem persists.
       x-codeSamples:
       - lang: json
         label: Get Operating Systems
-        source: |-
-          curl -X POST \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               'https://api.revcontent.io/stats/api/v1.0/os'
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     'https://api.revcontent.io/stats/api/v1.0/os'"
   /stats/api/v1.0/regions:
     get:
       operationId: getRegions
@@ -506,24 +468,12 @@ paths:
               example:
                 errors:
                 - code: 500
-                  title: There was a problem serving the requested information. Try again, the problem
-                    may be temporary. Please contact support if the problem persists.
+                  title: There was a problem serving the requested information. Try again, the problem may be temporary. Please contact support if the problem persists.
       x-codeSamples:
       - lang: json
         label: Get regions
-        source: |-
-          curl -X POST \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               'https://api.revcontent.io/stats/api/v1.0/regions?country=US'
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     'https://api.revcontent.io/stats/api/v1.0/regions?country=US'"
 components:
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for
-        24 hours.
   schemas:
     Error:
       type: object
@@ -546,6 +496,11 @@ components:
               detail:
                 type: string
                 description: Human readable error detail.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for 24 hours.
 x-source: https://api.revcontent.io/docs/stats/api_data.json
 x-source-format: apiDoc 0.17.7
 x-generated: '2026-08-13'

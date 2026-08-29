@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: RevContent Conversions API
   description: Conversion pixel management used by CPA-optimized campaigns.
@@ -29,8 +29,7 @@ paths:
       - name: sub_account_id
         in: query
         required: false
-        description: Sub Account ID. By default all actions are for your user account if sub account ID
-          is not specified.
+        description: Sub Account ID. By default all actions are for your user account if sub account ID is not specified.
         schema:
           type: number
       responses:
@@ -99,12 +98,7 @@ paths:
       x-codeSamples:
       - lang: json
         label: Get All Conversions
-        source: |-
-          curl -X GET \
-               https://api.revcontent.io/stats/api/v1.0/conversions \
-               -H 'authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d' \
-               -H 'cache-control: no-cache' \
-               -H 'content-type: application/json'
+        source: "curl -X GET \\\n     https://api.revcontent.io/stats/api/v1.0/conversions \\\n     -H 'authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d' \\\n     -H 'cache-control: no-cache' \\\n     -H 'content-type: application/json'"
   /stats/api/v1.0/conversions/add:
     post:
       operationId: postConversionAdd
@@ -123,8 +117,7 @@ paths:
               properties:
                 sub_account_id:
                   type: number
-                  description: Sub Account ID. By default all actions are for your user account if sub
-                    account ID is not specified.
+                  description: Sub Account ID. By default all actions are for your user account if sub account ID is not specified.
                 name:
                   type: string
                   description: Conversion name
@@ -175,13 +168,7 @@ paths:
       x-codeSamples:
       - lang: json
         label: Add Conversion
-        source: |-
-          curl -X POST \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               -d '{"name":"Conversion 1","amount":"1.75"}' \
-               'https://api.revcontent.io/stats/api/v1.0/conversions/add'
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '{\"name\":\"Conversion 1\",\"amount\":\"1.75\"}' \\\n     'https://api.revcontent.io/stats/api/v1.0/conversions/add'"
   /stats/api/v1.0/conversions/{conversion_id}/delete:
     post:
       operationId: postConversionDelete
@@ -200,8 +187,7 @@ paths:
       - name: sub_account_id
         in: query
         required: false
-        description: Sub Account ID. By default all actions are for your user account if sub account ID
-          is not specified.
+        description: Sub Account ID. By default all actions are for your user account if sub account ID is not specified.
         schema:
           type: number
       responses:
@@ -240,12 +226,7 @@ paths:
       x-codeSamples:
       - lang: json
         label: Delete Conversion
-        source: |-
-          curl -X POST \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               'https://api.revcontent.io/stats/api/v1.0/conversions/308/delete'
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     'https://api.revcontent.io/stats/api/v1.0/conversions/308/delete'"
   /stats/api/v1.0/conversions/{conversion_id}/update:
     post:
       operationId: postConversionEdit
@@ -265,8 +246,7 @@ paths:
       - name: sub_account_id
         in: query
         required: false
-        description: Sub Account ID. By default all actions are for your user account if sub account ID
-          is not specified.
+        description: Sub Account ID. By default all actions are for your user account if sub account ID is not specified.
         schema:
           type: number
       requestBody:
@@ -318,20 +298,8 @@ paths:
       x-codeSamples:
       - lang: json
         label: Update Conversion
-        source: |-
-          curl -X POST \
-               -H "Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d" \
-               -H "Content-Type: application/json" \
-               -H "Cache-Control: no-cache" \
-               -d '{"name": "New Conversion Name", "amount": "1.99"}' \
-               'https://api.revcontent.io/stats/api/v1.0/conversions/308/update'
+        source: "curl -X POST \\\n     -H \"Authorization: Bearer e62a04f681ba57d0120f8f584b688e31f04cf41d\" \\\n     -H \"Content-Type: application/json\" \\\n     -H \"Cache-Control: no-cache\" \\\n     -d '{\"name\": \"New Conversion Name\", \"amount\": \"1.99\"}' \\\n     'https://api.revcontent.io/stats/api/v1.0/conversions/308/update'"
 components:
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for
-        24 hours.
   schemas:
     Error:
       type: object
@@ -354,6 +322,11 @@ components:
               detail:
                 type: string
                 description: Human readable error detail.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 client-credentials access token obtained from POST /oauth/token. Valid for 24 hours.
 x-source: https://api.revcontent.io/docs/stats/api_data.json
 x-source-format: apiDoc 0.17.7
 x-generated: '2026-08-13'
