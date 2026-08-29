@@ -9,6 +9,18 @@ description: RevContent is a performance-driven native advertising and content r
   reporting at scale. RevContent publishes its machine-readable contract as apiDoc rather
   than OpenAPI, at https://api.revcontent.io/docs/stats/api_data.json, covering 43 operations
   across eleven groups.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: sales-assisted
