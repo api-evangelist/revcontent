@@ -71,7 +71,7 @@ apis:
   - Statistics
   - Content
   - Conversions
-  - Sub Accounts
+  - Subaccounts
   - CCPA
   tags_raw:
   - Campaigns
@@ -168,7 +168,7 @@ apis:
   humanURL: https://api.revcontent.io/docs/stats/index.html#api-Sub_Accounts
   baseURL: https://api.revcontent.io
   tags:
-  - Sub Accounts
+  - Subaccounts
   tags_raw:
   - Sub Accounts
   properties:
