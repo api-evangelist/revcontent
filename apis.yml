@@ -162,20 +162,6 @@ apis:
     url: openapi/revcontent-helpers-api-openapi.yml
   - type: Overlay
     url: overlays/revcontent-helpers-api-overlay.yaml
-- aid: revcontent:revcontent-sub-accounts-api
-  name: RevContent Sub Accounts API
-  description: Create, edit, list and enable/disable child accounts under a parent account.
-  humanURL: https://api.revcontent.io/docs/stats/index.html#api-Sub_Accounts
-  baseURL: https://api.revcontent.io
-  tags:
-  - Subaccounts
-  tags_raw:
-  - Sub Accounts
-  properties:
-  - type: OpenAPI
-    url: openapi/revcontent-sub-accounts-api-openapi.yml
-  - type: Overlay
-    url: overlays/revcontent-sub-accounts-api-overlay.yaml
 - aid: revcontent:revcontent-targeting-api
   name: RevContent Targeting API
   description: Per-campaign widget targeting and widget-level bid overrides.
@@ -234,7 +220,19 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/revcontent-widget-api-openapi.yml
+- aid: revcontent:revcontent-subaccounts-api
+  name: RevContent Subaccounts API
+  description: Create, edit, list and enable/disable sub accounts under a parent account.
+  humanURL: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
+  baseURL: https://api.revcontent.io
+  tags:
+  - Subaccounts
+  properties:
+  - type: OpenAPI
+    url: openapi/revcontent-subaccounts-api-openapi.yml
 common:
+  - type: Overlay
+    url: overlays/revcontent-sub-accounts-api-overlay.yaml
   - type: Overlay
     url: overlays/revcontent-boosts-api-overlay.yaml
   - type: Overlay
