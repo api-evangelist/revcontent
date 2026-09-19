@@ -70,7 +70,7 @@ apis:
   - Reporting
   - Statistics
   - Content
-  - Conversions
+  - Conversion
   - Subaccounts
   - CCPA
   tags_raw:
@@ -142,6 +142,8 @@ apis:
   humanURL: https://api.revcontent.io/docs/stats/index.html#api-Conversions
   baseURL: https://api.revcontent.io
   tags:
+  - Conversion
+  tags_raw:
   - Conversions
   properties:
   - type: OpenAPI
@@ -216,6 +218,8 @@ apis:
   humanURL: https://help.revcontent.com/knowledge/publisher-advertiser-api-requests
   baseURL: https://api.revcontent.io
   tags:
+  - Widgets
+  tags_raw:
   - Widget
   properties:
   - type: OpenAPI
