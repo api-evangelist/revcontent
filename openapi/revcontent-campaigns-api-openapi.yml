@@ -1230,7 +1230,6 @@ paths:
     post:
       operationId: postBoostSettings
       summary: Update Campaign Settings
-      description: Update Campaign Settings
       tags:
       - Campaigns
       x-permission:

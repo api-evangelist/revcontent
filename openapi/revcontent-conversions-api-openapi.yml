@@ -20,7 +20,6 @@ paths:
     get:
       operationId: getConversions
       summary: Get All Conversions
-      description: Get All Conversions
       tags:
       - Conversions
       x-permission:
@@ -173,7 +172,6 @@ paths:
     post:
       operationId: postConversionDelete
       summary: Delete Conversion
-      description: Delete Conversion
       tags:
       - Conversions
       x-permission:

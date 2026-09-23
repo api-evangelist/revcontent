@@ -1,50 +1,52 @@
 {
   "provider": "revcontent",
   "sources": [
+    "_original/revcontent-boosts-api-openapi.yml",
+    "_ae-authored/revcontent-widgets-api-openapi.yml",
     "revcontent-access-api-openapi.yml",
-    "revcontent-boosts-api-openapi.yml",
     "revcontent-ccpa-api-openapi.yml",
     "revcontent-content-api-openapi.yml",
     "revcontent-conversions-api-openapi.yml",
     "revcontent-helpers-api-openapi.yml",
-    "revcontent-sub-accounts-api-openapi.yml",
+    "revcontent-subaccounts-api-openapi.yml",
     "revcontent-targeting-api-openapi.yml",
     "revcontent-widget-internal-content-api-openapi.yml",
-    "revcontent-widget-optimizer-api-openapi.yml",
-    "revcontent-widgets-api-openapi.yml"
+    "revcontent-widget-optimizer-api-openapi.yml"
   ],
   "outputs": [
-    "revcontent-access-api-openapi.yml",
     "revcontent-campaigns-api-openapi.yml",
+    "revcontent-widget-api-openapi.yml",
+    "revcontent-access-api-openapi.yml",
     "revcontent-ccpa-api-openapi.yml",
     "revcontent-content-api-openapi.yml",
     "revcontent-conversions-api-openapi.yml",
     "revcontent-helpers-api-openapi.yml",
-    "revcontent-sub-accounts-api-openapi.yml",
+    "revcontent-subaccounts-api-openapi.yml",
     "revcontent-targeting-api-openapi.yml",
     "revcontent-widget-internal-content-api-openapi.yml",
-    "revcontent-widget-optimizer-api-openapi.yml",
-    "revcontent-widget-api-openapi.yml"
+    "revcontent-widget-optimizer-api-openapi.yml"
   ],
-  "archived": [
-    "archived openapi/revcontent-boosts-api-openapi.yml",
-    "archived openapi/revcontent-widgets-api-openapi.yml"
-  ],
+  "archived": [],
   "errors": [],
-  "warnings": [],
-  "notes": [
-    "revcontent-access-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "revcontent-boosts-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "revcontent-ccpa-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "revcontent-content-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "revcontent-conversions-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "revcontent-helpers-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "revcontent-sub-accounts-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "revcontent-targeting-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "revcontent-widget-internal-content-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "revcontent-widget-optimizer-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "revcontent-widgets-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "apis.yml register: written (+2 apis, 12 total)"
+  "warnings": [
+    "revcontent-access-api-openapi.yml: previously refined output kept for 2 operation(s) no archived document covers (e.g. /oauth/token post, /stats/api/v1.0/account/reactivate get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "revcontent-ccpa-api-openapi.yml: previously refined output kept for 3 operation(s) no archived document covers (e.g. /stats/api/v1.0/data_requests/data post, /stats/api/v1.0/data_requests/multiple_data post, /stats/api/v1.0/data_requests/submit post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "revcontent-content-api-openapi.yml: previously refined output kept for 5 operation(s) no archived document covers (e.g. /stats/api/v1.0/boosts/content get, /stats/api/v1.0/boosts/{boost_id}/content get, /stats/api/v1.0/boosts/{boost_id}/content post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "revcontent-conversions-api-openapi.yml: previously refined output kept for 4 operation(s) no archived document covers (e.g. /stats/api/v1.0/conversions get, /stats/api/v1.0/conversions/add post, /stats/api/v1.0/conversions/{conversion_id}/delete post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "revcontent-helpers-api-openapi.yml: previously refined output kept for 7 operation(s) no archived document covers (e.g. /stats/api/v1.0/browsers get, /stats/api/v1.0/countries get, /stats/api/v1.0/devices get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "revcontent-subaccounts-api-openapi.yml: previously refined output kept for 4 operation(s) no archived document covers (e.g. /stats/api/v1.0/sub_accounts/add_account post, /stats/api/v1.0/sub_accounts/edit_account post, /stats/api/v1.0/sub_accounts/list_accounts get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "revcontent-targeting-api-openapi.yml: previously refined output kept for 2 operation(s) no archived document covers (e.g. /stats/api/v1.0/boosts/{boost_id}/widgets get, /stats/api/v1.0/boosts/{boost_id}/widgets post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "revcontent-widget-internal-content-api-openapi.yml: previously refined output kept for 3 operation(s) no archived document covers (e.g. /stats/api/v1.0/widgets/{widget_id}/internal_content get, /stats/api/v1.0/widgets/{widget_id}/internal_content/add post, /stats/api/v1.0/widgets/{widget_id}/internal_content/update post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "revcontent-widget-optimizer-api-openapi.yml: previously refined output kept for 3 operation(s) no archived document covers (e.g. /stats/api/v1.0/boosts/{boost_id}/targets/blacklist/widgets get, /stats/api/v1.0/boosts/{boost_id}/targets/blacklist/widgets/add post, /stats/api/v1.0/boosts/{boost_id}/targets/blacklist/widgets/remove post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
   ],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "revcontent-boosts-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "revcontent-widgets-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "revcontent-campaigns-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "revcontent-widget-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
